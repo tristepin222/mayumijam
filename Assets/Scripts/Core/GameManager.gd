@@ -2,24 +2,24 @@ extends Node
 class_name GameplayManager
 
 var victory = false
-var maxTry: int = 5 
+var max_try: int = 5 
 
 
-func _change_scene(playerWin: bool, currentTry: int):
-	victory = playerWin
+func _change_scene(player_win: bool, current_try: int):
+	victory = player_win
 	get_tree().change_scene_to_file("") #insert dialogue scene path here
 	
 	#Placeholder for the dialogue system calls and ending checks
 	#for each dialogue after a fight 
-	if currentTry < maxTry:
+	if current_try < max_try:
 		#DialogueManager._play_dialogue(SAKITAUNT)
 		return
-	elif currentTry == maxTry:
-		#EndingManager._checkEnding(currentTry)
+	elif current_try == max_try:
+		#EndingManager._checkEnding(current_try)
 		#DialogueManager._play_dialogue(MAYUMILOSE)
 		return
 	else:
-		#EndingManager._checkEnding(currentTry)
+		#EndingManager._checkEnding(current_try)
 		#DialogueManager._play_dialogue(MAYUMIWIN)
 		return
 	
