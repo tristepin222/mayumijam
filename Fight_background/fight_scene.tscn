@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://d2k7v5dipbtyo" path="res://Fight_background/Water.png" id="4_1wb3m"]
 [ext_resource type="Texture2D" uid="uid://bjnqpkpki1vwp" path="res://Fight_background/Bridge.png" id="5_ra7he"]
 [ext_resource type="Shader" uid="uid://dxdntslb1qiya" path="res://Fight_background/water_reflections.gdshader" id="5_vndcc"]
+[ext_resource type="Shader" uid="uid://b28kb8gegixkr" path="res://Fight_background/Water_effect.gdshader" id="6_1kion"]
 [ext_resource type="Texture2D" uid="uid://bqsw34mpghlkq" path="res://Fight_background/Gate.png" id="6_l5lyv"]
+[ext_resource type="Texture2D" uid="uid://cdjfecltc7n3a" path="res://Fight_background/Reflection.png" id="7_1wb3m"]
 [ext_resource type="Texture2D" uid="uid://b4vmm8mept1gg" path="res://Fight_background/ClayMayumi_Test.png" id="7_6dqeo"]
 [ext_resource type="Texture2D" uid="uid://ux2q4y2ufy6b" path="res://Fight_background/Front Bushes.png" id="8_ue6x0"]
 
@@ -49,6 +51,14 @@ shader_parameter/surf_angle = 1.57
 shader_parameter/surf_magnitude = 0.0
 shader_parameter/s11 = 2.221
 shader_parameter/sinpowder = 8.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ty0te"]
+shader = ExtResource("6_1kion")
+shader_parameter/amplitude_x = 0.020000007469770015
+shader_parameter/amplitude_y = 6.5197700016561555e-09
+shader_parameter/frequency = 7.5
+shader_parameter/speed = 0.9300002816750004
+shader_parameter/overlay_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Gradient" id="Gradient_tgwit"]
 offsets = PackedFloat32Array(0, 0.26958525, 0.5552995, 0.69815665)
@@ -100,6 +110,11 @@ material = SubResource("ShaderMaterial_vndcc")
 position = Vector2(620.465, 93.02409)
 scale = Vector2(1, 0.215)
 texture = ExtResource("4_1wb3m")
+
+[node name="Reflection" type="Sprite2D" parent="Background/Water" unique_id=146723178]
+material = SubResource("ShaderMaterial_ty0te")
+position = Vector2(559.5024, 164.68185)
+texture = ExtResource("7_1wb3m")
 
 [node name="Bridge" type="Sprite2D" parent="Background" unique_id=153382801]
 position = Vector2(0, 279.8774)
