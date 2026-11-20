@@ -19,38 +19,38 @@ step = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("player_sprite:position")
+tracks/0/path = NodePath("player_sprite:offset_transform_position_ratio")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(240.82, 398), Vector2(-240.82, 398)]
+"values": [Vector2(0, 0), Vector2(-1, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("saki_sprite:position")
+tracks/1/path = NodePath("saki_sprite:offset_transform_position_ratio")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(907.97, 398), Vector2(1387.97, 398)]
+"values": [Vector2(0, 0), Vector2(1, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("sprite_dialog:offset_transform_position")
-tracks/2/interp = 2
+tracks/2/path = NodePath("sprite_dialog:offset_transform_position_ratio")
+tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, 200)]
+"values": [Vector2(0, 0), Vector2(0, 1.5)]
 }
 
 [sub_resource type="Animation" id="Animation_vot10"]
@@ -60,38 +60,38 @@ step = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sprite_dialog:position")
+tracks/0/path = NodePath("saki_sprite:offset_transform_position_ratio")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(246.5, 682), Vector2(246.5, 482.02)]
+"values": [Vector2(1, 0), Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("saki_sprite:offset_transform_position_ratio")
+tracks/1/path = NodePath("player_sprite:offset_transform_position_ratio")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1, 0), Vector2(0, 0)]
+"values": [Vector2(-1, 0), Vector2(0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("player_sprite:offset_transform_position_ratio")
-tracks/2/interp = 2
+tracks/2/path = NodePath("sprite_dialog:offset_transform_position_ratio")
+tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-1, 0), Vector2(0, 0)]
+"values": [Vector2(0, 1.5), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_5ah7x"]
@@ -99,19 +99,19 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sprite_dialog:offset_transform_position")
+tracks/0/path = NodePath("saki_sprite:offset_transform_position_ratio")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 200)]
+"values": [Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("saki_sprite:offset_transform_position_ratio")
+tracks/1/path = NodePath("player_sprite:offset_transform_position_ratio")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -123,7 +123,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("player_sprite:offset_transform_position_ratio")
+tracks/2/path = NodePath("sprite_dialog:offset_transform_position_ratio")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -147,9 +147,9 @@ script = ExtResource("1_5ah7x")
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -397.0
+offset_top = -396.0
 offset_right = 529.0
-offset_bottom = 396.0
+offset_bottom = 397.0
 grow_vertical = 0
 scale = Vector2(0.5, 0.5)
 offset_transform_enabled = true
@@ -162,15 +162,19 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -500.0
-offset_top = -500.0
-offset_right = 500.0
-offset_bottom = 500.0
+offset_left = -499.0
+offset_top = -499.0
+offset_right = 501.0
+offset_bottom = 501.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.5, 0.5)
 offset_transform_enabled = true
 texture = SubResource("AtlasTexture_tamiu")
+
+[node name="keiki_sprite" type="TextureRect" parent="." unique_id=1491801104]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="sprite_dialog" type="NinePatchRect" parent="." unique_id=307464437]
 anchors_preset = 7
@@ -181,10 +185,10 @@ anchor_bottom = 1.0
 offset_left = -329.5
 offset_top = -165.98001
 offset_right = 329.5
-offset_bottom = -33.98108
+offset_bottom = -33.9812
 grow_horizontal = 2
 grow_vertical = 0
-offset_transform_position = Vector2(0, 200)
+offset_transform_enabled = true
 texture = ExtResource("2_5ah7x")
 region_rect = Rect2(0, 0, 64, 64)
 patch_margin_left = 16
