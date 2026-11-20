@@ -30,6 +30,26 @@ shader_parameter/surf_magnitude = 0.0
 shader_parameter/s11 = 2.221
 shader_parameter/sinpowder = 8.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vndcc"]
+shader = ExtResource("5_vndcc")
+shader_parameter/color = Color(1, 0.4421267, 0.4923705, 1)
+shader_parameter/frequency = 4.0
+shader_parameter/compress = 1.0
+shader_parameter/add_light = 0.0
+shader_parameter/scale = 2.0
+shader_parameter/speed = 0.2999776412943902
+shader_parameter/x_angle = 1.57
+shader_parameter/y_angle = 1.26999988406823
+shader_parameter/base_alpha = -0.17000004090416
+shader_parameter/refraction_ratio = 10.0
+shader_parameter/clear = 0.0
+shader_parameter/surf_sinpowder = 8.0
+shader_parameter/surf_speed = 1.0
+shader_parameter/surf_angle = 1.57
+shader_parameter/surf_magnitude = 0.0
+shader_parameter/s11 = 2.221
+shader_parameter/sinpowder = 8.0
+
 [sub_resource type="Gradient" id="Gradient_tgwit"]
 offsets = PackedFloat32Array(0, 0.26958525, 0.5552995, 0.69815665)
 colors = PackedColorArray(1, 1, 1, 1, 0.77227724, 0.77227724, 0.77227724, 0.77227724, 0.47333118, 0.47333118, 0.47333118, 0.47333118, 0, 0, 0, 0)
@@ -73,6 +93,12 @@ centered = false
 material = SubResource("ShaderMaterial_w4mfu")
 position = Vector2(677.14954, 35.27002)
 scale = Vector2(0.895, 0.12)
+texture = ExtResource("4_1wb3m")
+
+[node name="Water_reflections2" type="Sprite2D" parent="Background/Water" unique_id=546891564]
+material = SubResource("ShaderMaterial_vndcc")
+position = Vector2(620.465, 93.02409)
+scale = Vector2(1, 0.215)
 texture = ExtResource("4_1wb3m")
 
 [node name="Bridge" type="Sprite2D" parent="Background" unique_id=153382801]
