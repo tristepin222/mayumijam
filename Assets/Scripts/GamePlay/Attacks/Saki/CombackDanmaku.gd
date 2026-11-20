@@ -59,10 +59,11 @@ func execute() -> void:
 
 		await get_tree().physics_frame
 
-	if not saki.defeated:
+	if is_inside_tree() and not saki.defeated:
 		await get_tree().create_timer(recovery_time).timeout
 
-	_finish_attack()
+	if is_inside_tree():
+		_finish_attack()
 
 
 func _force_land() -> bool:
