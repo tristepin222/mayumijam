@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://ctluma4iimvha"]
+
+[ext_resource type="Texture2D" uid="uid://bhicqpoxxj2op" path="res://Fight_background/Layer_0.jpg" id="1_vndcc"]
+[ext_resource type="Texture2D" uid="uid://wmmllhn540qj" path="res://Fight_background/Skyscrapers.png" id="2_tgwit"]
+[ext_resource type="Texture2D" uid="uid://bkwf7rtuourc7" path="res://Fight_background/Back_trees.png" id="3_1kion"]
+[ext_resource type="Texture2D" uid="uid://d2k7v5dipbtyo" path="res://Fight_background/Water.png" id="4_1wb3m"]
+[ext_resource type="Texture2D" uid="uid://bjnqpkpki1vwp" path="res://Fight_background/Bridge.png" id="5_ra7he"]
+[ext_resource type="Shader" uid="uid://dxdntslb1qiya" path="res://Fight_background/water_reflections.gdshader" id="5_vndcc"]
+[ext_resource type="Texture2D" uid="uid://bqsw34mpghlkq" path="res://Fight_background/Gate.png" id="6_l5lyv"]
+[ext_resource type="Texture2D" uid="uid://b4vmm8mept1gg" path="res://Fight_background/ClayMayumi_Test.png" id="7_6dqeo"]
+[ext_resource type="Texture2D" uid="uid://ux2q4y2ufy6b" path="res://Fight_background/Front Bushes.png" id="8_ue6x0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w4mfu"]
+shader = ExtResource("5_vndcc")
+shader_parameter/color = Color(1, 0.4421267, 0.4923705, 1)
+shader_parameter/frequency = 4.0
+shader_parameter/compress = 1.0
+shader_parameter/add_light = 0.0
+shader_parameter/scale = 2.0
+shader_parameter/speed = 0.2999776412943902
+shader_parameter/x_angle = 1.57
+shader_parameter/y_angle = 1.26999988406823
+shader_parameter/base_alpha = 0.2499999497080001
+shader_parameter/refraction_ratio = 10.0
+shader_parameter/clear = 0.0
+shader_parameter/surf_sinpowder = 8.0
+shader_parameter/surf_speed = 1.0
+shader_parameter/surf_angle = 1.57
+shader_parameter/surf_magnitude = 0.0
+shader_parameter/s11 = 2.221
+shader_parameter/sinpowder = 8.0
+
+[sub_resource type="Gradient" id="Gradient_tgwit"]
+offsets = PackedFloat32Array(0, 0.26958525, 0.5552995, 0.69815665)
+colors = PackedColorArray(1, 1, 1, 1, 0.77227724, 0.77227724, 0.77227724, 0.77227724, 0.47333118, 0.47333118, 0.47333118, 0.47333118, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ty0te"]
+gradient = SubResource("Gradient_tgwit")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Fight_scene" type="Node2D" unique_id=154364029]
+
+[node name="Background" type="Node2D" parent="." unique_id=1114450279]
+position = Vector2(-9.000006, -1)
+scale = Vector2(0.935, 0.935)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Background" unique_id=931864343]
+position = Vector2(9.625674, 1.0695187)
+scale = Vector2(1.0695187, 1.0695187)
+color = Color(0.25, 0.25, 0.25, 1)
+
+[node name="Layer_0" type="Sprite2D" parent="Background" unique_id=691836885]
+texture = ExtResource("1_vndcc")
+centered = false
+
+[node name="Skyscrapers" type="Sprite2D" parent="Background" unique_id=1034382080]
+position = Vector2(0, 27.807487)
+texture = ExtResource("2_tgwit")
+centered = false
+
+[node name="Back_trees" type="Sprite2D" parent="Background" unique_id=2066939778]
+position = Vector2(0, 303.37082)
+texture = ExtResource("3_1kion")
+centered = false
+
+[node name="Water" type="Sprite2D" parent="Background" unique_id=508931707]
+position = Vector2(3.0643501, 408.58017)
+texture = ExtResource("4_1wb3m")
+centered = false
+
+[node name="Water_reflections" type="Sprite2D" parent="Background/Water" unique_id=1454711084]
+material = SubResource("ShaderMaterial_w4mfu")
+position = Vector2(677.14954, 35.27002)
+scale = Vector2(0.895, 0.12)
+texture = ExtResource("4_1wb3m")
+
+[node name="Bridge" type="Sprite2D" parent="Background" unique_id=153382801]
+position = Vector2(0, 279.8774)
+texture = ExtResource("5_ra7he")
+centered = false
+
+[node name="Gate" type="Sprite2D" parent="Background" unique_id=1628151304]
+position = Vector2(0, 92.95197)
+texture = ExtResource("6_l5lyv")
+centered = false
+
+[node name="Clay_Mayumi_test" type="Sprite2D" parent="Background" unique_id=976556951]
+light_mask = 2
+position = Vector2(336.0572, 531.15424)
+scale = Vector2(0.316, 0.316)
+texture = ExtResource("7_6dqeo")
+
+[node name="Front Bushes" type="Sprite2D" parent="Background" unique_id=637340208]
+texture = ExtResource("8_ue6x0")
+centered = false
+
+[node name="Bg_light" type="PointLight2D" parent="Background" unique_id=1486578632]
+position = Vector2(656.6845, 118.71657)
+scale = Vector2(1.0695187, 1.0695187)
+color = Color(0.97877026, 0.35549772, 0.35549772, 1)
+energy = 1.6
+texture = SubResource("GradientTexture2D_ty0te")
+texture_scale = 26.09
+
+[node name="Mayumi_modulation_Light" type="PointLight2D" parent="Background" unique_id=947212132]
+position = Vector2(671.6577, 130.4813)
+scale = Vector2(1.0695187, 1.0695187)
+color = Color(0.9156357, 0.44818315, 0.44818315, 1)
+energy = 1.15
+range_item_cull_mask = 2
+texture = SubResource("GradientTexture2D_ty0te")
+texture_scale = 26.09
