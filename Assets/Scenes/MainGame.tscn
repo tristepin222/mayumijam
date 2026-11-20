@@ -1,25 +1,47 @@
 [gd_scene format=3 uid="uid://dvas3rraqmec0"]
 
-[ext_resource type="Script" uid="uid://bcqa6boixdam4" path="res://Assets/Scripts/GamePlay/CombatManager.gd" id="1_q3ddj"]
+[ext_resource type="Script" uid="uid://bcqa6boixdam4" path="res://Assets/Scripts/GamePlay/Managers/CombatManager.gd" id="1_q3ddj"]
 [ext_resource type="Script" uid="uid://cgapvf4tt8yce" path="res://Assets/Scripts/GamePlay/Mayumi.gd" id="2_8nq7t"]
+[ext_resource type="Script" uid="uid://c5hchcuarw4m8" path="res://Assets/Scripts/GamePlay/Managers/AbilityManager.gd" id="2_f7n17"]
 [ext_resource type="Texture2D" uid="uid://nvg24budmhge" path="res://Assets/Textures/PlaceHolders/placeholder2.png" id="3_f7n17"]
 [ext_resource type="Script" uid="uid://oukqsdj46pd0" path="res://Assets/Scripts/GamePlay/CharacterStats.gd" id="4_f7n17"]
 [ext_resource type="Script" uid="uid://btpxd42oxjok2" path="res://Assets/Scripts/GamePlay/Saki.gd" id="5_14mar"]
+[ext_resource type="Script" uid="uid://dmkbxn8yfr6lt" path="res://Assets/Scripts/GamePlay/Attacks/Mayumi/Dash.gd" id="6_hggb1"]
 [ext_resource type="Texture2D" uid="uid://dntnxpgg4exwq" path="res://Assets/Textures/PlaceHolders/placeholder3.png" id="6_huwrf"]
 [ext_resource type="Texture2D" uid="uid://d4mllryd6mt2v" path="res://Assets/Textures/PlaceHolders/placeholder1.png" id="7_mnw02"]
+[ext_resource type="Script" uid="uid://du7gfp6p6nxgq" path="res://Assets/Scripts/GamePlay/BossAI.gd" id="8_f7n17"]
+[ext_resource type="Script" uid="uid://d2t2vtkx2y6re" path="res://Assets/Scripts/GamePlay/Attacks/Mayumi/SwordAttack.gd" id="8_ja1hb"]
+[ext_resource type="Script" uid="uid://b362epac2ybgc" path="res://Assets/Scripts/GamePlay/Managers/AttackManager.gd" id="9_14mar"]
+[ext_resource type="Script" uid="uid://bjkwiwxtjmyib" path="res://Assets/Scripts/GamePlay/Attacks/Mayumi/DanmakuShot.gd" id="9_de2dd"]
+[ext_resource type="Script" uid="uid://cvi7gm6rkc7ak" path="res://Assets/Scripts/GamePlay/Attacks/Saki/Counter.gd" id="10_dunur"]
+[ext_resource type="Script" uid="uid://bxeax206yngkl" path="res://Assets/Scripts/GamePlay/Attacks/Saki/Dive.gd" id="10_huwrf"]
+[ext_resource type="PackedScene" uid="uid://dk6m4dg2jfusv" path="res://Assets/Scenes/Attacks/MayumiNormalProjectile.tscn" id="10_ms20m"]
+[ext_resource type="Script" uid="uid://1lsi8mcqqhmg" path="res://Assets/Scripts/GamePlay/Attacks/Saki/TectonicPush.gd" id="11_7y1lw"]
+[ext_resource type="PackedScene" uid="uid://bhkc28oiv6nvl" path="res://Assets/Scenes/Attacks/WarningEffect.tscn" id="12_44cpq"]
+[ext_resource type="PackedScene" uid="uid://cawyalovdridw" path="res://Assets/Scenes/Attacks/FirePillar.tscn" id="13_o45r6"]
+[ext_resource type="Script" uid="uid://b06qrgtct2vno" path="res://Assets/Scripts/GamePlay/Attacks/Saki/CombackDanmaku.gd" id="14_44cpq"]
+[ext_resource type="PackedScene" uid="uid://bf3jjftrvqs3j" path="res://Assets/Scenes/Attacks/ComebackProjectile.tscn" id="15_o45r6"]
+[ext_resource type="Script" uid="uid://by36r8q7ogjmv" path="res://Assets/Scripts/GamePlay/Attacks/Saki/NormalDanmaku.gd" id="16_je2ki"]
+[ext_resource type="PackedScene" uid="uid://b35nelmg8kau4" path="res://Assets/Scenes/Attacks/NormalProjectile.tscn" id="17_6rn6g"]
+[ext_resource type="Script" uid="uid://ciwof5cmfulil" path="res://Assets/Scripts/GamePlay/Attacks/Saki/Charge.gd" id="18_48i8a"]
+[ext_resource type="PackedScene" uid="uid://cs0dqrspfru0a" path="res://Assets/Scenes/Attacks/Charge.tscn" id="19_m63yu"]
+[ext_resource type="Script" uid="uid://do1fayi52pml5" path="res://Assets/Scripts/GamePlay/Attacks/Saki/Unleash.gd" id="20_m63yu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3jot"]
 radius = 5.0
 height = 20.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3tbxw"]
-radius = 11.057685
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ja1hb"]
+size = Vector2(15.673066, 5.9975977)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3tbxw"]
 radius = 5.0
 height = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e3m3f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_huwrf"]
+radius = 25.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_d3jot"]
 
@@ -31,10 +53,13 @@ size = Vector2(336, 20)
 [node name="CombatManager" type="Node" parent="." unique_id=528690416]
 script = ExtResource("1_q3ddj")
 
-[node name="Mayumi" type="CharacterBody2D" parent="." unique_id=389912644 node_paths=PackedStringArray("stats", "attack_area")]
+[node name="AbilityManager" type="Node" parent="." unique_id=356071509]
+script = ExtResource("2_f7n17")
+
+[node name="Mayumi" type="CharacterBody2D" parent="." unique_id=389912644 node_paths=PackedStringArray("stats", "ability_manager") groups=["player"]]
 script = ExtResource("2_8nq7t")
 stats = NodePath("Stats")
-attack_area = NodePath("AttackArea")
+ability_manager = NodePath("../AbilityManager")
 
 [node name="Sprite2D" type="Sprite2D" parent="Mayumi" unique_id=962282099]
 texture_filter = 1
@@ -43,21 +68,37 @@ texture = ExtResource("3_f7n17")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mayumi" unique_id=1970582784]
 shape = SubResource("CapsuleShape2D_d3jot")
 
-[node name="AttackArea" type="Area2D" parent="Mayumi" unique_id=1582194241]
+[node name="SwordHitbox" type="Area2D" parent="Mayumi" unique_id=1582194241]
+position = Vector2(29, 0)
 scale = Vector2(2.0800014, 2.0799992)
 collision_layer = 2
+monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mayumi/AttackArea" unique_id=1390247755]
-shape = SubResource("CircleShape2D_3tbxw")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mayumi/SwordHitbox" unique_id=1390247755]
+position = Vector2(-3.509614, 0)
+shape = SubResource("RectangleShape2D_ja1hb")
 
 [node name="Stats" type="Node" parent="Mayumi" unique_id=1277085282]
 script = ExtResource("4_f7n17")
 
-[node name="Saki" type="CharacterBody2D" parent="." unique_id=959911358 node_paths=PackedStringArray("player", "stats") groups=["enemies"]]
+[node name="Abilities" type="Node" parent="Mayumi" unique_id=257225769]
+
+[node name="Dash" type="Node" parent="Mayumi/Abilities" unique_id=1813817171]
+script = ExtResource("6_hggb1")
+dash_effect_scene = ExtResource("19_m63yu")
+
+[node name="SwordAttack" type="Node" parent="Mayumi/Abilities" unique_id=987298510 node_paths=PackedStringArray("sword_hitbox")]
+script = ExtResource("8_ja1hb")
+sword_hitbox = NodePath("../../SwordHitbox")
+slash_effect_scene = ExtResource("19_m63yu")
+
+[node name="DanmakuShot" type="Node" parent="Mayumi/Abilities" unique_id=1871456898]
+script = ExtResource("9_de2dd")
+projectile_scene = ExtResource("10_ms20m")
+
+[node name="Saki" type="CharacterBody2D" parent="." unique_id=959911358 node_paths=PackedStringArray("stats") groups=["enemies"]]
 position = Vector2(47, 1)
 script = ExtResource("5_14mar")
-attack_cooldown = 10.0
-player = NodePath("../Mayumi")
 stats = NodePath("Stats")
 
 [node name="Sprite2D" type="Sprite2D" parent="Saki" unique_id=1841726842]
@@ -74,7 +115,54 @@ shape = SubResource("CircleShape2D_e3m3f")
 
 [node name="Stats" type="Node" parent="Saki" unique_id=89154797]
 script = ExtResource("4_f7n17")
-max_health = 10
+max_health = 50
+
+[node name="BossAi" type="Node" parent="Saki" unique_id=1984957409 node_paths=PackedStringArray("player", "attack_manager")]
+script = ExtResource("8_f7n17")
+player = NodePath("../../Mayumi")
+attack_manager = NodePath("../AttackManager")
+
+[node name="AttackManager" type="Node" parent="Saki" unique_id=159921252 node_paths=PackedStringArray("saki", "player")]
+script = ExtResource("9_14mar")
+saki = NodePath("..")
+player = NodePath("../../Mayumi")
+
+[node name="Dive" type="Node" parent="Saki/AttackManager" unique_id=851875782]
+script = ExtResource("10_huwrf")
+warning_scene = ExtResource("12_44cpq")
+warning_ground_offset = 10.0
+
+[node name="TectonicPush" type="Node" parent="Saki/AttackManager" unique_id=619154468]
+script = ExtResource("11_7y1lw")
+warning_scene = ExtResource("12_44cpq")
+fire_pillar_scene = ExtResource("13_o45r6")
+ground_offset = 10.0
+
+[node name="ComebackDanmaku" type="Node" parent="Saki/AttackManager" unique_id=1771453326]
+script = ExtResource("14_44cpq")
+projectile_scene = ExtResource("15_o45r6")
+
+[node name="NormalDanmaku" type="Node" parent="Saki/AttackManager" unique_id=1190365927]
+script = ExtResource("16_je2ki")
+projectile_scene = ExtResource("17_6rn6g")
+
+[node name="Charge" type="Node" parent="Saki/AttackManager" unique_id=568658001]
+script = ExtResource("18_48i8a")
+charge_effect_scene = ExtResource("19_m63yu")
+
+[node name="Unleash" type="Node" parent="Saki/AttackManager" unique_id=1862931222 node_paths=PackedStringArray("arena_center")]
+script = ExtResource("20_m63yu")
+projectile_scene = ExtResource("17_6rn6g")
+arena_center = NodePath("../../../AreaCenter")
+
+[node name="Counter" type="Node" parent="Saki" unique_id=1764210614]
+script = ExtResource("10_dunur")
+
+[node name="DiveHitbox" type="Area2D" parent="Saki" unique_id=889897549]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Saki/DiveHitbox" unique_id=1481482734]
+shape = SubResource("CircleShape2D_huwrf")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1198380904]
 position = Vector2(24, 26)
@@ -91,3 +179,6 @@ texture = ExtResource("7_mnw02")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=659018376]
 position = Vector2(25, 0)
 zoom = Vector2(3.42, 3.42)
+
+[node name="AreaCenter" type="Marker2D" parent="." unique_id=327517546]
+position = Vector2(23, -47)

@@ -1,40 +1,64 @@
 
 extends CharacterBody2D
 
+signal physical_attack_started
+
 @export_group("Movement")
 @export var move_speed: float = 250.0
 @export var jump_velocity: float = -400.0
 @export var gravity: float = 980.0
 
-@export_group("Combat")
-@export var attack_damage: int = 10
-@export var attack_cooldown: float = 0.4
-
 @export_group("References")
 @export var stats: CharacterStats
-@export var attack_area: Area2D
+@export var ability_manager: Node
 
-var can_attack := true
+var facing_direction: float = 1.0
 
+var dash_ability: PlayerAbility
+var sword_ability: PlayerAbility
+var danmaku_ability: PlayerAbility
 
 func _ready() -> void:
 	if stats == null:
 		stats = $Stats
 
-	if attack_area == null:
-		attack_area = $AttackArea
+	if ability_manager == null:
+		ability_manager = get_node("../AbilityManager")
+
+	dash_ability = $Abilities/Dash as PlayerAbility
+	sword_ability = $Abilities/SwordAttack as PlayerAbility
+	danmaku_ability = $Abilities/DanmakuShot as PlayerAbility
+	
+	# Give every ability its references.
+	for ability in $Abilities.get_children():
+		if ability is PlayerAbility:
+			ability.setup(self, ability_manager)
 
 
 func _physics_process(delta: float) -> void:
-	# Gravity
+	# Dash controls Mayumi's movement while active.
+	if dash_ability != null and dash_ability.is_dashing:
+		return
+
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	# Horizontal movement
-	var direction := Input.get_axis("move_left", "move_right")
+	# Horizontal movement.
+	var direction := 0.0
+
+	if Input.is_action_pressed("move_right"):
+		direction += 1.0
+
+	if Input.is_action_pressed("move_left"):
+		direction -= 1.0
+
 	velocity.x = direction * move_speed
 
-	# Jump
+	# Update facing direction.
+	if direction != 0.0:
+		facing_direction = signf(direction)
+
+	# Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
 
@@ -43,18 +67,13 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack"):
-		attack()
+		if sword_ability != null:
+			sword_ability.activate()
 
-
-func attack() -> void:
-	if not can_attack:
-		return
-
-	can_attack = false
-
-	for body in attack_area.get_overlapping_bodies():
-		if body.is_in_group("enemies"):
-			body.stats.take_damage(attack_damage)
-
-	await get_tree().create_timer(attack_cooldown).timeout
-	can_attack = true
+	if event.is_action_pressed("dash"):
+		if dash_ability != null:
+			dash_ability.activate()
+			
+	if event.is_action_pressed("danmaku_shot"):
+		if danmaku_ability != null:
+			danmaku_ability.activate()

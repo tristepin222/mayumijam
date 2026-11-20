@@ -10,7 +10,12 @@ func _ready() -> void:
 
 
 func _on_player_died() -> void:
-	print("Mayumi died")
+	print("Mayumi died!")
+
+	# Wait briefly before restarting.
+	await get_tree().create_timer(2.0).timeout
+
+	get_tree().reload_current_scene()
 
 
 func _on_boss_defeated() -> void:

@@ -4,6 +4,16 @@ extends Node
 signal ability_unlocked(ability_id: String)
 signal ability_used(ability_id: String)
 
+# For testing purposes
+func _ready() -> void:
+	unlock_ability("dash")
+	equip_ability("dash")
+	unlock_ability("sword_attack")
+	equip_ability("sword_attack")
+	unlock_ability("danmaku_shot")
+	equip_ability("danmaku_shot")
+
+
 # Abilities Mayumi has unlocked
 var unlocked_abilities: Array[String] = []
 
