@@ -9,7 +9,7 @@ var successful_hits := 0
 
 
 func _ready() -> void:
-	ability_id = "shattering_blow"
+	ability_id = AbilityIDs.Ability.SHATTERING_BLOW
 
 
 func register_sword_hit(saki: SakiController, enemy_stats: CharacterStats) -> void:

@@ -12,7 +12,7 @@ var can_summon := true
 
 
 func _ready() -> void:
-	ability_id = "ceramic_barrage"
+	ability_id = AbilityIDs.Ability.CERAMIC_BARRAGE
 
 
 func activate() -> void:

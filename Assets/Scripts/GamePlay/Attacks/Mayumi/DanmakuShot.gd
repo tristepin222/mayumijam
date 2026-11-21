@@ -12,21 +12,23 @@ extends PlayerAbility
 @export var cooldown: float = 0.5
 
 var can_shoot := true
-var arrow_volley_unlocked := false
 var is_charging := false
 
 const VOLLEY_ANGLES := [-30.0, -15.0, 0.0, 15.0, 30.0]
 
 
 func _ready() -> void:
-	ability_id = "danmaku_shot"
-	# TEMPORARY TEST
-	arrow_volley_unlocked = true
+	ability_id = AbilityIDs.Ability.DANMAKU
+
+
+func has_arrow_volley() -> bool:
+	return ability_manager.has_ability(AbilityIDs.Ability.ARROW_VOLLEY)
+
 
 # Called when the player presses the Danmaku button.
 func start_charge() -> void:
-	# Without the upgrade, fire a normal projectile.
-	if not arrow_volley_unlocked:
+	# Without Arrow Volley, fire a normal projectile.
+	if not has_arrow_volley():
 		activate()
 		return
 
@@ -63,16 +65,12 @@ func release_charge() -> void:
 	print("Mayumi fired Arrow Volley!")
 
 	await get_tree().create_timer(cooldown).timeout
-
 	can_shoot = true
 
 
 # Normal single projectile attack.
 func activate() -> void:
-	if not can_activate():
-		return
-
-	if not can_shoot:
+	if not can_activate() or not can_shoot:
 		return
 
 	if projectile_scene == null:
@@ -80,15 +78,11 @@ func activate() -> void:
 		return
 
 	ability_manager.use_ability(ability_id)
-
 	can_shoot = false
 
-	_spawn_projectile(
-		Vector2(mayumi.facing_direction, 0.0)
-	)
+	_spawn_projectile(Vector2(mayumi.facing_direction, 0.0))
 
 	await get_tree().create_timer(cooldown).timeout
-
 	can_shoot = true
 
 
