@@ -12,7 +12,7 @@ var can_use := true
 
 
 func _ready() -> void:
-	ability_id = "haniwa_wall"
+	ability_id = AbilityIDs.Ability.HANIWA_WALL
 
 
 func activate() -> void:

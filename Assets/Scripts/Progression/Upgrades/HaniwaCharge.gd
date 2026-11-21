@@ -14,7 +14,7 @@ var has_hit_enemy := false
 
 
 func _ready() -> void:
-	ability_id = "haniwa_charge"
+	ability_id = AbilityIDs.Ability.HANIWA_CHARGE
 
 
 func activate() -> void:
