@@ -4,7 +4,7 @@ extends Node
 var mayumi: CharacterBody2D
 var ability_manager: Node
 
-var ability_id: String = ""
+var ability_id: int
 
 
 func setup(

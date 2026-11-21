@@ -4,7 +4,7 @@ var dash_ability: Node
 
 
 func _ready() -> void:
-	ability_id = "clay_graze"
+	ability_id = AbilityIDs.Ability.CLAY_GRAZE
 
 
 func setup(player: CharacterBody2D, manager: Node) -> void:

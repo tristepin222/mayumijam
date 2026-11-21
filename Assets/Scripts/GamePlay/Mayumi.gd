@@ -19,7 +19,6 @@ signal physical_attack_started
 
 var ceramic_skin_unlocked := false
 
-
 var facing_direction: float = 1.0
 
 var is_grazing_projectiles: bool = false
@@ -33,6 +32,7 @@ var haniwa_wall: PlayerAbility
 var haniwa_charge: PlayerAbility
 var ceramic_barrage: PlayerAbility
 
+
 func _ready() -> void:
 	if stats == null:
 		stats = $Stats
@@ -40,6 +40,10 @@ func _ready() -> void:
 	if ability_manager == null:
 		ability_manager = get_node("../AbilityManager")
 
+	# Connect upgrade unlocking to Mayumi.
+	ability_manager.ability_unlocked.connect(_on_ability_unlocked)
+
+	# Get ability references.
 	dash_ability = $Abilities/Dash as PlayerAbility
 	sword_ability = $Abilities/SwordAttack as PlayerAbility
 	danmaku_ability = $Abilities/DanmakuShot as PlayerAbility
@@ -47,14 +51,15 @@ func _ready() -> void:
 	haniwa_wall = $Abilities/HaniwaWall as PlayerAbility
 	haniwa_charge = $Abilities/HaniwaCharge as PlayerAbility
 	ceramic_barrage = $Abilities/CeramicBarrage as PlayerAbility
-	
-	
-	# Testing
-	unlock_haniwa_armor()
+
 	# Give every ability its references.
 	for ability in $Abilities.get_children():
 		if ability is PlayerAbility:
 			ability.setup(self, ability_manager)
+
+	# Apply upgrades that were already unlocked before Mayumi initialized.
+	for ability_id in ability_manager.unlocked_abilities:
+		apply_upgrade(ability_id)
 
 
 func _physics_process(delta: float) -> void:
@@ -98,7 +103,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("dash"):
 		if dash_ability != null:
 			dash_ability.activate()
-			
+
 	if event.is_action_pressed("danmaku_shot"):
 		if danmaku_ability != null:
 			danmaku_ability.start_charge()
@@ -106,25 +111,44 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("danmaku_shot"):
 		if danmaku_ability != null:
 			danmaku_ability.release_charge()
-			
+
 	if event.is_action_pressed("haniwa_wall"):
 		if haniwa_wall != null:
 			haniwa_wall.activate()
-			
+
 	if event.is_action_pressed("haniwa_charge"):
 		if haniwa_charge != null:
 			haniwa_charge.activate()
-			
+
 	if event.is_action_pressed("ceramic_barrage"):
 		if ceramic_barrage != null:
 			ceramic_barrage.activate()
-			
+
+
+# Called whenever AbilityManager unlocks an upgrade.
+func _on_ability_unlocked(ability_id: int) -> void:
+	apply_upgrade(ability_id)
+
+
+# Applies the effects of passive and story upgrades.
+func apply_upgrade(ability_id: int) -> void:
+	match ability_id:
+		AbilityIDs.Ability.CERAMIC_SKIN:
+			unlock_ceramic_skin()
+
+		AbilityIDs.Ability.HANIWA_ARMOR:
+			unlock_haniwa_armor()
+
+
 func unlock_ceramic_skin() -> void:
 	ceramic_skin_unlocked = true
 
 	if ceramic_skin_texture != null:
 		sprite.texture = ceramic_skin_texture
-		
+	else:
+		push_warning("Ceramic Skin: No alternate texture assigned.")
+
+
 func unlock_haniwa_armor() -> void:
 	stats.immune_to_phase_one = true
 	print("Haniwa Armor unlocked!")

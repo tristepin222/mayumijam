@@ -8,7 +8,7 @@ var air_jump_used := false
 
 
 func _ready() -> void:
-	ability_id = "haniwa_leap"
+	ability_id = AbilityIDs.Ability.HANIWA_LEAP
 
 
 func _physics_process(_delta: float) -> void:

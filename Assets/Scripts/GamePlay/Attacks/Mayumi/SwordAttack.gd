@@ -20,7 +20,7 @@ var slash_effect: Node2D
 var shattering_blow: PlayerAbility
 
 func _ready() -> void:
-	ability_id = "sword_attack"
+	ability_id = AbilityIDs.Ability.ATTACK
 	shattering_blow = get_node_or_null("../ShatteringBlow") as PlayerAbility
 	
 	if sword_hitbox == null:
