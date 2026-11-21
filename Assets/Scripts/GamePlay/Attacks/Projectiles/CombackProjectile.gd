@@ -21,7 +21,7 @@ var return_start_position: Vector2
 
 var is_returning := false
 var has_hit_player := false
-var returning := false
+var is_reflected := false
 
 var travel_distance := 0.0
 var return_progress := 0.0
@@ -42,11 +42,30 @@ func launch(
 	direction = launch_direction.normalized()
 
 	start_position = global_position
-
 	rotation = direction.angle()
 
 
+func reflect(saki: Node2D) -> void:
+	if is_reflected or has_hit_player:
+		return
+
+	owner_saki = saki
+	is_reflected = true
+
+	direction = (
+		saki.global_position - global_position
+	).normalized()
+
+	rotation = direction.angle()
+
+	print("Comeback Danmaku reflected towards Saki!")
+
+
 func _physics_process(delta: float) -> void:
+	if is_reflected:
+		_move_reflected(delta)
+		return
+
 	if not is_instance_valid(owner_saki):
 		queue_free()
 		return
@@ -90,12 +109,35 @@ func _move_returning(delta: float) -> void:
 
 	global_position = midpoint
 
-	# Face the direction of travel.
 	var next_direction := (destination - global_position).normalized()
 	rotation = next_direction.angle()
 
 
+func _move_reflected(delta: float) -> void:
+	if not is_instance_valid(owner_saki):
+		queue_free()
+		return
+
+	var movement := direction * return_speed * delta
+	global_position += movement
+
+	rotation = direction.angle()
+
+
 func _on_body_entered(body: Node2D) -> void:
+	if is_reflected:
+		if body != owner_saki:
+			return
+
+		var enemy_stats := owner_saki.get_node_or_null("Stats") as CharacterStats
+
+		if enemy_stats != null:
+			enemy_stats.take_damage(damage)
+			print("Reflected Comeback Danmaku hit Saki!")
+
+		queue_free()
+		return
+
 	if body != target_player:
 		return
 
@@ -106,3 +148,5 @@ func _on_body_entered(body: Node2D) -> void:
 
 	if player_stats != null:
 		player_stats.take_damage(damage)
+		has_hit_player = true
+		print("Mayumi was hit by Comeback Danmaku!")
