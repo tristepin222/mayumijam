@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d4mllryd6mt2v" path="res://Assets/Textures/PlaceHolders/placeholder1.png" id="2_exqn1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_df3sn"]
+radius = 7.0
 
 [node name="ComebackProjectile" type="Area2D" unique_id=1521074544]
 script = ExtResource("1_05xen")

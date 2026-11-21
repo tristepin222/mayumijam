@@ -19,6 +19,12 @@ extends BossAttack
 @export var kick_interval: float = 0.45
 @export_range(0.0, 1.0) var repeated_attack_chance: float = 0.4
 
+@export_group("Pillars")
+@export_range(1, 7) var pillar_count: int = 3
+@export var pillar_spacing: float = 48.0
+@export var arena_left_x: float = -138.0
+@export var arena_right_x: float = 186.0
+
 var is_executing := false
 
 
@@ -74,7 +80,7 @@ func _force_land() -> bool:
 func _perform_single_push() -> void:
 	var target_x := _get_target_x()
 
-	await _perform_pillar(target_x)
+	await _perform_pillars(_get_pillar_xs(target_x, 0))
 
 
 func _perform_repeated_push() -> void:
@@ -86,7 +92,7 @@ func _perform_repeated_push() -> void:
 
 		var target_x := _get_target_x()
 
-		await _perform_pillar(target_x)
+		await _perform_pillars(_get_pillar_xs(target_x, i))
 
 		if saki.defeated:
 			return
@@ -107,49 +113,67 @@ func _get_target_x() -> float:
 	return saki.global_position.x + difference
 
 
-func _perform_pillar(target_x: float) -> void:
+func _get_pillar_xs(center_x: float, kick_index: int) -> Array[float]:
+	var xs: Array[float] = []
+
+	var shift := pillar_spacing * 0.5 if kick_index % 2 == 1 else 0.0
+	var first := center_x + shift - pillar_spacing * float(pillar_count - 1) / 2.0
+
+	for i in range(pillar_count):
+		var x := first + pillar_spacing * float(i)
+
+		if x >= arena_left_x and x <= arena_right_x:
+			xs.append(x)
+
+	return xs
+
+
+func _perform_pillars(xs: Array[float]) -> void:
 	var world := get_tree().current_scene
+	var ground_y := saki.global_position.y + ground_offset
 
-	# Spawn warning effect.
-	var warning := warning_scene.instantiate()
-	world.add_child(warning)
+	var warnings: Array[Node] = []
 
-	if warning is Node2D:
-		warning.global_position = Vector2(
-			target_x,
-			saki.global_position.y + ground_offset
-		)
+	for x in xs:
+		var warning := warning_scene.instantiate()
+		world.add_child(warning)
+
+		if warning is Node2D:
+			warning.global_position = Vector2(x, ground_y)
+
+		warnings.append(warning)
 
 	# Give Mayumi time to react.
 	await get_tree().create_timer(preparation_time).timeout
 
-	if is_instance_valid(warning):
-		warning.queue_free()
+	for warning in warnings:
+		if is_instance_valid(warning):
+			warning.queue_free()
 
 	if saki.defeated:
 		return
 
-	# Spawn the actual fire pillar.
-	var pillar := fire_pillar_scene.instantiate()
-	world.add_child(pillar)
+	var pillars: Array[Node] = []
 
-	if pillar is Node2D:
-		pillar.global_position = Vector2(
-			target_x,
-			saki.global_position.y + ground_offset
-		)
+	for x in xs:
+		var pillar := fire_pillar_scene.instantiate()
+		world.add_child(pillar)
 
-	# Connect damage detection.
-	if pillar is Area2D:
-		pillar.body_entered.connect(
-			_on_pillar_body_entered.bind(pillar)
-		)
+		if pillar is Node2D:
+			pillar.global_position = Vector2(x, ground_y)
 
-	# Keep pillar active for its configured duration.
+		if pillar is Area2D:
+			pillar.body_entered.connect(
+				_on_pillar_body_entered.bind(pillar)
+			)
+
+		pillars.append(pillar)
+
 	await get_tree().create_timer(0.65).timeout
 
-	if is_instance_valid(pillar):
-		pillar.queue_free()
+	for pillar in pillars:
+		if is_instance_valid(pillar):
+			pillar.queue_free()
 
 
 func _on_pillar_body_entered(body: Node2D, pillar: Area2D) -> void:

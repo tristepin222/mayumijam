@@ -20,8 +20,7 @@ const VOLLEY_ANGLES := [-30.0, -15.0, 0.0, 15.0, 30.0]
 
 func _ready() -> void:
 	ability_id = "danmaku_shot"
-	# TEMPORARY TEST
-	arrow_volley_unlocked = true
+	arrow_volley_unlocked = false
 
 # Called when the player presses the Danmaku button.
 func start_charge() -> void:

@@ -46,6 +46,15 @@ func _ready() -> void:
 			ability.setup(self, ability_manager)
 
 
+func _process(_delta: float) -> void:
+	var sprite := $Sprite2D as CanvasItem
+
+	if stats != null and stats.is_invulnerable:
+		sprite.visible = int(Time.get_ticks_msec() / 80.0) % 2 == 0
+	else:
+		sprite.visible = true
+
+
 func _physics_process(delta: float) -> void:
 	# Dash controls Mayumi's movement while active.
 	if dash_ability != null and dash_ability.is_dashing:

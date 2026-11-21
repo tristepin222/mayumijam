@@ -11,6 +11,20 @@ extends BossAttack
 @export var dive_damage: int = 20
 @export var max_target_adjustment: float = 150.0
 
+@export_group("Impact Zone")
+@export var impact_damage: int = 1
+@export var impact_width: float = 96.0
+@export var impact_height: float = 28.0
+@export var impact_duration: float = 0.3
+@export var impact_color: Color = Color(1.0, 0.35, 0.1, 0.55)
+
+@export_group("Ground Break")
+@export var break_delay: float = 0.05
+@export var break_width: float = 176.0
+@export var break_height: float = 16.0
+@export var break_duration: float = 0.35
+@export var break_color: Color = Color(0.55, 0.3, 0.15, 0.7)
+
 @export_group("Telegraph")
 @export var flash_interval: float = 0.1
 @export var flash_count: int = 3
@@ -98,8 +112,6 @@ func execute() -> void:
 		_finish_attack()
 		return
 
-	# Dive.
-	_remove_landing_warning()
 	print("Saki is diving!")
 
 	hitbox.set_deferred("monitoring", true)
@@ -110,7 +122,18 @@ func execute() -> void:
 		_finish_attack()
 		return
 
+	await get_tree().physics_frame
+	_check_hit()
+
+	if dive_completed:
+		await _impact_zone(impact_width, impact_height, impact_duration, impact_color)
+
+		if not saki.defeated and break_width > 0.0:
+			await get_tree().create_timer(break_delay, false).timeout
+			await _impact_zone(break_width, break_height, break_duration, break_color)
+
 	hitbox.set_deferred("monitoring", false)
+	_remove_landing_warning()
 
 	if dive_completed:
 		print("Saki landed!")
@@ -273,6 +296,8 @@ func _check_hit() -> void:
 
 
 func _finish_attack() -> void:
+	_remove_landing_warning()
+
 	if is_instance_valid(hitbox):
 		hitbox.set_deferred("monitoring", false)
 
@@ -294,6 +319,65 @@ func _show_landing_warning() -> void:
 		target_position.x,
 		start_position.y + warning_ground_offset
 	)
+
+	landing_warning.scale.x = impact_width / 16.0
+
+
+func _impact_zone(zone_width: float, zone_height: float, zone_duration: float, zone_color: Color) -> void:
+	var ground_y := start_position.y + warning_ground_offset
+
+	var zone := Area2D.new()
+	zone.collision_layer = 0
+	zone.monitorable = false
+
+	var shape := RectangleShape2D.new()
+	shape.size = Vector2(zone_width, zone_height)
+
+	var collision := CollisionShape2D.new()
+	collision.shape = shape
+	zone.add_child(collision)
+
+	var visual := Polygon2D.new()
+	var half := Vector2(zone_width, zone_height) / 2.0
+	visual.polygon = PackedVector2Array([
+		Vector2(-half.x, -half.y),
+		Vector2(half.x, -half.y),
+		Vector2(half.x, half.y),
+		Vector2(-half.x, half.y)
+	])
+	visual.color = zone_color
+	zone.add_child(visual)
+
+	get_tree().current_scene.add_child(zone)
+	zone.global_position = Vector2(saki.global_position.x, ground_y - zone_height / 2.0)
+
+	var tween := zone.create_tween()
+	tween.tween_property(visual, "modulate:a", 0.0, zone_duration)
+
+	var zone_hit := false
+	var elapsed := 0.0
+
+	while elapsed < zone_duration:
+		await get_tree().physics_frame
+		elapsed += 1.0 / float(Engine.physics_ticks_per_second)
+
+		if saki.defeated:
+			break
+
+		if zone_hit:
+			continue
+
+		for body in zone.get_overlapping_bodies():
+			if body == player:
+				zone_hit = true
+
+				var player_stats := player.get_node_or_null("Stats") as CharacterStats
+
+				if player_stats != null:
+					player_stats.take_damage(impact_damage)
+					print("Saki's dive impact hit Mayumi!")
+
+	zone.queue_free()
 
 
 func _remove_landing_warning() -> void:
