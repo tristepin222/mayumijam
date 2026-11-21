@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogStruct" format=3 uid="uid://c5hrxo4y0mmaj"]
+
+[ext_resource type="Script" uid="uid://s4fjncmjbqsw" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_6h5kr"]
+
+[resource]
+script = ExtResource("1_6h5kr")
+characters = Array[int]([0, 1])
+atlas_index_x = Array[int]([0, 3])
+atlas_index_y = Array[int]([0, 0])
+dialog_text = Array[String](["this is the test intro", "and this text is here for this"])
+metadata/_custom_type_script = "uid://s4fjncmjbqsw"
