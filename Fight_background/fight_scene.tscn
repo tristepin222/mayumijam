@@ -162,6 +162,15 @@ position = Vector2(0, 27.807487)
 texture = ExtResource("2_tgwit")
 centered = false
 
+[node name="Bg_particles_skyscrapers" type="GPUParticles2D" parent="Background/Skyscrapers" unique_id=1613630730]
+modulate = Color(0.35, 0, 0, 0.5176471)
+position = Vector2(729.4118, 372.19254)
+amount = 2
+texture = ExtResource("2_1wb3m")
+lifetime = 8.9
+randomness = 0.25
+process_material = SubResource("ParticleProcessMaterial_ty0te")
+
 [node name="Back_trees" type="Sprite2D" parent="Background" unique_id=2066939778]
 position = Vector2(0, 303.37082)
 texture = ExtResource("3_1kion")
@@ -213,7 +222,7 @@ centered = false
 position = Vector2(656.6845, 118.71657)
 scale = Vector2(1.0695187, 1.0695187)
 color = Color(0.97877026, 0.35549772, 0.35549772, 1)
-energy = 1.28
+energy = 1.32
 texture = SubResource("GradientTexture2D_ty0te")
 texture_scale = 26.09
 
