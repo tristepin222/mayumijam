@@ -13,6 +13,9 @@ extends CharacterBody2D
 var move_direction: float = 0.0
 var defeated := false
 
+var is_cracked := false
+var is_staggered := false
+var stagger_timer := 0.0
 
 func _ready() -> void:
 	if stats == null:
@@ -25,12 +28,22 @@ func _physics_process(delta: float) -> void:
 	if defeated:
 		return
 
-	# Apply gravity
+	if is_staggered:
+		stagger_timer -= delta
+		move_direction = 0.0
+		velocity.x = 0.0
+
+		if stagger_timer <= 0.0:
+			is_staggered = false
+
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	# Horizontal movement controlled by BossAI
-	velocity.x = move_direction * move_speed
+	# Horizontal movement controlled by BossAI.
+	if is_staggered:
+		velocity.x = 0.0
+	else:
+		velocity.x = move_direction * move_speed
 
 	move_and_slide()
 
@@ -53,3 +66,17 @@ func _on_defeated() -> void:
 	set_physics_process(false)
 
 	$CollisionShape2D.set_deferred("disabled", true)
+	
+func crack() -> void:
+	is_cracked = true
+	print("Saki is cracked!")
+	
+func break_crack(stagger_duration: float) -> void:
+	is_cracked = false
+	is_staggered = true
+	stagger_timer = stagger_duration
+
+	move_direction = 0.0
+	velocity.x = 0.0
+
+	print("Shattering Blow! Saki is staggered.")

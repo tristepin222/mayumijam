@@ -12,8 +12,18 @@ func _ready() -> void:
 	equip_ability("sword_attack")
 	unlock_ability("danmaku_shot")
 	equip_ability("danmaku_shot")
-
-
+	unlock_ability("haniwa_leap")
+	equip_ability("haniwa_leap")
+	unlock_ability("shattering_blow")
+	equip_ability("shattering_blow")
+	unlock_ability("haniwa_wall")
+	equip_ability("haniwa_wall")
+	unlock_ability("clay_graze")
+	equip_ability("clay_graze")
+	unlock_ability("haniwa_charge")
+	equip_ability("haniwa_charge")
+	unlock_ability("ceramic_barrage")
+	equip_ability("ceramic_barrage")
 # Abilities Mayumi has unlocked
 var unlocked_abilities: Array[String] = []
 

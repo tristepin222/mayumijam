@@ -99,6 +99,9 @@ func _on_body_entered(body: Node2D) -> void:
 	if body != target_player:
 		return
 
+	if target_player.is_grazing_projectiles:
+		return
+
 	var player_stats := target_player.get_node_or_null("Stats") as CharacterStats
 
 	if player_stats != null:

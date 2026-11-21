@@ -14,9 +14,16 @@ signal physical_attack_started
 
 var facing_direction: float = 1.0
 
+var is_grazing_projectiles: bool = false
+var is_invincible := false
+
 var dash_ability: PlayerAbility
 var sword_ability: PlayerAbility
 var danmaku_ability: PlayerAbility
+var haniwa_leap: PlayerAbility
+var haniwa_wall: PlayerAbility
+var haniwa_charge: PlayerAbility
+var ceramic_barrage: PlayerAbility
 
 func _ready() -> void:
 	if stats == null:
@@ -28,6 +35,10 @@ func _ready() -> void:
 	dash_ability = $Abilities/Dash as PlayerAbility
 	sword_ability = $Abilities/SwordAttack as PlayerAbility
 	danmaku_ability = $Abilities/DanmakuShot as PlayerAbility
+	haniwa_leap = $Abilities/HaniwaLeap as PlayerAbility
+	haniwa_wall = $Abilities/HaniwaWall as PlayerAbility
+	haniwa_charge = $Abilities/HaniwaCharge as PlayerAbility
+	ceramic_barrage = $Abilities/CeramicBarrage as PlayerAbility
 	
 	# Give every ability its references.
 	for ability in $Abilities.get_children():
@@ -59,8 +70,11 @@ func _physics_process(delta: float) -> void:
 		facing_direction = signf(direction)
 
 	# Jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = jump_velocity
+	if Input.is_action_just_pressed("jump"):
+		if is_on_floor():
+			velocity.y = jump_velocity
+		elif haniwa_leap != null:
+			haniwa_leap.activate()
 
 	move_and_slide()
 
@@ -76,4 +90,20 @@ func _input(event: InputEvent) -> void:
 			
 	if event.is_action_pressed("danmaku_shot"):
 		if danmaku_ability != null:
-			danmaku_ability.activate()
+			danmaku_ability.start_charge()
+
+	if event.is_action_released("danmaku_shot"):
+		if danmaku_ability != null:
+			danmaku_ability.release_charge()
+			
+	if event.is_action_pressed("haniwa_wall"):
+		if haniwa_wall != null:
+			haniwa_wall.activate()
+			
+	if event.is_action_pressed("haniwa_charge"):
+		if haniwa_charge != null:
+			haniwa_charge.activate()
+			
+	if event.is_action_pressed("ceramic_barrage"):
+		if ceramic_barrage != null:
+			ceramic_barrage.activate()

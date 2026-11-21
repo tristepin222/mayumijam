@@ -5,6 +5,7 @@ signal died
 signal health_changed(current_health: int, max_health: int)
 
 @export var max_health: int = 100
+@export var armor: int = 0
 var health: int
 
 

@@ -17,10 +17,12 @@ var can_attack := true
 var is_attacking := false
 var slash_effect: Node2D
 
+var shattering_blow: PlayerAbility
 
 func _ready() -> void:
 	ability_id = "sword_attack"
-
+	shattering_blow = get_node_or_null("../ShatteringBlow") as PlayerAbility
+	
 	if sword_hitbox == null:
 		push_warning("SwordAttack: Assign SwordHitbox in the Inspector.")
 		return
@@ -80,44 +82,28 @@ func _position_hitbox() -> void:
 
 
 func _damage_enemies() -> void:
-	var sword_shape_node := sword_hitbox.get_node("CollisionShape2D") as CollisionShape2D
-	var saki := get_tree().get_first_node_in_group("enemies") as CharacterBody2D
-	var saki_shape_node := saki.get_node("CollisionShape2D") as CollisionShape2D
-
-	var sword_circle := sword_shape_node.shape as RectangleShape2D
-	var saki_capsule := saki_shape_node.shape as CapsuleShape2D
-
-	print("Sword size: ", sword_circle.size)
-	print("Sword scale: ", sword_shape_node.global_scale)
-	print("Sword shape disabled: ", sword_shape_node.disabled)
-
-	print("Saki capsule radius: ", saki_capsule.radius)
-	print("Saki capsule height: ", saki_capsule.height)
-		
-	print("Mayumi: ", mayumi.global_position)
-	print("Sword: ", sword_hitbox.global_position)
-	print("Saki: ", get_tree().get_first_node_in_group("enemies").global_position)
-	print("Distance sword-Saki: ", sword_hitbox.global_position.distance_to(
-		get_tree().get_first_node_in_group("enemies").global_position
-	))
-	print("Overlapping bodies: ", sword_hitbox.get_overlapping_bodies().size())
-
-	if saki != null:
-		print("Saki position: ", saki.global_position)
-		print("Saki collision layer: ", saki.collision_layer)
-		print("Saki collision shape disabled: ",
-			saki.get_node("CollisionShape2D").disabled)
-
 	var bodies := sword_hitbox.get_overlapping_bodies()
-	print("Detected bodies: ", bodies.size())
 
 	for body in bodies:
-		if body.is_in_group("enemies"):
-			var enemy_stats := body.get_node_or_null("Stats") as CharacterStats
-			if enemy_stats != null:
-				enemy_stats.take_damage(damage)
-				print("Mayumi hit an enemy with her sword!")
+		if not body.is_in_group("enemies"):
+			continue
 
+		var enemy_stats := body.get_node_or_null("Stats") as CharacterStats
+
+		if enemy_stats == null:
+			continue
+
+		var saki := body as SakiController
+
+		if saki == null:
+			continue
+
+		# Saki is cracked: consume the crack.
+		if enemy_stats != null:
+			enemy_stats.take_damage(damage)
+
+			if shattering_blow != null:
+				shattering_blow.register_sword_hit(body, enemy_stats)
 
 func _spawn_slash_effect() -> void:
 	if slash_effect_scene == null:

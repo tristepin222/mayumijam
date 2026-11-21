@@ -1,4 +1,3 @@
-
 class_name PlayerAbility
 extends Node
 
@@ -24,4 +23,8 @@ func can_activate() -> bool:
 
 
 func activate() -> void:
+	pass
+
+
+func cancel() -> void:
 	pass

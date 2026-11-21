@@ -4,7 +4,7 @@ class_name GameplayManager
 var victory = false
 var max_try: int = 5 
 
-
+ 
 func _change_scene(player_win: bool, current_try: int):
 	victory = player_win
 	get_tree().change_scene_to_file("") #insert dialogue scene path here

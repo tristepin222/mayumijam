@@ -17,13 +17,21 @@
 [ext_resource type="Script" uid="uid://bxeax206yngkl" path="res://Assets/Scripts/GamePlay/Attacks/Saki/Dive.gd" id="10_huwrf"]
 [ext_resource type="PackedScene" uid="uid://dk6m4dg2jfusv" path="res://Assets/Scenes/Attacks/MayumiNormalProjectile.tscn" id="10_ms20m"]
 [ext_resource type="Script" uid="uid://1lsi8mcqqhmg" path="res://Assets/Scripts/GamePlay/Attacks/Saki/TectonicPush.gd" id="11_7y1lw"]
+[ext_resource type="Script" uid="uid://bvnhhd7mrobb0" path="res://Assets/Scripts/Progression/Upgrades/HaniwaLeap.gd" id="11_ms20m"]
 [ext_resource type="PackedScene" uid="uid://bhkc28oiv6nvl" path="res://Assets/Scenes/Attacks/WarningEffect.tscn" id="12_44cpq"]
+[ext_resource type="Script" uid="uid://4r8f3sdwx7po" path="res://Assets/Scripts/Progression/Upgrades/ShatteringBlow.gd" id="12_n6qn5"]
 [ext_resource type="PackedScene" uid="uid://cawyalovdridw" path="res://Assets/Scenes/Attacks/FirePillar.tscn" id="13_o45r6"]
+[ext_resource type="Script" uid="uid://pqxyq8ae2o56" path="res://Assets/Scripts/Progression/Upgrades/HaniwaWallAbility.gd" id="13_vvat7"]
 [ext_resource type="Script" uid="uid://b06qrgtct2vno" path="res://Assets/Scripts/GamePlay/Attacks/Saki/CombackDanmaku.gd" id="14_44cpq"]
+[ext_resource type="PackedScene" uid="uid://c6r3b73keeg3w" path="res://Assets/Scenes/Attacks/HaniwaWall.tscn" id="14_o8gpp"]
+[ext_resource type="Script" uid="uid://cfcxx4obyjxef" path="res://Assets/Scripts/Progression/Upgrades/ClayGraze.gd" id="15_j4hlk"]
 [ext_resource type="PackedScene" uid="uid://bf3jjftrvqs3j" path="res://Assets/Scenes/Attacks/ComebackProjectile.tscn" id="15_o45r6"]
+[ext_resource type="Script" uid="uid://dm7vubpn6si2o" path="res://Assets/Scripts/Progression/Upgrades/HaniwaCharge.gd" id="16_06574"]
 [ext_resource type="Script" uid="uid://by36r8q7ogjmv" path="res://Assets/Scripts/GamePlay/Attacks/Saki/NormalDanmaku.gd" id="16_je2ki"]
 [ext_resource type="PackedScene" uid="uid://b35nelmg8kau4" path="res://Assets/Scenes/Attacks/NormalProjectile.tscn" id="17_6rn6g"]
+[ext_resource type="Script" uid="uid://cxnkk1xf6v1a1" path="res://Assets/Scripts/Progression/Upgrades/CeramicBarrage.gd" id="17_rdmei"]
 [ext_resource type="Script" uid="uid://ciwof5cmfulil" path="res://Assets/Scripts/GamePlay/Attacks/Saki/Charge.gd" id="18_48i8a"]
+[ext_resource type="PackedScene" uid="uid://bb4af0qfo0wqe" path="res://Assets/Scenes/Attacks/HaniwaTurret.tscn" id="18_qlpbw"]
 [ext_resource type="PackedScene" uid="uid://cs0dqrspfru0a" path="res://Assets/Scenes/Attacks/Charge.tscn" id="19_m63yu"]
 [ext_resource type="Script" uid="uid://do1fayi52pml5" path="res://Assets/Scripts/GamePlay/Attacks/Saki/Unleash.gd" id="20_m63yu"]
 
@@ -89,12 +97,34 @@ dash_effect_scene = ExtResource("19_m63yu")
 
 [node name="SwordAttack" type="Node" parent="Mayumi/Abilities" unique_id=987298510 node_paths=PackedStringArray("sword_hitbox")]
 script = ExtResource("8_ja1hb")
+damage = 1
 sword_hitbox = NodePath("../../SwordHitbox")
 slash_effect_scene = ExtResource("19_m63yu")
 
 [node name="DanmakuShot" type="Node" parent="Mayumi/Abilities" unique_id=1871456898]
 script = ExtResource("9_de2dd")
 projectile_scene = ExtResource("10_ms20m")
+
+[node name="HaniwaLeap" type="Node" parent="Mayumi/Abilities" unique_id=677142378]
+script = ExtResource("11_ms20m")
+
+[node name="ShatteringBlow" type="Node" parent="Mayumi/Abilities" unique_id=1511576546]
+script = ExtResource("12_n6qn5")
+
+[node name="HaniwaWall" type="Node" parent="Mayumi/Abilities" unique_id=229741347]
+script = ExtResource("13_vvat7")
+wall_scene = ExtResource("14_o8gpp")
+
+[node name="ClayGraze" type="Node" parent="Mayumi/Abilities" unique_id=1668782540]
+script = ExtResource("15_j4hlk")
+
+[node name="HaniwaCharge" type="Node" parent="Mayumi/Abilities" unique_id=948683623]
+script = ExtResource("16_06574")
+charge_speed = 400.0
+
+[node name="CeramicBarrage" type="Node" parent="Mayumi/Abilities" unique_id=1767368913]
+script = ExtResource("17_rdmei")
+turret_scene = ExtResource("18_qlpbw")
 
 [node name="Saki" type="CharacterBody2D" parent="." unique_id=959911358 node_paths=PackedStringArray("stats") groups=["enemies"]]
 position = Vector2(47, 1)

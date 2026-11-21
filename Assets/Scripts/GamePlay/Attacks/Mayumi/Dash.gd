@@ -1,5 +1,7 @@
-
 extends PlayerAbility
+
+signal dash_started
+signal dash_finished
 
 @export_group("Dash")
 @export var dash_speed: float = 700.0
@@ -12,6 +14,7 @@ extends PlayerAbility
 var is_dashing := false
 var can_dash := true
 var dash_effect: Node2D
+
 
 func _ready() -> void:
 	ability_id = "dash"
@@ -29,8 +32,9 @@ func activate() -> void:
 	is_dashing = true
 	can_dash = false
 
-	_spawn_effect()
+	dash_started.emit()
 
+	_spawn_effect()
 	_perform_dash()
 
 
@@ -56,6 +60,7 @@ func _perform_dash() -> void:
 		await get_tree().physics_frame
 
 	is_dashing = false
+	dash_finished.emit()
 
 	if is_instance_valid(dash_effect):
 		dash_effect.queue_free()

@@ -70,6 +70,10 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if saki == null or saki.defeated:
 		return
+		
+	if saki.is_staggered:
+		saki.set_move_direction(0.0)
+		return
 
 	_update_phase()
 
