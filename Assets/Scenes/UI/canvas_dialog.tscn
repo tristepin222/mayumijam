@@ -94,6 +94,23 @@ tracks/2/keys = {
 "values": [Vector2(0, 1.5), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_m5ldi"]
+resource_name = "MayumiTalk"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("player_sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.49019608, 0.49019608, 0.49019608, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_5ah7x"]
 length = 0.001
 tracks/0/type = "value"
@@ -132,11 +149,36 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("player_sprite:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.49019608, 0.49019608, 0.49019608, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("saki_sprite:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.49019608, 0.49019608, 0.49019608, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_87307"]
 _data = {
 &"DialogCloseAnim": SubResource("Animation_87307"),
 &"DialogOpenAnim": SubResource("Animation_vot10"),
+&"MayumiTalk": SubResource("Animation_m5ldi"),
 &"RESET": SubResource("Animation_5ah7x")
 }
 
@@ -144,11 +186,14 @@ _data = {
 script = ExtResource("1_5ah7x")
 
 [node name="player_sprite" type="TextureRect" parent="." unique_id=1971681888]
+self_modulate = Color(0.49019608, 0.49019608, 0.49019608, 1)
+z_index = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
+offset_left = -10.0
 offset_top = -396.0
-offset_right = 529.0
+offset_right = 519.0
 offset_bottom = 397.0
 grow_vertical = 0
 scale = Vector2(0.5, 0.5)
@@ -156,15 +201,16 @@ offset_transform_enabled = true
 texture = SubResource("AtlasTexture_jan05")
 
 [node name="saki_sprite" type="TextureRect" parent="." unique_id=1365314998]
-modulate = Color(0.49747366, 0.49747366, 0.49747366, 1)
+self_modulate = Color(0.49019608, 0.49019608, 0.49019608, 1)
+z_index = 3
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -499.0
+offset_left = -489.0
 offset_top = -499.0
-offset_right = 501.0
+offset_right = 511.0
 offset_bottom = 501.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -177,6 +223,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="sprite_dialog" type="NinePatchRect" parent="." unique_id=307464437]
+z_index = 10
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
