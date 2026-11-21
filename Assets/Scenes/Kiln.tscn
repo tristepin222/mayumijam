@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Presentation/KilnScene.gd" id="1_kiln"]
+[ext_resource type="PackedScene" uid="uid://b63itlfh4h81t" path="res://Assets/Scenes/UI/canvas_dialog.tscn" id="2_dialog"]
+[ext_resource type="Texture2D" uid="uid://ce2tx5vkdalyt" path="res://Kiln_garden/Kiln_garden_background.jpg" id="3_garden"]
+[ext_resource type="Texture2D" uid="uid://cxlwuux825yte" path="res://Kiln_garden/Kiln_inside/Kiln_inside_saturated.jpg" id="4_inside"]
+
+[node name="Kiln" type="Node" node_paths=PackedStringArray("dialog_player")]
+script = ExtResource("1_kiln")
+dialog_player = NodePath("canvas_dialog")
+garden_texture = ExtResource("3_garden")
+upgrade_texture = ExtResource("4_inside")
+
+[node name="canvas_dialog" parent="." instance=ExtResource("2_dialog")]

@@ -14,6 +14,7 @@ extends BossAttack
 @export_group("Movement")
 @export var movement_speed: float = 300.0
 @export var arrival_tolerance: float = 5.0
+@export var hop_height: float = 40.0
 
 @export_group("Projectile")
 @export var projectile_speed: float = 350.0
@@ -26,6 +27,9 @@ extends BossAttack
 @export var wave_angle_offset: float = 11.25
 @export var wave_interval: float = 0.5
 
+@export_group("Telegraph")
+@export var pulse_count: int = 3
+@export var pulse_color: Color = Color(2.0, 1.4, 1.4)
 
 var burst_effect: Node2D
 
@@ -69,8 +73,7 @@ func execute() -> void:
 	# Spawn optional charge-up effect.
 	_spawn_burst_effect()
 
-	# Preparation.
-	await get_tree().create_timer(preparation_time).timeout
+	await _pulse(preparation_time)
 
 	if saki.defeated:
 		_finish_attack()
@@ -107,31 +110,32 @@ func _force_land() -> bool:
 
 
 func _move_to_center() -> bool:
-	var target_x := arena_center.global_position.x
+	var origin := saki.global_position
+	var destination := Vector2(arena_center.global_position.x, origin.y)
 
-	while absf(saki.global_position.x - target_x) > arrival_tolerance:
+	var distance := absf(destination.x - origin.x)
+
+	if distance <= arrival_tolerance:
+		return true
+
+	var duration := maxf(distance / movement_speed, 0.15)
+	var elapsed := 0.0
+
+	while elapsed < duration:
+		await get_tree().physics_frame
+
 		if saki.defeated:
 			return false
 
-		await get_tree().physics_frame
+		elapsed += 1.0 / float(Engine.physics_ticks_per_second)
 
-		var delta := 1.0 / float(Engine.physics_ticks_per_second)
+		var weight := clampf(elapsed / duration, 0.0, 1.0)
+		var hop_position := origin.lerp(destination, weight)
+		hop_position.y -= sin(weight * PI) * hop_height
 
-		var difference := target_x - saki.global_position.x
-		var direction := signf(difference)
+		saki.global_position = hop_position
 
-		var distance := minf(
-			absf(difference),
-			movement_speed * delta
-		)
-
-		var motion := Vector2(direction * distance, 0.0)
-
-		var collision := saki.move_and_collide(motion)
-
-		if collision != null:
-			push_warning("Unleash: Saki could not reach the arena center.")
-			return false
+	saki.global_position = destination
 
 	return true
 
@@ -148,6 +152,25 @@ func _spawn_burst_effect() -> void:
 
 	saki.add_child(burst_effect)
 	burst_effect.position = Vector2.ZERO
+
+
+func _pulse(duration: float) -> void:
+	var sprite := saki.get_node_or_null("Sprite2D") as CanvasItem
+
+	if sprite == null or pulse_count <= 0:
+		await get_tree().create_timer(duration).timeout
+		return
+
+	var base_color := sprite.modulate
+	var step := duration / float(pulse_count * 2)
+
+	var tween := create_tween()
+
+	for i in range(pulse_count):
+		tween.tween_property(sprite, "modulate", pulse_color, step)
+		tween.tween_property(sprite, "modulate", base_color, step)
+
+	await tween.finished
 
 
 func _fire_wave(wave_index: int) -> void:

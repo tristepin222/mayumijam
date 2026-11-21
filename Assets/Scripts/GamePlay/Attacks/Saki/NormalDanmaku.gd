@@ -43,7 +43,7 @@ func execute() -> void:
 		if saki.defeated:
 			return
 
-		_fire_volley()
+		_fire_volley(volley)
 
 		if volley < volley_count - 1:
 			await get_tree().create_timer(volley_interval).timeout
@@ -55,12 +55,16 @@ func execute() -> void:
 	print("Normal Danmaku finished!")
 
 
-func _fire_volley() -> void:
+func _fire_volley(volley_index: int = 0) -> void:
 	var world := get_tree().current_scene
 
 	var base_direction := (
 		player.global_position - saki.global_position
 	).normalized()
+
+	if volley_index % 2 == 1 and projectile_count > 1:
+		var half_gap := spread_angle / float(projectile_count - 1) / 2.0
+		base_direction = base_direction.rotated(deg_to_rad(half_gap))
 
 	var first_angle := -spread_angle / 2.0
 

@@ -57,9 +57,21 @@ func _ready() -> void:
 		if ability is PlayerAbility:
 			ability.setup(self, ability_manager)
 
+	var game_manager = get_node_or_null("/root/GameManager")
+
+	if game_manager != null:
+		game_manager.apply_to_mayumi(self)
+
+func _process(_delta: float) -> void:
+	if stats != null and stats.is_invulnerable:
+		sprite.visible = int(Time.get_ticks_msec() / 80.0) % 2 == 0
+	else:
+		sprite.visible = true
+
 	# Apply upgrades that were already unlocked before Mayumi initialized.
 	for ability_id in ability_manager.unlocked_abilities:
 		apply_upgrade(ability_id)
+
 
 
 func _physics_process(delta: float) -> void:

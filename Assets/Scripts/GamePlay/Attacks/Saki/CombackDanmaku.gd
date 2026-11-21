@@ -19,6 +19,11 @@ extends BossAttack
 @export var launch_angle: float = 25.0
 @export var launch_offset: float = 40.0
 
+@export_group("Throw")
+@export_range(1, 4) var throw_count: int = 2
+@export var throw_interval: float = 0.45
+@export var throw_height_offset: float = 10.0
+
 var active_projectiles: int = 0
 
 
@@ -49,7 +54,7 @@ func execute() -> void:
 		_finish_attack()
 		return
 
-	_fire_projectiles()
+	await _throw_projectiles()
 
 	# Wait until both projectiles have returned.
 	while active_projectiles > 0:
@@ -77,25 +82,22 @@ func _force_land() -> bool:
 	return true
 
 
-func _fire_projectiles() -> void:
+func _throw_projectiles() -> void:
 	var world := get_tree().current_scene
-
-	# Aim toward Mayumi.
-	var base_direction := (
-		player.global_position - saki.global_position
-	).normalized()
-
-	var angle := deg_to_rad(launch_angle)
-
-	# Spread symmetrically around the aiming direction.
-	var directions := [
-		base_direction.rotated(-angle),
-		base_direction.rotated(angle)
-	]
 
 	active_projectiles = 0
 
-	for direction in directions:
+	for i in range(throw_count):
+		if saki.defeated:
+			return
+
+		var side := signf(player.global_position.x - saki.global_position.x)
+
+		if side == 0.0:
+			side = 1.0
+
+		var direction := Vector2(side, 0.0)
+
 		var projectile := projectile_scene.instantiate()
 
 		if not projectile is Area2D:
@@ -105,8 +107,9 @@ func _fire_projectiles() -> void:
 
 		world.add_child(projectile)
 
-		projectile.global_position = (
-			saki.global_position + direction * launch_offset
+		projectile.global_position = saki.global_position + Vector2(
+			side * launch_offset,
+			throw_height_offset
 		)
 
 		projectile.damage = damage
@@ -121,7 +124,10 @@ func _fire_projectiles() -> void:
 
 		active_projectiles += 1
 
-	print("Saki fired ", active_projectiles, " comeback projectiles!")
+		print("Saki throws a comeback horseshoe! (", i + 1, "/", throw_count, ")")
+
+		if i < throw_count - 1:
+			await get_tree().create_timer(throw_interval, false).timeout
 
 
 func _on_projectile_removed() -> void:
