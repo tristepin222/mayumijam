@@ -176,7 +176,8 @@ func _fire_wave(wave_index: int) -> void:
 			direction,
 			projectile_speed,
 			damage,
-			projectile_lifetime
+			projectile_lifetime,
+			CharacterStats.DamagePhase.PHASE_2
 		)
 
 		world.add_child(projectile)
