@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://c55qjibt3v3mh"]
+
+[ext_resource type="Texture2D" uid="uid://ce2tx5vkdalyt" path="res://Kiln_garden/Kiln_garden_background.jpg" id="1_ie262"]
+[ext_resource type="PackedScene" uid="uid://yywuptjlcnmo" path="res://Kiln_garden/Kiln_inside/kiln_inside.tscn" id="2_2wgq6"]
+[ext_resource type="Texture2D" uid="uid://do38d1ob8yg5x" path="res://Kiln_garden/Front_table.png" id="2_e5f7k"]
+[ext_resource type="Texture2D" uid="uid://diqq2qsjj2b8x" path="res://Kiln_garden/Kiln_Frame.png" id="3_la17q"]
+[ext_resource type="Shader" uid="uid://qxyrbwa12sta" path="res://Kiln_garden/God_rays.gdshader" id="5_7jx77"]
+
+[sub_resource type="Gradient" id="Gradient_7jx77"]
+offsets = PackedFloat32Array(0.09447005, 0.297235, 0.4078341, 0.55990785, 0.71658987)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.3461538, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ty0te"]
+gradient = SubResource("Gradient_7jx77")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ty0te"]
+shader = ExtResource("5_7jx77")
+shader_parameter/angle = -0.035
+shader_parameter/position = 0.03
+shader_parameter/spread = 0.1250000059375
+shader_parameter/cutoff = 0.1
+shader_parameter/falloff = 0.26000001235
+shader_parameter/edge_fade = 0.190000009025
+shader_parameter/speed = 1.0
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/color = Color(1, 0.90083337, 0.65, 0.49803922)
+shader_parameter/hdr = false
+shader_parameter/seed = 5.97
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7jx77"]
+shader = ExtResource("5_7jx77")
+shader_parameter/angle = -0.405
+shader_parameter/position = 0.03
+shader_parameter/spread = 0.0
+shader_parameter/cutoff = 0.14300005429250007
+shader_parameter/falloff = 0.7600000361
+shader_parameter/edge_fade = 0.190000009025
+shader_parameter/speed = 1.0
+shader_parameter/ray1_density = 9.895
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.4400000209
+shader_parameter/color = Color(1, 0.90083337, 0.65, 0.49803922)
+shader_parameter/hdr = false
+shader_parameter/seed = 5.97
+
+[node name="Kiln_garden" type="Node2D" unique_id=825013517]
+
+[node name="Garden" type="Sprite2D" parent="." unique_id=44074156]
+position = Vector2(0, -21.000002)
+scale = Vector2(0.921, 0.921)
+texture = ExtResource("1_ie262")
+centered = false
+
+[node name="Inside_viewport" type="Node2D" parent="." unique_id=1357583182]
+position = Vector2(763, 402)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Inside_viewport" unique_id=2077210366]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.307, 0.307)
+
+[node name="SubViewport" type="SubViewport" parent="Inside_viewport/SubViewportContainer" unique_id=1353639694]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(665, 665)
+render_target_update_mode = 4
+
+[node name="Kiln_inside" parent="Inside_viewport/SubViewportContainer/SubViewport" unique_id=2063551198 instance=ExtResource("2_2wgq6")]
+position = Vector2(-3.5, 0.5)
+
+[node name="ColorRect" type="ColorRect" parent="Inside_viewport" unique_id=1895257083]
+visible = false
+offset_left = -105.0
+offset_top = -110.0
+offset_right = 98.740005
+offset_bottom = 103.0
+color = Color(0.26, 0.25111666, 0.247, 0.25882354)
+
+[node name="Inside_frame" type="Sprite2D" parent="Inside_viewport" unique_id=421113655]
+scale = Vector2(0.61, 0.665)
+texture = ExtResource("3_la17q")
+
+[node name="PointLight2D" type="PointLight2D" parent="Inside_viewport" unique_id=1156810226]
+position = Vector2(-1, -11)
+color = Color(1, 0.5534947, 0.21063334, 1)
+energy = 0.3
+texture = SubResource("GradientTexture2D_ty0te")
+texture_scale = 9.15
+
+[node name="Table" type="Sprite2D" parent="." unique_id=1289583162]
+light_mask = 0
+position = Vector2(820, 560)
+texture = ExtResource("2_e5f7k")
+
+[node name="God_ray_0" type="ColorRect" parent="." unique_id=1275883440]
+material = SubResource("ShaderMaterial_ty0te")
+offset_left = -196.0
+offset_top = -285.0
+offset_right = 704.0
+offset_bottom = 615.0
+
+[node name="God_ray_1" type="ColorRect" parent="." unique_id=57150138]
+material = SubResource("ShaderMaterial_7jx77")
+offset_left = 70.0
+offset_top = -292.0
+offset_right = 970.0
+offset_bottom = 608.0
