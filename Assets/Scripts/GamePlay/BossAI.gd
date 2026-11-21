@@ -193,6 +193,7 @@ func _update_phase() -> void:
 			phase_changed.emit(current_phase)
 
 
+
 func _start_attack() -> void:
 	if is_attacking or not attack_ready:
 		return
@@ -210,20 +211,28 @@ func _start_attack() -> void:
 
 	await _telegraph()
 
-	if saki.defeated:
+	if not is_inside_tree() or saki == null or saki.defeated:
+		return
+
+	if attack_manager == null:
+		push_error("BossAI: AttackManager reference is missing.")
+		is_attacking = false
 		return
 
 	await attack_manager.execute_attack(attack_id)
 
-	if saki.defeated:
+	if not is_inside_tree() or saki == null or saki.defeated:
 		return
 
 	is_attacking = false
 
 	await get_tree().create_timer(attack_cooldown).timeout
 
-	if not saki.defeated:
-		attack_ready = true
+	if not is_inside_tree() or saki == null or saki.defeated:
+		return
+
+	attack_ready = true
+
 
 
 func _telegraph() -> void:

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogStruct" format=3]
+[gd_resource type="Resource" script_class="DialogStruct" format=3 uid="uid://d1sbe3x8bie3o"]
 
 [ext_resource type="Script" uid="uid://s4fjncmjbqsw" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_6h5kr"]
 
