@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bb4af0qfo0wqe"]
+
+[ext_resource type="Script" uid="uid://8vset05tfp8d" path="res://Assets/Scripts/Progression/Upgrades/HaniwaTurret.gd" id="1_0o55d"]
+[ext_resource type="Texture2D" uid="uid://nvg24budmhge" path="res://Assets/Textures/PlaceHolders/placeholder2.png" id="1_gdn4n"]
+[ext_resource type="PackedScene" uid="uid://dk6m4dg2jfusv" path="res://Assets/Scenes/Attacks/MayumiNormalProjectile.tscn" id="2_fsi8s"]
+
+[node name="HaniwaTurret" type="Node2D" unique_id=828429230]
+script = ExtResource("1_0o55d")
+projectile_scene = ExtResource("2_fsi8s")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=405710799]
+self_modulate = Color(0.6089424, 0.34259272, 0.2110703, 1)
+texture_filter = 1
+position = Vector2(-1.1920929e-07, 1.1920929e-07)
+scale = Vector2(0.3125, 0.3125)
+texture = ExtResource("1_gdn4n")
+
+[node name="Timer" type="Timer" parent="." unique_id=1577598051]

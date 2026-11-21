@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cawyalovdridw"]
+
+[ext_resource type="Texture2D" uid="uid://d4mllryd6mt2v" path="res://Assets/Textures/PlaceHolders/placeholder1.png" id="1_c6p25"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d3jot"]
+size = Vector2(14, 49)
+
+[node name="FirePillar" type="Area2D" unique_id=755405770]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1058403934]
+self_modulate = Color(0.81305546, 0.15491995, 0, 1)
+position = Vector2(0, -17)
+scale = Vector2(1, 3.125)
+texture = ExtResource("1_c6p25")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=966873636]
+position = Vector2(0, -16.5)
+shape = SubResource("RectangleShape2D_d3jot")
