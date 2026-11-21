@@ -20,8 +20,7 @@ const VOLLEY_ANGLES := [-30.0, -15.0, 0.0, 15.0, 30.0]
 
 
 func _ready() -> void:
-
-ability_id = AbilityIDs.Ability.DANMAKU
+	ability_id = AbilityIDs.Ability.DANMAKU
 
 func has_arrow_volley() -> bool:
 	return ability_manager.has_ability(AbilityIDs.Ability.ARROW_VOLLEY)
