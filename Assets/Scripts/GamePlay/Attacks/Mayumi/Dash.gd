@@ -17,7 +17,7 @@ var dash_effect: Node2D
 
 
 func _ready() -> void:
-	ability_id = "dash"
+	ability_id = AbilityIDs.Ability.DASH
 
 
 func activate() -> void:

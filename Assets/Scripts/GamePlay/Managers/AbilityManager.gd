@@ -1,40 +1,44 @@
 
 extends Node
 
-signal ability_unlocked(ability_id: String)
-signal ability_used(ability_id: String)
+signal ability_unlocked(ability_id: int)
+signal ability_used(ability_id: int)
 
-# For testing purposes
+# Abilities Mayumi has unlocked.
+var unlocked_abilities: Array[int] = []
+
+# Abilities currently available for use.
+var equipped_abilities: Array[int] = []
+
+
+# Temporary testing
 func _ready() -> void:
-	if get_node_or_null("/root/GameManager") != null:
-		return
+	# Basic actions
+	for ability_id in [
+		AbilityIDs.Ability.DASH,
+		AbilityIDs.Ability.ATTACK,
+		AbilityIDs.Ability.DANMAKU
+	]:
+		unlock_ability(ability_id)
+		equip_ability(ability_id)
 
-	unlock_ability("dash")
-	equip_ability("dash")
-	unlock_ability("sword_attack")
-	equip_ability("sword_attack")
-	unlock_ability("danmaku_shot")
-	equip_ability("danmaku_shot")
-	unlock_ability("haniwa_leap")
-	equip_ability("haniwa_leap")
-	unlock_ability("shattering_blow")
-	equip_ability("shattering_blow")
-	unlock_ability("haniwa_wall")
-	equip_ability("haniwa_wall")
-	unlock_ability("clay_graze")
-	equip_ability("clay_graze")
-	unlock_ability("haniwa_charge")
-	equip_ability("haniwa_charge")
-	unlock_ability("ceramic_barrage")
-	equip_ability("ceramic_barrage")
-# Abilities Mayumi has unlocked
-var unlocked_abilities: Array[String] = []
-
-# Abilities currently available for use
-var equipped_abilities: Array[String] = []
+	# Temporary: unlock all upgrades for testing.
+	for ability_id in [
+		AbilityIDs.Ability.CLAY_GRAZE,
+		AbilityIDs.Ability.HANIWA_LEAP,
+		AbilityIDs.Ability.ARROW_VOLLEY,
+		AbilityIDs.Ability.SHATTERING_BLOW,
+		AbilityIDs.Ability.HANIWA_CHARGE,
+		AbilityIDs.Ability.CERAMIC_BARRAGE,
+		AbilityIDs.Ability.HANIWA_WALL,
+		AbilityIDs.Ability.CERAMIC_SKIN,
+		AbilityIDs.Ability.HANIWA_ARMOR
+	]:
+		unlock_ability(ability_id)
+		equip_ability(ability_id)
 
 
-func unlock_ability(ability_id: String) -> void:
+func unlock_ability(ability_id: int) -> void:
 	if unlocked_abilities.has(ability_id):
 		return
 
@@ -42,7 +46,7 @@ func unlock_ability(ability_id: String) -> void:
 	ability_unlocked.emit(ability_id)
 
 
-func equip_ability(ability_id: String) -> void:
+func equip_ability(ability_id: int) -> void:
 	if not unlocked_abilities.has(ability_id):
 		return
 
@@ -52,15 +56,19 @@ func equip_ability(ability_id: String) -> void:
 	equipped_abilities.append(ability_id)
 
 
-func has_ability(ability_id: String) -> bool:
+func unequip_ability(ability_id: int) -> void:
+	equipped_abilities.erase(ability_id)
+
+
+func has_ability(ability_id: int) -> bool:
 	return unlocked_abilities.has(ability_id)
 
 
-func can_use_ability(ability_id: String) -> bool:
+func can_use_ability(ability_id: int) -> bool:
 	return equipped_abilities.has(ability_id)
 
 
-func use_ability(ability_id: String) -> void:
+func use_ability(ability_id: int) -> void:
 	if not can_use_ability(ability_id):
 		return
 
