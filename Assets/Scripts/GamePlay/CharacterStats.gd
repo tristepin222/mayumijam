@@ -1,9 +1,15 @@
+
 class_name CharacterStats
 extends Node
 
 signal died
 signal health_changed(current_health: int, max_health: int)
 signal invincibility_changed(is_active: bool)
+
+enum DamagePhase {
+	PHASE_1,
+	PHASE_2
+}
 
 @export var max_health: int = 100
 @export var armor: int = 0
@@ -12,17 +18,24 @@ signal invincibility_changed(is_active: bool)
 
 var health: int
 var is_invulnerable := false
+var immune_to_phase_one := false
 
 
 func _ready() -> void:
 	health = max_health
 
 
-func take_damage(amount: int) -> void:
+func take_damage(
+		amount: int,
+		phase: DamagePhase = DamagePhase.PHASE_1
+) -> void:
 	if health <= 0:
 		return
 
 	if is_invulnerable:
+		return
+
+	if immune_to_phase_one and phase == DamagePhase.PHASE_1:
 		return
 
 	var owner_node := get_parent()

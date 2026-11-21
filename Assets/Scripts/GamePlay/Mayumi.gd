@@ -12,6 +12,14 @@ signal physical_attack_started
 @export var stats: CharacterStats
 @export var ability_manager: Node
 
+@export_group("Ceramic Skin")
+@export var ceramic_skin_texture: Texture2D
+
+@onready var sprite: Sprite2D = $Sprite2D
+
+var ceramic_skin_unlocked := false
+
+
 var facing_direction: float = 1.0
 
 var is_grazing_projectiles: bool = false
@@ -40,6 +48,9 @@ func _ready() -> void:
 	haniwa_charge = $Abilities/HaniwaCharge as PlayerAbility
 	ceramic_barrage = $Abilities/CeramicBarrage as PlayerAbility
 	
+	
+	# Testing
+	unlock_haniwa_armor()
 	# Give every ability its references.
 	for ability in $Abilities.get_children():
 		if ability is PlayerAbility:
@@ -116,3 +127,13 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ceramic_barrage"):
 		if ceramic_barrage != null:
 			ceramic_barrage.activate()
+			
+func unlock_ceramic_skin() -> void:
+	ceramic_skin_unlocked = true
+
+	if ceramic_skin_texture != null:
+		sprite.texture = ceramic_skin_texture
+		
+func unlock_haniwa_armor() -> void:
+	stats.immune_to_phase_one = true
+	print("Haniwa Armor unlocked!")

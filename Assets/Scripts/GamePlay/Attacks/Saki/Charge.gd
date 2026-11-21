@@ -140,7 +140,7 @@ func _damage_player() -> void:
 	var player_stats := player.get_node_or_null("Stats") as CharacterStats
 
 	if player_stats != null:
-		player_stats.take_damage(damage)
+		player_stats.take_damage(damage, CharacterStats.DamagePhase.PHASE_2)
 
 
 func _spawn_charge_effect(direction: float) -> void:

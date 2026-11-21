@@ -140,6 +140,7 @@ script = ExtResource("12_n6qn5")
 [node name="HaniwaWall" type="Node" parent="Mayumi/Abilities" unique_id=229741347]
 script = ExtResource("13_vvat7")
 wall_scene = ExtResource("14_o8gpp")
+wall_offset = Vector2(15, 0)
 
 [node name="ClayGraze" type="Node" parent="Mayumi/Abilities" unique_id=1668782540]
 script = ExtResource("15_j4hlk")
