@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ctluma4iimvha"]
 
 [ext_resource type="Texture2D" uid="uid://bhicqpoxxj2op" path="res://Fight_background/Layer_0.jpg" id="1_vndcc"]
+[ext_resource type="Texture2D" uid="uid://3k1d5ps8eyxm" path="res://Kiln_garden/Fire/Fire_tex_1.png" id="2_1wb3m"]
 [ext_resource type="Texture2D" uid="uid://wmmllhn540qj" path="res://Fight_background/Skyscrapers.png" id="2_tgwit"]
 [ext_resource type="Texture2D" uid="uid://bkwf7rtuourc7" path="res://Fight_background/Back_trees.png" id="3_1kion"]
 [ext_resource type="Texture2D" uid="uid://d2k7v5dipbtyo" path="res://Fight_background/Water.png" id="4_1wb3m"]
@@ -11,6 +12,57 @@
 [ext_resource type="Texture2D" uid="uid://cdjfecltc7n3a" path="res://Fight_background/Reflection.png" id="7_1wb3m"]
 [ext_resource type="Texture2D" uid="uid://b4vmm8mept1gg" path="res://Fight_background/ClayMayumi_Test.png" id="7_6dqeo"]
 [ext_resource type="Texture2D" uid="uid://ux2q4y2ufy6b" path="res://Fight_background/Front Bushes.png" id="8_ue6x0"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_k5oav"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_ra7he"]
+offsets = PackedFloat32Array(0, 0.46804512, 1)
+colors = PackedColorArray(1, 0.375, 0, 1, 0.9625, 0.84872943, 0.4271094, 1, 0.18437499, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3ahog"]
+gradient = SubResource("Gradient_ra7he")
+
+[sub_resource type="Gradient" id="Gradient_l5lyv"]
+offsets = PackedFloat32Array(0, 0.18984963, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0.75625, 0.03544922, 0.03544922, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_w4mfu"]
+gradient = SubResource("Gradient_l5lyv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ty0te"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(600, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+spread = 91.933
+initial_velocity_min = -30.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, -3, 0)
+color = Color(1, 1, 1, 0.5529412)
+color_ramp = SubResource("GradientTexture1D_w4mfu")
+color_initial_ramp = SubResource("GradientTexture1D_3ahog")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ge8tr"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6dqeo"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(600, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+spread = 91.933
+initial_velocity_min = -30.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, -3, 0)
+scale_min = 0.0
+scale_max = 0.35
+color = Color(1, 1, 1, 0.5529412)
+color_ramp = SubResource("GradientTexture1D_w4mfu")
+color_initial_ramp = SubResource("GradientTexture1D_3ahog")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w4mfu"]
 shader = ExtResource("5_vndcc")
@@ -54,8 +106,8 @@ shader_parameter/sinpowder = 8.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ty0te"]
 shader = ExtResource("6_1kion")
-shader_parameter/amplitude_x = 0.020000007469770015
-shader_parameter/amplitude_y = 6.5197700016561555e-09
+shader_parameter/amplitude_x = 0.02000000746977001
+shader_parameter/amplitude_y = 6.519770001656155e-09
 shader_parameter/frequency = 7.5
 shader_parameter/speed = 0.9300002816750004
 shader_parameter/overlay_color = Color(1, 1, 1, 1)
@@ -83,6 +135,27 @@ color = Color(0.25, 0.25, 0.25, 1)
 [node name="Layer_0" type="Sprite2D" parent="Background" unique_id=691836885]
 texture = ExtResource("1_vndcc")
 centered = false
+
+[node name="Bg_particle_fahter" type="Node2D" parent="Background" unique_id=491400076]
+position = Vector2(618.1818, 348.6631)
+scale = Vector2(1.0695187, 1.0695187)
+
+[node name="Bg_particles" type="GPUParticles2D" parent="Background/Bg_particle_fahter" unique_id=1274936958]
+modulate = Color(1, 1, 1, 0.52156866)
+material = SubResource("CanvasItemMaterial_k5oav")
+position = Vector2(0, -1)
+texture = ExtResource("2_1wb3m")
+lifetime = 19.610000000000003
+process_material = SubResource("ParticleProcessMaterial_ty0te")
+
+[node name="Bg_particles2" type="GPUParticles2D" parent="Background/Bg_particle_fahter" unique_id=1865577245]
+modulate = Color(0, 0, 0, 0.52156866)
+material = SubResource("CanvasItemMaterial_ge8tr")
+position = Vector2(0, -1)
+amount = 2
+texture = ExtResource("2_1wb3m")
+lifetime = 19.610000000000003
+process_material = SubResource("ParticleProcessMaterial_6dqeo")
 
 [node name="Skyscrapers" type="Sprite2D" parent="Background" unique_id=1034382080]
 position = Vector2(0, 27.807487)
@@ -140,7 +213,7 @@ centered = false
 position = Vector2(656.6845, 118.71657)
 scale = Vector2(1.0695187, 1.0695187)
 color = Color(0.97877026, 0.35549772, 0.35549772, 1)
-energy = 1.6
+energy = 1.28
 texture = SubResource("GradientTexture2D_ty0te")
 texture_scale = 26.09
 
