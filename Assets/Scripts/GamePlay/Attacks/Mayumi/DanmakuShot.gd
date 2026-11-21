@@ -10,10 +10,12 @@ extends PlayerAbility
 
 @export_group("Attack")
 @export var cooldown: float = 0.5
+@export var volley_charge_time: float = 0.4
 
 var can_shoot := true
 var arrow_volley_unlocked := false
 var is_charging := false
+var charge_started_at := 0.0
 
 const VOLLEY_ANGLES := [-30.0, -15.0, 0.0, 15.0, 30.0]
 
@@ -38,6 +40,7 @@ func start_charge() -> void:
 
 	is_charging = true
 	can_shoot = false
+	charge_started_at = Time.get_ticks_msec() / 1000.0
 
 	print("Charging Arrow Volley...")
 
@@ -51,15 +54,20 @@ func release_charge() -> void:
 
 	ability_manager.use_ability(ability_id)
 
-	for angle in VOLLEY_ANGLES:
-		var direction := Vector2(
-			mayumi.facing_direction,
-			0.0
-		).rotated(deg_to_rad(angle))
+	var held_time := Time.get_ticks_msec() / 1000.0 - charge_started_at
 
-		_spawn_projectile(direction)
+	if held_time >= volley_charge_time:
+		for angle in VOLLEY_ANGLES:
+			var direction := Vector2(
+				mayumi.facing_direction,
+				0.0
+			).rotated(deg_to_rad(angle))
 
-	print("Mayumi fired Arrow Volley!")
+			_spawn_projectile(direction)
+
+		print("Mayumi fired Arrow Volley!")
+	else:
+		_spawn_projectile(Vector2(mayumi.facing_direction, 0.0))
 
 	await get_tree().create_timer(cooldown).timeout
 

@@ -6,6 +6,9 @@ signal ability_used(ability_id: String)
 
 # For testing purposes
 func _ready() -> void:
+	if get_node_or_null("/root/GameManager") != null:
+		return
+
 	unlock_ability("dash")
 	equip_ability("dash")
 	unlock_ability("sword_attack")

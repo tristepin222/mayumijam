@@ -47,19 +47,19 @@ func _ready() -> void:
 	haniwa_wall = $Abilities/HaniwaWall as PlayerAbility
 	haniwa_charge = $Abilities/HaniwaCharge as PlayerAbility
 	ceramic_barrage = $Abilities/CeramicBarrage as PlayerAbility
-	
-	
-	# Testing
-	unlock_haniwa_armor()
+
 	# Give every ability its references.
 	for ability in $Abilities.get_children():
 		if ability is PlayerAbility:
 			ability.setup(self, ability_manager)
 
+	var game_manager = get_node_or_null("/root/GameManager")
+
+	if game_manager != null:
+		game_manager.apply_to_mayumi(self)
+
 
 func _process(_delta: float) -> void:
-	var sprite := $Sprite2D as CanvasItem
-
 	if stats != null and stats.is_invulnerable:
 		sprite.visible = int(Time.get_ticks_msec() / 80.0) % 2 == 0
 	else:

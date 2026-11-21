@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 @export var title_text: String = "YOU DIED"
-@export var button_text: String = "Try Again"
+@export var button_text: String = "Continue"
 @export var title_color: Color = Color(0.75, 0.1, 0.1)
 @export var fade_time: float = 0.6
 
@@ -61,6 +61,19 @@ func show_screen() -> void:
 	retry_button.grab_focus()
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if root != null and root.visible and event.is_action_pressed("attack"):
+		get_viewport().set_input_as_handled()
+		_on_retry_pressed()
+
+
 func _on_retry_pressed() -> void:
 	get_tree().paused = false
+
+	var game_manager = get_node_or_null("/root/GameManager")
+
+	if game_manager != null:
+		game_manager.continue_after_death()
+		return
+
 	get_tree().reload_current_scene()

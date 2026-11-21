@@ -34,14 +34,16 @@
 [ext_resource type="PackedScene" uid="uid://bb4af0qfo0wqe" path="res://Assets/Scenes/Attacks/HaniwaTurret.tscn" id="18_qlpbw"]
 [ext_resource type="PackedScene" uid="uid://cs0dqrspfru0a" path="res://Assets/Scenes/Attacks/Charge.tscn" id="19_m63yu"]
 [ext_resource type="Script" uid="uid://do1fayi52pml5" path="res://Assets/Scripts/GamePlay/Attacks/Saki/Unleash.gd" id="20_m63yu"]
-[ext_resource type="Script" path="res://Assets/Scripts/Presentation/HeartHUD.gd" id="21_hrthud"]
-[ext_resource type="Texture2D" path="res://Assets/Textures/UI/heart_full.png" id="22_hrtful"]
-[ext_resource type="Texture2D" path="res://Assets/Textures/UI/heart_empty.png" id="23_hrtemp"]
-[ext_resource type="Script" path="res://Assets/Scripts/Presentation/DeathScreen.gd" id="24_dthscr"]
-[ext_resource type="Script" path="res://Assets/Scripts/Presentation/HitboxIndicator.gd" id="25_hbind"]
-[ext_resource type="Script" path="res://Assets/Scripts/Presentation/BossHealthBar.gd" id="26_bosshp"]
-[ext_resource type="Script" path="res://Assets/Scripts/GamePlay/Attacks/Saki/DanmakuRain.gd" id="27_rain"]
+[ext_resource type="Script" uid="uid://4xlki2qfida7" path="res://Assets/Scripts/Presentation/HeartHUD.gd" id="21_hrthud"]
+[ext_resource type="Texture2D" uid="uid://c0nje54dlsf08" path="res://Assets/Textures/UI/heart_full.png" id="22_hrtful"]
+[ext_resource type="Texture2D" uid="uid://b42pa7o0v5q1j" path="res://Assets/Textures/UI/heart_empty.png" id="23_hrtemp"]
+[ext_resource type="Script" uid="uid://dwdoaibo5tvhw" path="res://Assets/Scripts/Presentation/DeathScreen.gd" id="24_dthscr"]
+[ext_resource type="Script" uid="uid://biat3fv0h4nke" path="res://Assets/Scripts/Presentation/HitboxIndicator.gd" id="25_hbind"]
+[ext_resource type="Script" uid="uid://vujtnx8eybhj" path="res://Assets/Scripts/Presentation/BossHealthBar.gd" id="26_bosshp"]
+[ext_resource type="Script" uid="uid://jrtfbpuabm8c" path="res://Assets/Scripts/GamePlay/Attacks/Saki/DanmakuRain.gd" id="27_rain"]
 [ext_resource type="PackedScene" path="res://Assets/Scenes/Attacks/FallingProjectile.tscn" id="28_fallproj"]
+[ext_resource type="PackedScene" uid="uid://b63itlfh4h81t" path="res://Assets/Scenes/UI/canvas_dialog.tscn" id="29_dialog"]
+[ext_resource type="PackedScene" uid="uid://ctluma4iimvha" path="res://Fight_background/fight_scene.tscn" id="30_fightbg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3jot"]
 radius = 5.0
@@ -51,7 +53,6 @@ height = 20.0
 size = Vector2(15.673066, 5.9975977)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3tbxw"]
-radius = 10.0
 height = 40.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e3m3f"]
@@ -69,9 +70,18 @@ size = Vector2(20, 600)
 
 [node name="Main" type="Node2D" unique_id=1897727636]
 
-[node name="CombatManager" type="Node" parent="." unique_id=528690416 node_paths=PackedStringArray("death_screen")]
+[node name="FightBackground" parent="." unique_id=1739204627 instance=ExtResource("30_fightbg")]
+z_index = -10
+position = Vector2(-143.4, -142.5)
+scale = Vector2(0.2925, 0.2925)
+
+[node name="Clay_Mayumi_test" parent="FightBackground/Background" parent_id_path=PackedInt32Array(1739204627, 1114450279) index="8" unique_id=976556951]
+visible = false
+
+[node name="CombatManager" type="Node" parent="." unique_id=528690416 node_paths=PackedStringArray("death_screen", "dialog_player")]
 script = ExtResource("1_q3ddj")
 death_screen = NodePath("../DeathScreen")
+dialog_player = NodePath("../canvas_dialog")
 
 [node name="AbilityManager" type="Node" parent="." unique_id=356071509]
 script = ExtResource("2_f7n17")
@@ -127,8 +137,8 @@ slash_effect_scene = ExtResource("19_m63yu")
 
 [node name="DanmakuShot" type="Node" parent="Mayumi/Abilities" unique_id=1871456898]
 script = ExtResource("9_de2dd")
-projectile_damage = 1
 projectile_scene = ExtResource("10_ms20m")
+projectile_damage = 1
 
 [node name="HaniwaLeap" type="Node" parent="Mayumi/Abilities" unique_id=677142378]
 script = ExtResource("11_ms20m")
@@ -189,17 +199,17 @@ player = NodePath("../../Mayumi")
 
 [node name="Dive" type="Node" parent="Saki/AttackManager" unique_id=851875782]
 script = ExtResource("10_huwrf")
+recovery_time = 0.9
+dive_damage = 1
 warning_scene = ExtResource("12_44cpq")
 warning_ground_offset = 20.0
-dive_damage = 1
-recovery_time = 0.9
 
 [node name="TectonicPush" type="Node" parent="Saki/AttackManager" unique_id=619154468]
 script = ExtResource("11_7y1lw")
 warning_scene = ExtResource("12_44cpq")
 fire_pillar_scene = ExtResource("13_o45r6")
-ground_offset = 20.0
 damage = 1
+ground_offset = 20.0
 
 [node name="ComebackDanmaku" type="Node" parent="Saki/AttackManager" unique_id=1771453326]
 script = ExtResource("14_44cpq")
@@ -212,8 +222,8 @@ outward_distance = 260.0
 [node name="NormalDanmaku" type="Node" parent="Saki/AttackManager" unique_id=1190365927]
 script = ExtResource("16_je2ki")
 projectile_scene = ExtResource("17_6rn6g")
-projectile_damage = 1
 projectile_speed = 260.0
+projectile_damage = 1
 projectile_count = 4
 spread_angle = 36.0
 volley_count = 4
@@ -221,9 +231,9 @@ volley_interval = 0.4
 
 [node name="Charge" type="Node" parent="Saki/AttackManager" unique_id=568658001]
 script = ExtResource("18_48i8a")
-charge_effect_scene = ExtResource("19_m63yu")
 damage = 1
 charge_speed = 550.0
+charge_effect_scene = ExtResource("19_m63yu")
 
 [node name="Unleash" type="Node" parent="Saki/AttackManager" unique_id=1862931222 node_paths=PackedStringArray("arena_center")]
 script = ExtResource("20_m63yu")
@@ -262,12 +272,13 @@ physics_material_override = SubResource("PhysicsMaterial_d3jot")
 shape = SubResource("RectangleShape2D_d3jot")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1736950915]
+visible = false
 texture_filter = 1
 scale = Vector2(20.877419, 1.150468)
 texture = ExtResource("7_mnw02")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=659018376]
-position = Vector2(25, -58)
+position = Vector2(25, -47.8)
 zoom = Vector2(3.42, 3.42)
 
 [node name="AreaCenter" type="Marker2D" parent="." unique_id=327517546]
@@ -297,3 +308,7 @@ script = ExtResource("24_dthscr")
 [node name="BossHealthBar" type="CanvasLayer" parent="." unique_id=1739204624 node_paths=PackedStringArray("boss_stats")]
 script = ExtResource("26_bosshp")
 boss_stats = NodePath("../Saki/Stats")
+
+[node name="canvas_dialog" parent="." unique_id=1739204626 instance=ExtResource("29_dialog")]
+
+[editable path="FightBackground"]
