@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://btpxd42oxjok2" path="res://Assets/Scripts/GamePlay/Saki.gd" id="5_14mar"]
 [ext_resource type="PackedScene" uid="uid://drinddmha3lwl" path="res://Mayumi/mayumi.tscn" id="5_osno1"]
 [ext_resource type="Script" uid="uid://dmkbxn8yfr6lt" path="res://Assets/Scripts/GamePlay/Attacks/Mayumi/Dash.gd" id="6_hggb1"]
-[ext_resource type="Texture2D" uid="uid://dntnxpgg4exwq" path="res://Assets/Textures/PlaceHolders/placeholder3.png" id="6_huwrf"]
 [ext_resource type="Texture2D" uid="uid://d4mllryd6mt2v" path="res://Assets/Textures/PlaceHolders/placeholder1.png" id="7_mnw02"]
 [ext_resource type="Script" uid="uid://du7gfp6p6nxgq" path="res://Assets/Scripts/GamePlay/BossAI.gd" id="8_f7n17"]
 [ext_resource type="Script" uid="uid://d2t2vtkx2y6re" path="res://Assets/Scripts/GamePlay/Attacks/Mayumi/SwordAttack.gd" id="8_ja1hb"]
@@ -37,6 +36,7 @@
 [ext_resource type="Script" uid="uid://4xlki2qfida7" path="res://Assets/Scripts/Presentation/HeartHUD.gd" id="21_hrthud"]
 [ext_resource type="Texture2D" uid="uid://c0nje54dlsf08" path="res://Assets/Textures/UI/heart_full.png" id="22_hrtful"]
 [ext_resource type="Texture2D" uid="uid://b42pa7o0v5q1j" path="res://Assets/Textures/UI/heart_empty.png" id="23_hrtemp"]
+[ext_resource type="PackedScene" uid="uid://cfjrjkgm38lqi" path="res://Saki_Animations/Saki_animation.tscn" id="23_osno1"]
 [ext_resource type="Script" uid="uid://dwdoaibo5tvhw" path="res://Assets/Scripts/Presentation/DeathScreen.gd" id="24_dthscr"]
 [ext_resource type="Script" uid="uid://biat3fv0h4nke" path="res://Assets/Scripts/Presentation/HitboxIndicator.gd" id="25_hbind"]
 [ext_resource type="Script" uid="uid://vujtnx8eybhj" path="res://Assets/Scripts/Presentation/BossHealthBar.gd" id="26_bosshp"]
@@ -176,10 +176,10 @@ script = ExtResource("5_14mar")
 move_speed = 110.0
 stats = NodePath("Stats")
 
-[node name="Sprite2D" type="Sprite2D" parent="Saki" unique_id=1841726842]
-texture_filter = 1
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("6_huwrf")
+[node name="Saki" parent="Saki" unique_id=598206410 node_paths=PackedStringArray("mayumi") instance=ExtResource("23_osno1")]
+position = Vector2(0, -22.000002)
+scale = Vector2(0.1, 0.1)
+mayumi = NodePath("../../Mayumi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Saki" unique_id=373094186]
 shape = SubResource("CapsuleShape2D_3tbxw")

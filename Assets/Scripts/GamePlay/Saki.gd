@@ -13,6 +13,7 @@ extends CharacterBody2D
 var move_direction: float = 0.0
 var defeated := false
 
+var is_jumping := false
 var is_cracked := false
 var is_staggered := false
 var stagger_timer := 0.0
@@ -54,7 +55,10 @@ func set_move_direction(direction: float) -> void:
 
 func jump() -> void:
 	if is_on_floor() and not defeated:
+		is_jumping = true
+		await get_tree().create_timer(1.0).timeout
 		velocity.y = jump_velocity
+		is_jumping = false
 
 
 func _on_defeated() -> void:
