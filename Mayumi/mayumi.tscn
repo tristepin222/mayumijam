@@ -5304,54 +5304,35 @@ animation = &"Danmaku"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_86xov"]
 animation = &"Dash"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_17ur0"]
-animation = &"Idle"
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e2eie"]
 animation = &"Jump"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pq7nm"]
 animation = &"Jump_Atack"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ts2k1"]
-animation = &"Run"
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pbfni"]
 animation = &"Sword Atack"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_86xov"]
-advance_mode = 2
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_17ur0"]
+animation = &"Idle"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e2eie"]
-advance_mode = 2
-advance_condition = &"run"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ts2k1"]
+animation = &"Run"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pq7nm"]
-advance_mode = 2
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bd4m7"]
+animation = &"Run"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bd4m7"]
-advance_mode = 2
-advance_condition = &"dash"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6irl6"]
-advance_mode = 2
-advance_condition = &"dash"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ownpp"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p66f8"]
-advance_mode = 2
-advance_condition = &"jump"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1nluj"]
-advance_mode = 2
-advance_condition = &"jump"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cviph"]
-advance_mode = 2
-advance_condition = &"grounded"
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_6irl6"]
+blend_mode = 1
+blend_point_0/node = SubResource("AnimationNodeAnimation_17ur0")
+blend_point_0/pos = 0.0
+blend_point_0/name = &"Idle"
+blend_point_1/node = SubResource("AnimationNodeAnimation_ts2k1")
+blend_point_1/pos = 1.0
+blend_point_1/name = &"Run"
+blend_point_2/node = SubResource("AnimationNodeAnimation_bd4m7")
+blend_point_2/pos = -1.0
+blend_point_2/name = &"Run 2"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yc6fh"]
 advance_mode = 2
@@ -5362,49 +5343,58 @@ reset = false
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dflvq"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t3el0"]
 advance_mode = 2
-advance_condition = &"attack"
+advance_condition = &"dash"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fpgu5"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_17ur0"]
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2mjxh"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ts2k1"]
+advance_mode = 2
+advance_condition = &"jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_86xov"]
+advance_mode = 2
+advance_condition = &"grounded"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e2eie"]
 advance_mode = 2
 advance_condition = &"attack"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hsv23"]
-advance_mode = 2
-advance_condition = &"danmaku"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8njga"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pq7nm"]
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7gte0"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pbfni"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bd4m7"]
 advance_mode = 2
 advance_condition = &"danmaku"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6irl6"]
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tamiu"]
 states/Danmaku/node = SubResource("AnimationNodeAnimation_t3el0")
 states/Danmaku/position = Vector2(58.77774, 86.5679)
 states/Dash/node = SubResource("AnimationNodeAnimation_86xov")
-states/Dash/position = Vector2(119.18652, -146.48926)
+states/Dash/position = Vector2(145.8532, -23.155922)
 states/End/position = Vector2(872.6667, 122.96297)
-states/Idle/node = SubResource("AnimationNodeAnimation_17ur0")
-states/Idle/position = Vector2(302.66666, 86.22222)
 states/Jump/node = SubResource("AnimationNodeAnimation_e2eie")
-states/Jump/position = Vector2(515.20575, -154.17072)
+states/Jump/position = Vector2(466.53906, -11.125375)
 states/Jump_Atack/node = SubResource("AnimationNodeAnimation_pq7nm")
-states/Jump_Atack/position = Vector2(563, -0.77747726)
-states/Run/node = SubResource("AnimationNodeAnimation_ts2k1")
-states/Run/position = Vector2(301.5926, -45.510292)
-states/Start/position = Vector2(303.53635, 199.80246)
+states/Jump_Atack/position = Vector2(677.6667, -11.898297)
+states/Start/position = Vector2(282.06766, 199.80246)
 "states/Sword Atack/node" = SubResource("AnimationNodeAnimation_pbfni")
-"states/Sword Atack/position" = Vector2(574, 86.14814)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_86xov"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_e2eie"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_pq7nm"), "Run", "Dash", SubResource("AnimationNodeStateMachineTransition_bd4m7"), "Idle", "Dash", SubResource("AnimationNodeStateMachineTransition_6irl6"), "Dash", "Idle", SubResource("AnimationNodeStateMachineTransition_ownpp"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_p66f8"), "Run", "Jump", SubResource("AnimationNodeStateMachineTransition_1nluj"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_cviph"), "Jump", "Jump_Atack", SubResource("AnimationNodeStateMachineTransition_yc6fh"), "Jump_Atack", "Jump", SubResource("AnimationNodeStateMachineTransition_1wl8t"), "Run", "Sword Atack", SubResource("AnimationNodeStateMachineTransition_dflvq"), "Sword Atack", "Idle", SubResource("AnimationNodeStateMachineTransition_fpgu5"), "Idle", "Sword Atack", SubResource("AnimationNodeStateMachineTransition_2mjxh"), "Idle", "Danmaku", SubResource("AnimationNodeStateMachineTransition_hsv23"), "Danmaku", "Idle", SubResource("AnimationNodeStateMachineTransition_8njga"), "Run", "Danmaku", SubResource("AnimationNodeStateMachineTransition_7gte0")]
-graph_offset = Vector2(79, -112)
+"states/Sword Atack/position" = Vector2(574, 86.42798)
+states/idle-run/node = SubResource("AnimationNodeBlendSpace1D_6irl6")
+states/idle-run/position = Vector2(282.66666, 87.58848)
+transitions = ["Jump", "Jump_Atack", SubResource("AnimationNodeStateMachineTransition_yc6fh"), "Jump_Atack", "Jump", SubResource("AnimationNodeStateMachineTransition_1wl8t"), "idle-run", "Dash", SubResource("AnimationNodeStateMachineTransition_t3el0"), "Dash", "idle-run", SubResource("AnimationNodeStateMachineTransition_17ur0"), "idle-run", "Jump", SubResource("AnimationNodeStateMachineTransition_ts2k1"), "Jump", "idle-run", SubResource("AnimationNodeStateMachineTransition_86xov"), "idle-run", "Sword Atack", SubResource("AnimationNodeStateMachineTransition_e2eie"), "Sword Atack", "idle-run", SubResource("AnimationNodeStateMachineTransition_pq7nm"), "Danmaku", "idle-run", SubResource("AnimationNodeStateMachineTransition_pbfni"), "idle-run", "Danmaku", SubResource("AnimationNodeStateMachineTransition_bd4m7"), "Start", "idle-run", SubResource("AnimationNodeStateMachineTransition_6irl6")]
+graph_offset = Vector2(-61.924103, -94)
 
 [node name="Mayumi" type="Node2D" unique_id=152641368]
 script = ExtResource("1_t3el0")
@@ -5710,7 +5700,7 @@ scale = Vector2(0.9999999, 0.9999999)
 rest = Transform2D(-0.85264, -0.5224986, 0.5224986, -0.85264, 18.989998, 5.285816)
 auto_calculate_length_and_angle = false
 length = 23.917318
-bone_angle = 104.59998
+bone_angle = 104.59997
 
 [node name="Bone2D_2" type="Bone2D" parent="Sprites/Jiggle_HairSystem/Main_hair/Bone2D_0/Bone2D_1" unique_id=1585765945]
 position = Vector2(-17.861868, 15.905715)
@@ -5740,7 +5730,7 @@ rest = Transform2D(0.5591924, 0.82903683, -0.82903683, 0.5591924, 23, -263)
 
 [node name="GhostBone2D_1" type="Bone2D" parent="Sprites/Jiggle_HairSystem/Main_hair/GhostBone2D_0" unique_id=619265652]
 position = Vector2(20.514624, 1.7750986)
-rotation = -0.2094395
+rotation = -0.20943953
 scale = Vector2(0.9999987, 0.9999987)
 rest = Transform2D(0.9781463, -0.20791139, 0.20791139, 0.9781463, 20.514624, 1.7750986)
 metadata/_local_pose_override_enabled_ = true
@@ -5766,5 +5756,5 @@ parameters/conditions/danmaku = false
 parameters/conditions/dash = false
 parameters/conditions/grounded = false
 parameters/conditions/jump = false
-parameters/conditions/run = false
+parameters/idle-run/blend_position = 0.0
 script = ExtResource("39_t3el0")

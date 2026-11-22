@@ -1,5 +1,6 @@
 
 extends CharacterBody2D
+class_name Mayumi
 
 signal physical_attack_started
 
