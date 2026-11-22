@@ -14,7 +14,7 @@ signal physical_attack_started
 @export var ability_manager: Node
 
 @export_group("Ceramic Skin")
-@export var ceramic_skin_texture: Texture2D
+@export var ceramic_skin_proxy: CeramicSkinProxy
 
 @onready var sprite: Sprite2D = $Sprite2D
 
@@ -66,6 +66,7 @@ func _ready() -> void:
 
 	if game_manager != null:
 		game_manager.apply_to_mayumi(self)
+	
 
 func _process(_delta: float) -> void:
 	if stats != null and stats.is_invulnerable:
@@ -157,10 +158,10 @@ func apply_upgrade(ability_id: int) -> void:
 func unlock_ceramic_skin() -> void:
 	ceramic_skin_unlocked = true
 
-	if ceramic_skin_texture != null:
-		sprite.texture = ceramic_skin_texture
+	if ceramic_skin_proxy != null:
+		ceramic_skin_proxy.apply_ceramic_skin()
 	else:
-		push_warning("Ceramic Skin: No alternate texture assigned.")
+		push_warning("Mayumi: Ceramic Skin Proxy not assigned.")
 
 
 func unlock_haniwa_armor() -> void:

@@ -1,11 +1,10 @@
 [gd_scene format=3 uid="uid://drinddmha3lwl"]
 
+[ext_resource type="Script" uid="uid://jcupgrnnxqte" path="res://Assets/Scripts/Progression/Upgrades/CeramicSkinProxy.gd" id="1_up6cy"]
 [ext_resource type="Texture2D" uid="uid://cdgakvcxnvk5q" path="res://Mayumi/Clay Mayumi Body parts/Clay_Behind_Hairlocks.png" id="2_t3el0"]
 [ext_resource type="Texture2D" uid="uid://cridicgwf76y4" path="res://Mayumi/Ghost Mayumi bodyparts/Ghost_Behind_Hairlocks.png" id="3_17ur0"]
 [ext_resource type="Texture2D" uid="uid://d1o5p4n185tux" path="res://Mayumi/Clay Mayumi Body parts/Clay_LeftBicep.png" id="4_ts2k1"]
-[ext_resource type="Texture2D" uid="uid://bds7wyd3xv46r" path="res://Mayumi/Ghost Mayumi bodyparts/Ghost_LeftBicep.png" id="5_86xov"]
 [ext_resource type="Texture2D" uid="uid://cgnx4gnkewvva" path="res://Mayumi/Clay Mayumi Body parts/Clay_LeftForearm.png" id="6_e2eie"]
-[ext_resource type="Texture2D" uid="uid://dar4jb0y2b5qr" path="res://Mayumi/Ghost Mayumi bodyparts/Ghost_LeftForearm.png" id="7_pq7nm"]
 [ext_resource type="Texture2D" uid="uid://b07jl2xcmi0ea" path="res://Mayumi/Clay Mayumi Body parts/Clay_LeftFingers.png" id="8_pbfni"]
 [ext_resource type="Texture2D" uid="uid://dahjhuhp5sqi6" path="res://Mayumi/Ghost Mayumi bodyparts/Ghost_LeftFingers.png" id="9_bd4m7"]
 [ext_resource type="Texture2D" uid="uid://dpjlpjq3hhkaq" path="res://Mayumi/Clay Mayumi Body parts/Clay_RightThigh.png" id="10_6irl6"]
@@ -5395,7 +5394,13 @@ states/idle-run/position = Vector2(282.66666, 87.58848)
 transitions = ["Jump", "Jump_Atack", SubResource("AnimationNodeStateMachineTransition_yc6fh"), "Jump_Atack", "Jump", SubResource("AnimationNodeStateMachineTransition_1wl8t"), "idle-run", "Dash", SubResource("AnimationNodeStateMachineTransition_t3el0"), "Dash", "idle-run", SubResource("AnimationNodeStateMachineTransition_17ur0"), "idle-run", "Jump", SubResource("AnimationNodeStateMachineTransition_ts2k1"), "Jump", "idle-run", SubResource("AnimationNodeStateMachineTransition_86xov"), "idle-run", "Sword Atack", SubResource("AnimationNodeStateMachineTransition_e2eie"), "Sword Atack", "idle-run", SubResource("AnimationNodeStateMachineTransition_pq7nm"), "Danmaku", "idle-run", SubResource("AnimationNodeStateMachineTransition_pbfni"), "idle-run", "Danmaku", SubResource("AnimationNodeStateMachineTransition_bd4m7"), "Start", "idle-run", SubResource("AnimationNodeStateMachineTransition_6irl6")]
 graph_offset = Vector2(-61.924103, -94)
 
-[node name="Mayumi" type="Node2D" unique_id=152641368]
+[node name="Mayumi" type="Node2D" unique_id=152641368 node_paths=PackedStringArray("sprites_to_replace", "polygons_to_replace", "sprites_to_remove_shader")]
+script = ExtResource("1_up6cy")
+sprites_to_replace = [NodePath("Sprites/LeftArm_container/LeftBicep/LeftBicep_ghost"), NodePath("Sprites/LeftArm_container/LeftBicep/LeftForearm/LeftForearm_ghost"), NodePath("Sprites/LeftArm_container/LeftBicep/LeftForearm/LetfFingers/LetfFingers_ghost"), NodePath("Sprites/RightLeg/RightLeg_ghost"), NodePath("Sprites/RightLeg/RgightFoot/RgightFoot_ghost"), NodePath("Sprites/LeftLeg/LeftLeg_ghost"), NodePath("Sprites/LeftLeg/LeftFoot/LeftFoot_ghost"), NodePath("Sprites/UpperBody/UpperBody_ghost"), NodePath("Sprites/UpperBody/LowerBody/LowerBody_ghost"), NodePath("Sprites/Head/Head_ghost"), NodePath("Sprites/Head/Face_ghost"), NodePath("Sprites/LeftRibbon/LeftRibbon_ghost"), NodePath("Sprites/RightRibbon/RightRibbon_ghost"), NodePath("Sprites/Right_ArmContainer/RightBicep/RightBicep_ghost"), NodePath("Sprites/Right_ArmContainer/RightBicep/RightForearm/RightForearm_ghost"), NodePath("Sprites/Right_ArmContainer/RightBicep/RightForearm/Sword/Sword_ghost")]
+ceramic_textures = Array[Texture2D]([ExtResource("4_ts2k1"), ExtResource("6_e2eie"), ExtResource("8_pbfni"), ExtResource("10_6irl6"), ExtResource("12_p66f8"), ExtResource("14_cviph"), ExtResource("16_1wl8t"), ExtResource("17_dflvq"), ExtResource("19_2mjxh"), ExtResource("21_8njga"), ExtResource("24_xrjee"), ExtResource("25_v54no"), ExtResource("28_7hyhd"), ExtResource("32_cskxw"), ExtResource("34_kkjhw"), ExtResource("36_rfdo7")])
+polygons_to_replace = [NodePath("Sprites/HairLocks/HairLocks_ghost"), NodePath("Sprites/Hair/Hair_ghost")]
+ceramic_polygon_textures = Array[Texture2D]([ExtResource("2_t3el0"), ExtResource("30_eul6h")])
+sprites_to_remove_shader = [NodePath("Sprites/LeftRibbon/LeftRibbon_ghost"), NodePath("Sprites/RightRibbon/RightRibbon_ghost"), NodePath("Sprites/Right_ArmContainer/RightBicep/RightForearm/Sword/Sword_ghost")]
 
 [node name="Sprites" type="Node2D" parent="." unique_id=1678846814]
 position = Vector2(0, 246)
@@ -5432,7 +5437,7 @@ texture = ExtResource("4_ts2k1")
 offset = Vector2(10.005, 20.905)
 
 [node name="LeftBicep_ghost" type="Sprite2D" parent="Sprites/LeftArm_container/LeftBicep" unique_id=2111309900 groups=["Ghost"]]
-texture = ExtResource("5_86xov")
+texture = ExtResource("4_ts2k1")
 offset = Vector2(10.005, 20.905)
 
 [node name="LeftForearm" type="Node2D" parent="Sprites/LeftArm_container/LeftBicep" unique_id=1055197501]
@@ -5446,7 +5451,7 @@ offset = Vector2(11.285, 16.825)
 
 [node name="LeftForearm_ghost" type="Sprite2D" parent="Sprites/LeftArm_container/LeftBicep/LeftForearm" unique_id=1957111537 groups=["Ghost"]]
 position = Vector2(-1.2849998, -1.1849976)
-texture = ExtResource("7_pq7nm")
+texture = ExtResource("6_e2eie")
 offset = Vector2(11.285, 16.825)
 
 [node name="LetfFingers" type="Sprite2D" parent="Sprites/LeftArm_container/LeftBicep/LeftForearm" unique_id=358297674 groups=["Clay"]]
@@ -5455,7 +5460,7 @@ position = Vector2(18.46, 26.735)
 texture = ExtResource("8_pbfni")
 
 [node name="LetfFingers_ghost" type="Sprite2D" parent="Sprites/LeftArm_container/LeftBicep/LeftForearm/LetfFingers" unique_id=1295700300 groups=["Ghost"]]
-texture = ExtResource("9_bd4m7")
+texture = ExtResource("8_pbfni")
 
 [node name="RightLeg" type="Sprite2D" parent="Sprites" unique_id=2070781812 groups=["Clay"]]
 modulate = Color(0.94509804, 0.94509804, 0.94509804, 1)
@@ -5698,7 +5703,7 @@ scale = Vector2(0.9999999, 0.9999999)
 rest = Transform2D(-0.85264, -0.5224986, 0.5224986, -0.85264, 18.989998, 5.285816)
 auto_calculate_length_and_angle = false
 length = 23.917318
-bone_angle = 104.59996
+bone_angle = 104.59995
 
 [node name="Bone2D_2" type="Bone2D" parent="Sprites/Jiggle_HairSystem/Main_hair/Bone2D_0/Bone2D_1" unique_id=1585765945]
 position = Vector2(-17.861868, 15.905715)
@@ -5728,8 +5733,8 @@ rest = Transform2D(0.5591924, 0.82903683, -0.82903683, 0.5591924, 23, -263)
 
 [node name="GhostBone2D_1" type="Bone2D" parent="Sprites/Jiggle_HairSystem/Main_hair/GhostBone2D_0" unique_id=619265652]
 position = Vector2(20.514624, 1.7750986)
-rotation = -0.20943955
-scale = Vector2(0.9999987, 0.9999987)
+rotation = -0.20943956
+scale = Vector2(0.9999986, 0.9999986)
 rest = Transform2D(0.9781463, -0.20791139, 0.20791139, 0.9781463, 20.514624, 1.7750986)
 metadata/_local_pose_override_enabled_ = true
 

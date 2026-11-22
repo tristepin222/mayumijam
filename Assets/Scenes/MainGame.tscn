@@ -86,13 +86,14 @@ dialog_player = NodePath("../canvas_dialog")
 [node name="AbilityManager" type="Node" parent="." unique_id=356071509]
 script = ExtResource("2_f7n17")
 
-[node name="Mayumi" type="CharacterBody2D" parent="." unique_id=389912644 node_paths=PackedStringArray("stats", "ability_manager") groups=["player"]]
+[node name="Mayumi" type="CharacterBody2D" parent="." unique_id=389912644 node_paths=PackedStringArray("stats", "ability_manager", "ceramic_skin_proxy") groups=["player"]]
 position = Vector2(0, -0.1)
 script = ExtResource("2_8nq7t")
 move_speed = 140.0
 gravity = 1350.0
 stats = NodePath("Stats")
 ability_manager = NodePath("../AbilityManager")
+ceramic_skin_proxy = NodePath("Mayumi")
 
 [node name="Sprite2D" type="Sprite2D" parent="Mayumi" unique_id=1428444524]
 texture = ExtResource("7_mnw02")
