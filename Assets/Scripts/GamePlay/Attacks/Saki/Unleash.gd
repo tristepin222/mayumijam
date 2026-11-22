@@ -240,6 +240,7 @@ func _fire_wave(wave_index: int) -> void:
 		)
 
 	print("Unleash wave ", wave_index + 1, " fired!")
+	Sfx.play("fire_burst", 2.0, 0.9)
 
 
 func _finish_attack() -> void:

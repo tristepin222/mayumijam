@@ -19,6 +19,7 @@ func register_sword_hit(saki: SakiController, enemy_stats: CharacterStats) -> vo
 	if saki.is_cracked:
 		enemy_stats.take_damage(bonus_damage)
 		saki.break_crack(stagger_duration)
+		Sfx.play("shatter")
 
 		print("Shattering Blow! Bonus damage: ", bonus_damage)
 		return

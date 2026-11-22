@@ -149,6 +149,7 @@ func _throw_projectiles() -> void:
 		active_projectiles += 1
 
 		print("Saki throws a comeback horseshoe! (", i + 1, "/", throw_count, ")")
+		Sfx.play("fire_burst", -2.0, 1.4)
 
 		if i < throw_count - 1:
 			if not is_inside_tree():

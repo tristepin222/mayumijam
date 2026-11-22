@@ -54,6 +54,7 @@ func execute() -> void:
 	saki.set_physics_process(false)
 	is_casting = true
 	print("Saki tosses danmaku into the air!")
+	Sfx.play("fire_burst", 0.0, 1.25)
 
 	var ground_y := saki.global_position.y + ground_offset
 
@@ -241,6 +242,7 @@ func _lunge() -> void:
 		direction = 1.0
 
 	print("Saki lunges with a kick!")
+	Sfx.play("dash", 2.0, 0.8)
 
 	var travelled := 0.0
 

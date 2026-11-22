@@ -68,6 +68,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_retry_pressed() -> void:
+	Sfx.play("menu_select")
 	get_tree().paused = false
 
 	var game_manager = get_node_or_null("/root/GameManager")

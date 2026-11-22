@@ -79,7 +79,13 @@ func _set_background(texture: Texture2D) -> void:
 		background.texture = texture
 
 
+func _exit_tree() -> void:
+	Sfx.stop_loop("furnace_loop")
+
+
 func _run_upgrade() -> void:
+	Sfx.start_loop("furnace_loop")
+
 	if dialog_player != null and game_manager != null:
 		var pre_dialog: int = game_manager.get_workshop_pre_dialog()
 		if pre_dialog >= 0:
@@ -115,6 +121,7 @@ func _run_upgrade() -> void:
 	var story: Dictionary = game_manager.last_story_upgrade
 
 	if not story.is_empty():
+		Sfx.play("clay_crush", 2.0, 0.85)
 		await _show_message(
 			"Keiki reshapes you further...\n\nStory upgrade: %s\n%s" % [story["name"], story["description"]],
 			"Continue"
@@ -159,7 +166,10 @@ func _show_choices(title: String, titles: Array[String], descriptions: Array[Str
 		button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		button.add_theme_font_size_override("font_size", 18)
 		_style_button(button)
-		button.pressed.connect(func(): choice_made.emit(i))
+		button.pressed.connect(func():
+			Sfx.play("menu_select")
+			choice_made.emit(i)
+		)
 		row.add_child(button)
 		buttons.append(button)
 
@@ -187,7 +197,10 @@ func _show_message(text: String, button_text: String) -> void:
 	button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	button.add_theme_font_size_override("font_size", 24)
 	_style_button(button)
-	button.pressed.connect(func(): choice_made.emit(0))
+	button.pressed.connect(func():
+		Sfx.play("menu_select")
+		choice_made.emit(0)
+	)
 	box.add_child(button)
 
 	button.grab_focus()

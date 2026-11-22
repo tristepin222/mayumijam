@@ -13,15 +13,30 @@ signal counter_performed
 @export var counter_reach_height: float = 45.0
 @export var phase_2_counters_any_hit: bool = true
 
+@export_group("Voice")
+@export var taunt_lines: Array[AudioStream] = [
+	preload("res://Assets/Audio/Voice/Saki/taunt_cmon_take_a_swing.ogg"),
+	preload("res://Assets/Audio/Voice/Saki/taunt_is_that_all_you_got.ogg"),
+]
+@export var counter_line: AudioStream = preload("res://Assets/Audio/Voice/Saki/counter_fell_for_it.ogg")
+@export var voice_volume_db: float = 0.0
+
 @export_group("Arena Limits")
 @export var arena_left_x: float = -130.0
 @export var arena_right_x: float = 178.0
 
 var is_posing := false
 var triggered := false
+var voice_player: AudioStreamPlayer
+var last_taunt := -1
 
 
 func _ready() -> void:
+	voice_player = AudioStreamPlayer.new()
+	voice_player.volume_db = voice_volume_db
+	voice_player.bus = "SFX" if AudioServer.get_bus_index("SFX") >= 0 else "Master"
+	add_child(voice_player)
+
 	var mayumi := get_tree().get_first_node_in_group("player")
 
 	if mayumi == null:
@@ -45,6 +60,7 @@ func execute() -> void:
 	is_posing = true
 	triggered = false
 	counter_ready_changed.emit(true)
+	_play_taunt()
 
 	var saki_stats := saki.get_node_or_null("Stats") as CharacterStats
 
@@ -138,8 +154,32 @@ func _is_in_sword_reach() -> bool:
 	return signf(offset.x) == signf(facing_direction) and absf(offset.x) <= counter_reach
 
 
+func _play_taunt() -> void:
+	if taunt_lines.is_empty():
+		return
+
+	var index := randi() % taunt_lines.size()
+
+	if taunt_lines.size() > 1 and index == last_taunt:
+		index = (index + 1) % taunt_lines.size()
+
+	last_taunt = index
+	_play_voice(taunt_lines[index])
+
+
+func _play_voice(stream: AudioStream) -> void:
+	if voice_player == null or stream == null:
+		return
+
+	voice_player.stop()
+	voice_player.stream = stream
+	voice_player.volume_db = voice_volume_db
+	voice_player.play()
+
+
 func _teleport_behind_player() -> void:
 	print("Saki countered Mayumi!")
+	_play_voice(counter_line)
 
 	var facing_direction: float = float(player.get("facing_direction"))
 
@@ -166,6 +206,8 @@ func _perform_counter() -> void:
 		return
 
 	var player_stats := player.get_node_or_null("Stats") as CharacterStats
+
+	Sfx.play("punch")
 
 	if player_stats != null:
 		player_stats.take_damage(counter_damage)

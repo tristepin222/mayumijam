@@ -20,6 +20,7 @@ func _ready() -> void:
 	$Timer.wait_time = fire_interval
 	$Timer.timeout.connect(_on_timer_timeout)
 	$Timer.start()
+	Sfx.play("land", 4.0, 0.9)
 
 	active = true
 
@@ -57,6 +58,7 @@ func _fire_projectile() -> void:
 		return
 
 	get_tree().current_scene.add_child(projectile)
+	Sfx.play("arrow", -6.0, 1.2)
 
 	var direction := (
 		saki.global_position - global_position

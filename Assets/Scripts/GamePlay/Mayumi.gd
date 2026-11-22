@@ -35,6 +35,9 @@ var is_invincible := false
 var cinematic := false
 var cinematic_direction := 0.0
 
+var was_on_floor := true
+var last_health := 0
+
 var dash_ability: PlayerAbility
 var sword_ability: PlayerAbility
 var danmaku_ability: PlayerAbility
@@ -83,6 +86,16 @@ func _ready() -> void:
 		apply_upgrade(ability_id)
 
 	sprite.visible = not has_node("Mayumi")
+
+	last_health = stats.health
+	stats.health_changed.connect(_on_health_changed)
+
+
+func _on_health_changed(current_health: int, _max_health: int) -> void:
+	if current_health < last_health and current_health > 0:
+		Sfx.play("clay_crush")
+
+	last_health = current_health
 
 
 func _process(_delta: float) -> void:
@@ -141,6 +154,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = jump_velocity
 		jump_buffer_timer = 0.0
 		coyote_timer = 0.0
+		Sfx.play("jump")
 	elif Input.is_action_just_pressed("jump") and haniwa_leap != null:
 		var leap_was_used: bool = haniwa_leap.get("air_jump_used")
 		haniwa_leap.activate()
@@ -151,7 +165,14 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("jump") and velocity.y < 0.0:
 		velocity.y *= jump_cut_multiplier
 
+	var falling_speed := velocity.y
+
 	move_and_slide()
+
+	if is_on_floor() and not was_on_floor and falling_speed > 150.0:
+		Sfx.play("land")
+
+	was_on_floor = is_on_floor()
 
 
 func _input(event: InputEvent) -> void:

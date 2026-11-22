@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Presentation/MainMenu.gd" id="1_menu"]
-[ext_resource type="Texture2D" uid="uid://ce2tx5vkdalyt" path="res://Kiln_garden/Kiln_garden_background.jpg" id="2_garden"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/Menu/title_screen.jpg" id="2_garden"]
 
 [node name="MainMenu" type="Node"]
 script = ExtResource("1_menu")

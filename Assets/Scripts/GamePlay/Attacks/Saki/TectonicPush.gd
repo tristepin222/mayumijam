@@ -101,6 +101,7 @@ func _perform_repeated_push() -> void:
 			return
 
 		print("Saki kicks the ground: ", i + 1)
+		Sfx.play("punch", -6.0, 0.8)
 
 		var target_x := _get_target_x()
 
@@ -161,6 +162,8 @@ func _perform_pillars(xs: Array[float]) -> void:
 
 		warnings.append(warning)
 
+	Sfx.play("earth_rumble", 0.0, 1.0, 0.0)
+
 	# Give Mayumi time to react.
 	if not is_inside_tree():
 		return
@@ -192,6 +195,8 @@ func _perform_pillars(xs: Array[float]) -> void:
 			)
 
 		pillars.append(pillar)
+
+	Sfx.play("earth_impact")
 
 	if not is_inside_tree():
 		return

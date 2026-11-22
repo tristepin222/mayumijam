@@ -30,6 +30,7 @@ func _ready() -> void:
 
 	var full_scale := sprite.scale
 	sprite.scale = Vector2(full_scale.x * 1.3, 0.0)
+	Sfx.play("land", 4.0, 0.8)
 	create_tween().tween_property(sprite, "scale", full_scale, pop_time).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 	await get_tree().create_timer(maxf(duration - pop_time, 0.0)).timeout
@@ -54,3 +55,4 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area.has_method("reflect"):
 		area.reflect(saki)
+		Sfx.play("sword_hit", -2.0, 1.6)

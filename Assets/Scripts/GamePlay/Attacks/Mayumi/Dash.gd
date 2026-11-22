@@ -31,6 +31,7 @@ func activate() -> void:
 
 	is_dashing = true
 	can_dash = false
+	Sfx.play("dash")
 
 	dash_started.emit()
 

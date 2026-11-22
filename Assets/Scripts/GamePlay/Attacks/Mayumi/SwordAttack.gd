@@ -46,6 +46,7 @@ func activate() -> void:
 	is_attacking = true
 
 	mayumi.physical_attack_started.emit()
+	Sfx.play("sword_swing", 0.0, 1.5, 0.08)
 
 	_position_hitbox()
 	_spawn_slash_effect()
@@ -101,6 +102,7 @@ func _damage_enemies() -> void:
 		# Saki is cracked: consume the crack.
 		if enemy_stats != null:
 			enemy_stats.take_damage(damage)
+			Sfx.play("sword_hit")
 
 			if shattering_blow != null:
 				shattering_blow.register_sword_hit(body, enemy_stats)

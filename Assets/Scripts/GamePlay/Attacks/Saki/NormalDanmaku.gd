@@ -116,3 +116,4 @@ func _fire_volley(volley_index: int = 0) -> void:
 		projectile.global_position = saki.global_position + direction * launch_offset
 	is_casting = false
 	print("Saki fired a volley of ", projectile_count, " projectiles!")
+	Sfx.play("fire_burst", 0.0, 1.1)

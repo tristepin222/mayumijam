@@ -5,6 +5,7 @@ const SETTINGS_PATH = "user://settings.cfg"
 
 static var master_volume: float = 1.0
 static var music_volume: float = 0.8
+static var sfx_volume: float = 0.9
 static var fullscreen: bool = false
 
 
@@ -16,6 +17,7 @@ static func load_settings() -> void:
 
 	master_volume = clampf(config.get_value("audio", "master", master_volume), 0.0, 1.0)
 	music_volume = clampf(config.get_value("audio", "music", music_volume), 0.0, 1.0)
+	sfx_volume = clampf(config.get_value("audio", "sfx", sfx_volume), 0.0, 1.0)
 	fullscreen = config.get_value("video", "fullscreen", fullscreen)
 
 
@@ -23,6 +25,7 @@ static func save_settings() -> void:
 	var config := ConfigFile.new()
 	config.set_value("audio", "master", master_volume)
 	config.set_value("audio", "music", music_volume)
+	config.set_value("audio", "sfx", sfx_volume)
 	config.set_value("video", "fullscreen", fullscreen)
 	config.save(SETTINGS_PATH)
 
@@ -36,6 +39,9 @@ static func apply(tree: SceneTree) -> void:
 
 		if music != null and music.has_method("set_music_volume"):
 			music.set_music_volume(music_volume)
+
+		if music != null and music.has_method("set_sfx_volume"):
+			music.set_sfx_volume(sfx_volume)
 
 	apply_window_mode()
 

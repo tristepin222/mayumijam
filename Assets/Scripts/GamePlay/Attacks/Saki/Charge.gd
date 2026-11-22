@@ -56,6 +56,7 @@ func execute() -> void:
 			direction = 1.0
 
 		print("Saki charges! (", i + 1, "/", charge_count, ")")
+		Sfx.play("dash", 4.0, 0.6)
 
 		_spawn_charge_effect(direction)
 

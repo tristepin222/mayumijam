@@ -101,6 +101,9 @@ func _ready() -> void:
 
 	sprite = saki.get_node_or_null("Sprite2D") as CanvasItem
 
+	if sprite == null:
+		sprite = saki.get_node_or_null("Saki") as CanvasItem
+
 	var counter := saki.get_node_or_null("AttackManager/Counter")
 
 	if counter != null and counter.has_signal("counter_ready_changed"):
@@ -239,7 +242,12 @@ func _start_attack() -> void:
 
 
 func _telegraph() -> void:
-	if sprite == null or telegraph_time <= 0.0:
+	if telegraph_time <= 0.0:
+		return
+
+	Sfx.play("telegraph")
+
+	if sprite == null:
 		return
 
 	var base_color := sprite.modulate

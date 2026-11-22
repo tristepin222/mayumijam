@@ -2,7 +2,14 @@ extends Node
 
 @export var background_texture: Texture2D
 @export var game_title: String = "Entrusting This World to Ceramics"
-@export var button_size: Vector2 = Vector2(280.0, 56.0)
+@export var show_title_text: bool = false
+@export var main_shade: float = 0.0
+@export var screen_shade: float = 0.78
+@export var main_menu_margin: Vector2 = Vector2(0.07, 0.06)
+@export var button_size: Vector2 = Vector2(300.0, 66.0)
+@export var button_texture: Texture2D = preload("res://Assets/Textures/Menu/button_smoke.png")
+@export var button_focus_texture: Texture2D = preload("res://Assets/Textures/Menu/button_fire.png")
+@export var button_focus_scale: float = 1.06
 @export var button_color: Color = Color(0.13, 0.05, 0.03, 0.92)
 @export var button_border_color: Color = Color(1.0, 0.72, 0.4, 0.45)
 @export var button_focus_color: Color = Color(1.0, 0.88, 0.55, 1.0)
@@ -28,6 +35,7 @@ const CONTROL_ACTIONS = [
 ]
 
 var ui_layer: CanvasLayer
+var shade: ColorRect
 var panel: Control
 
 
@@ -56,8 +64,8 @@ func _ready() -> void:
 		background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 		background_layer.add_child(background)
 
-	var shade := ColorRect.new()
-	shade.color = Color(0.0, 0.0, 0.0, 0.35)
+	shade = ColorRect.new()
+	shade.color = Color(0.0, 0.0, 0.0, main_shade)
 	shade.set_anchors_preset(Control.PRESET_FULL_RECT)
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	background_layer.add_child(shade)
@@ -69,13 +77,15 @@ func _ready() -> void:
 
 
 func _show_main() -> void:
-	var box := _open_panel(18)
+	var box := _open_corner_panel(2)
+	_set_shade(main_shade)
 
-	box.add_child(_make_label(game_title, 52))
+	if show_title_text:
+		box.add_child(_make_label(game_title, 52))
 
-	var spacer := Control.new()
-	spacer.custom_minimum_size = Vector2(0.0, 24.0)
-	box.add_child(spacer)
+		var spacer := Control.new()
+		spacer.custom_minimum_size = Vector2(0.0, 24.0)
+		box.add_child(spacer)
 
 	var start := _make_button("Start")
 	start.pressed.connect(_on_start_pressed)
@@ -122,6 +132,13 @@ func _show_options() -> void:
 	music_slider.value_changed.connect(func(value: float):
 		GameSettings.music_volume = value / 100.0
 		GameSettings.apply(get_tree())
+	)
+
+	var sfx_slider := _add_volume_row(grid, "SFX Volume", GameSettings.sfx_volume)
+	sfx_slider.value_changed.connect(func(value: float):
+		GameSettings.sfx_volume = value / 100.0
+		GameSettings.apply(get_tree())
+		Sfx.play("menu_select")
 	)
 
 	var fullscreen_label := _make_label("Fullscreen", 26)
@@ -334,7 +351,38 @@ func _on_start_pressed() -> void:
 		get_tree().change_scene_to_file("res://Assets/Scenes/MainGame.tscn")
 
 
+func _set_shade(alpha: float) -> void:
+	if shade == null:
+		return
+
+	create_tween().tween_property(shade, "color:a", alpha, 0.25)
+
+
+func _open_corner_panel(separation: int) -> VBoxContainer:
+	if is_instance_valid(panel):
+		panel.queue_free()
+
+	var view_size := get_viewport().get_visible_rect().size
+
+	var margin := MarginContainer.new()
+	margin.set_anchors_preset(Control.PRESET_FULL_RECT)
+	margin.add_theme_constant_override("margin_left", int(view_size.x * main_menu_margin.x))
+	margin.add_theme_constant_override("margin_bottom", int(view_size.y * main_menu_margin.y))
+	ui_layer.add_child(margin)
+	panel = margin
+
+	var box := VBoxContainer.new()
+	box.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	box.size_flags_vertical = Control.SIZE_SHRINK_END
+	box.add_theme_constant_override("separation", separation)
+	margin.add_child(box)
+
+	return box
+
+
 func _open_panel(separation: int) -> VBoxContainer:
+	_set_shade(screen_shade)
+
 	if is_instance_valid(panel):
 		panel.queue_free()
 
@@ -367,24 +415,52 @@ func _make_button(text: String) -> Button:
 	button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	button.add_theme_font_size_override("font_size", 26)
 
-	var normal := StyleBoxFlat.new()
-	normal.bg_color = button_color
-	normal.border_color = button_border_color
-	normal.set_border_width_all(2)
-	normal.set_corner_radius_all(10)
+	var normal: StyleBox
+	var focused: StyleBox
 
-	var focused := normal.duplicate() as StyleBoxFlat
-	focused.border_color = button_focus_color
-	focused.set_border_width_all(4)
-	focused.bg_color = button_color.lightened(0.12)
+	if button_texture != null and button_focus_texture != null:
+		var smoke := StyleBoxTexture.new()
+		smoke.texture = button_texture
+		var fire := StyleBoxTexture.new()
+		fire.texture = button_focus_texture
+		normal = smoke
+		focused = fire
+	else:
+		var flat := StyleBoxFlat.new()
+		flat.bg_color = button_color
+		flat.border_color = button_border_color
+		flat.set_border_width_all(2)
+		flat.set_corner_radius_all(10)
+		var flat_focus := flat.duplicate() as StyleBoxFlat
+		flat_focus.border_color = button_focus_color
+		flat_focus.set_border_width_all(4)
+		flat_focus.bg_color = button_color.lightened(0.12)
+		normal = flat
+		focused = flat_focus
 
 	button.add_theme_stylebox_override("normal", normal)
 	button.add_theme_stylebox_override("hover", focused)
-	button.add_theme_stylebox_override("focus", focused)
 	button.add_theme_stylebox_override("pressed", focused)
-	button.add_theme_color_override("font_color", Color(1.0, 0.93, 0.85))
+	button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+	button.add_theme_color_override("font_color", Color(1.0, 0.95, 0.9))
 	button.add_theme_color_override("font_focus_color", Color.WHITE)
 	button.add_theme_color_override("font_hover_color", Color.WHITE)
+	button.add_theme_color_override("font_pressed_color", Color.WHITE)
+	button.add_theme_color_override("font_outline_color", Color(0.18, 0.06, 0.03))
+	button.add_theme_constant_override("outline_size", 8)
+
+	button.resized.connect(func(): button.pivot_offset = button.size * 0.5)
+	button.focus_entered.connect(func():
+		button.add_theme_stylebox_override("normal", focused)
+		create_tween().tween_property(button, "scale", Vector2.ONE * button_focus_scale, 0.1)
+	)
+	button.focus_exited.connect(func():
+		button.add_theme_stylebox_override("normal", normal)
+		create_tween().tween_property(button, "scale", Vector2.ONE, 0.1)
+	)
+
+	var sound := "menu_back" if text == "Back" else "menu_select"
+	button.pressed.connect(func(): Sfx.play(sound))
 
 	return button
 

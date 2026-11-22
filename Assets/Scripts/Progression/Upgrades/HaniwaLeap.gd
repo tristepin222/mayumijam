@@ -30,5 +30,6 @@ func activate() -> void:
 
 	air_jump_used = true
 	mayumi.velocity.y = jump_velocity
+	Sfx.play("double_jump")
 
 	print("Mayumi used Haniwa Leap!")

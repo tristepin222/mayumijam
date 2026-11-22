@@ -49,6 +49,9 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 
 	if target_player.get("is_grazing_projectiles"):
+		if not has_meta("grazed"):
+			set_meta("grazed", true)
+			Sfx.play("graze")
 		return
 
 	has_hit = true

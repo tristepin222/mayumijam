@@ -108,6 +108,7 @@ func execute() -> void:
 	launch_position.y -= launch_height
 
 	print("Saki is launching!")
+	Sfx.play("dash", 2.0, 0.65)
 
 	var launch_completed: bool = await _move_to_position(
 		launch_position,
@@ -385,6 +386,9 @@ func _show_landing_warning() -> void:
 
 func _impact_zone(zone_width: float, zone_height: float, zone_duration: float, zone_color: Color) -> void:
 	var ground_y := start_position.y + warning_ground_offset
+
+	var is_main_impact := is_equal_approx(zone_width, impact_width)
+	Sfx.play("earth_impact", 0.0 if is_main_impact else -6.0, 1.0 if is_main_impact else 1.25)
 
 	var zone := Area2D.new()
 	zone.collision_layer = 0

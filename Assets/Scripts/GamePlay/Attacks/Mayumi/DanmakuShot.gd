@@ -15,6 +15,7 @@ extends PlayerAbility
 var can_shoot := true
 var is_shooting := false
 var is_charging := false
+var charge_sound: AudioStreamPlayer
 var charge_started_at := 0.0
 var arrow_volley_unlocked: bool = false
 
@@ -48,6 +49,7 @@ func start_charge() -> void:
 	is_charging = true
 	can_shoot = false
 	charge_started_at = Time.get_ticks_msec() / 1000.0
+	charge_sound = Sfx.play("charge_up", 0.0, 1.6, 0.0)
 
 	print("Charging Arrow Volley...")
 
@@ -58,6 +60,7 @@ func release_charge() -> void:
 		return
 
 	is_charging = false
+	Sfx.stop(charge_sound)
 
 	ability_manager.use_ability(ability_id)
 
@@ -72,9 +75,11 @@ func release_charge() -> void:
 
 			_spawn_projectile(direction)
 
+		Sfx.play("arrow", 3.0, 0.85)
 		print("Mayumi fired Arrow Volley!")
 	else:
 		_spawn_projectile(Vector2(mayumi.facing_direction, 0.0))
+		Sfx.play("arrow")
 
 	await get_tree().create_timer(cooldown).timeout
 	can_shoot = true
@@ -94,6 +99,7 @@ func activate() -> void:
 	can_shoot = false
 
 	_spawn_projectile(Vector2(mayumi.facing_direction, 0.0))
+	Sfx.play("arrow")
 
 	await get_tree().create_timer(0.1).timeout
 	is_shooting = false

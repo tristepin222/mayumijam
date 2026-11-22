@@ -164,6 +164,7 @@ func _saki_enter() -> void:
 	await tween.finished
 
 	_shake_camera(4.0, 0.25)
+	Sfx.play("earth_impact", -2.0, 1.1)
 	saki.velocity = Vector2.ZERO
 	saki.call("set_move_direction", 0.0)
 	saki.process_mode = Node.PROCESS_MODE_INHERIT
@@ -191,6 +192,7 @@ func _shake_camera(strength: float, duration: float) -> void:
 func _on_boss_phase_changed(phase: int) -> void:
 	if phase == BossAI.BossPhase.PHASE_2 and game_manager != null:
 		game_manager.play_music("final_phase")
+		Sfx.play("charge_up", 2.0, 1.0, 0.0)
 
 	if phase == BossAI.BossPhase.PHASE_2 and game_manager != null and dialog_player != null:
 		var diag: int = game_manager.get_phase_2_dialog()
@@ -245,6 +247,7 @@ func _play_death_fall() -> void:
 	var apex := Vector2(lerpf(start.x, land_x, 0.45), minf(start.y, ground_y) + death_launch.y)
 
 	mayumi.modulate = Color(2.5, 2.5, 2.5, 1.0)
+	Sfx.play("mayumi_death")
 	create_tween().tween_property(mayumi, "modulate", Color.WHITE, 0.3)
 	await _wait_or_skip(0.12)
 
@@ -254,6 +257,7 @@ func _play_death_fall() -> void:
 
 	await _finish_tween(fall)
 	_shake_camera(3.0, 0.2)
+	Sfx.play("land", 8.0, 0.75)
 
 	var bounce := create_tween()
 	bounce.tween_property(mayumi, "global_position:y", land.y - 5.0, 0.12).set_ease(Tween.EASE_OUT)
@@ -299,6 +303,8 @@ func _on_boss_defeated() -> void:
 		return
 
 	game_manager.on_boss_defeated()
+	Sfx.play("punch", 2.0, 0.85)
+	Sfx.play("earth_impact", 0.0, 0.8)
 	mayumi.set("is_invincible", true)
 
 	await get_tree().create_timer(ending_delay, false).timeout

@@ -103,7 +103,7 @@ func _ready() -> void:
 	# Setup SFX player
 	sfx_player = AudioStreamPlayer.new()
 	sfx_player.name = "dialog_sfx_player"
-	sfx_player.bus = "Master"
+	sfx_player.bus = "SFX" if AudioServer.get_bus_index("SFX") >= 0 else "Master"
 	add_child(sfx_player)
 
 	# Store initial base textures
@@ -605,4 +605,5 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("update_dialog") or event.is_action_pressed("sword") or event.is_action_pressed("ui_accept"):
 		get_viewport().set_input_as_handled()
+		Sfx.play("menu_select", -10.0, 1.25, 0.03)
 		_continue_dialog()

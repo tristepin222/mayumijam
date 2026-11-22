@@ -34,6 +34,7 @@ func activate() -> void:
 	can_charge = false
 	is_charging = true
 	has_hit_enemy = false
+	Sfx.play("dash", 4.0, 0.7)
 
 	_perform_charge(saki)
 
