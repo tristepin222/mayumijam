@@ -20,7 +20,7 @@ func _ready() -> void:
 	game_manager = get_node_or_null("/root/GameManager")
 
 	if game_manager != null and dialog_player != null:
-		get_tree().paused = true
+		#get_tree().paused = true
 		_play_fight_dialog.call_deferred()
 
 
@@ -40,7 +40,7 @@ func _on_boss_phase_changed(phase: int) -> void:
 	if phase == BossAI.BossPhase.PHASE_2 and game_manager != null and dialog_player != null:
 		var diag: int = game_manager.get_phase_2_dialog()
 		if diag >= 0:
-			get_tree().paused = true
+			#get_tree().paused = true
 			await dialog_player.play_dialog(diag)
 			get_tree().paused = false
 
@@ -54,7 +54,7 @@ func _on_player_died() -> void:
 	if dialog_player != null and game_manager != null:
 		var defeat_diag: int = game_manager.get_defeat_dialog()
 		if defeat_diag >= 0:
-			get_tree().paused = true
+			#get_tree().paused = true
 			await dialog_player.play_dialog(defeat_diag)
 			get_tree().paused = false
 
