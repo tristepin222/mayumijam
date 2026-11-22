@@ -1,0 +1,176 @@
+[gd_resource type="Resource" script_class="DialogStruct" load_steps=26 format=3]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Resource_line_1"]
+script = ExtResource("2_line")
+character = 2
+text = "Hmm hmm HmmMMm~… just a swish there, and carve a hole for the arm…"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_2"]
+script = ExtResource("2_line")
+character = 0
+text = "Ugh… so hot… where am I?"
+slot = 1
+effect = "wobble"
+
+[sub_resource type="Resource" id="Resource_line_3"]
+script = ExtResource("2_line")
+character = 2
+text = "Oh, you are awake! Welcome to my workshop!"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_4"]
+script = ExtResource("2_line")
+character = 0
+text = "Who… why?"
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_5"]
+script = ExtResource("2_line")
+character = 2
+text = "I am Keiki Haniyasushin. A goddess who has come to answer the pray-- err…"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_6"]
+script = ExtResource("2_line")
+character = 2
+text = "I mean, I am here to hone my craft!"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_7"]
+script = ExtResource("2_line")
+character = 0
+text = "You got something to hide, huh?"
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_8"]
+script = ExtResource("2_line")
+character = 2
+text = "No no, it is just, uhhh, it would not be good if...!"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_9"]
+script = ExtResource("2_line")
+character = 0
+text = "It is fine. Everyone does. Things they don't want others to know. Things they don't want to remember."
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_10"]
+script = ExtResource("2_line")
+character = 2
+text = "Well...uh… be that as it may, can I at least have your name?"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_11"]
+script = ExtResource("2_line")
+character = 0
+text = "Mayumi."
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_12"]
+script = ExtResource("2_line")
+character = 2
+text = "… just Mayumi? What about your family na-"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_13"]
+script = ExtResource("2_line")
+character = 0
+text = "I don't have family!"
+slot = 1
+effect = "shake"
+
+[sub_resource type="Resource" id="Resource_line_14"]
+script = ExtResource("2_line")
+character = 0
+text = "… not anymore."
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_15"]
+script = ExtResource("2_line")
+character = 2
+text = "Oh. I see, is that uh…why you washed up on the shore?"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_16"]
+script = ExtResource("2_line")
+character = 0
+text = "No, that was just the Keiga clan raiding again."
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_17"]
+script = ExtResource("2_line")
+character = 2
+text = "And you… stood up to them?"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_18"]
+script = ExtResource("2_line")
+character = 0
+text = "Yeah, I know it was a dumb, useless idea. But better than doing nothing."
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_19"]
+script = ExtResource("2_line")
+character = 2
+text = "Oh! Oh that is perfect!"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_20"]
+script = ExtResource("2_line")
+character = 0
+text = "Huh?"
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_21"]
+script = ExtResource("2_line")
+character = 2
+text = "I have so many ideas that need testing! Oh, you can take this, and I could finish up that, and we'll see how that ceramic plating works in practice!"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_22"]
+script = ExtResource("2_line")
+character = 0
+text = "Whoa, hang on lady. I am not getting weighed down by whatever you're doing."
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_23"]
+script = ExtResource("2_line")
+character = 2
+text = "… oh. Well, it is free! Surely one won't hurt?"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_24"]
+script = ExtResource("2_line")
+character = 0
+text = "I shouldn't even get involved with you or the families or anything… but…"
+slot = 1
+effect = ""
+
+[resource]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3"), SubResource("Resource_line_4"), SubResource("Resource_line_5"), SubResource("Resource_line_6"), SubResource("Resource_line_7"), SubResource("Resource_line_8"), SubResource("Resource_line_9"), SubResource("Resource_line_10"), SubResource("Resource_line_11"), SubResource("Resource_line_12"), SubResource("Resource_line_13"), SubResource("Resource_line_14"), SubResource("Resource_line_15"), SubResource("Resource_line_16"), SubResource("Resource_line_17"), SubResource("Resource_line_18"), SubResource("Resource_line_19"), SubResource("Resource_line_20"), SubResource("Resource_line_21"), SubResource("Resource_line_22"), SubResource("Resource_line_23"), SubResource("Resource_line_24")])

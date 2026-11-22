@@ -29,10 +29,34 @@ const STORY_UPGRADES := [
 	{"id": "haniwa_armor", "name": "Haniwa Armor", "description": "Saki's phase 1 attacks can no longer hurt you."},
 ]
 
+enum Act { ACT_1, ACT_2, ACT_3 }
+
 var victory := false
 var current_try: int = 1
 var deaths: int = 0
 var intro_seen := false
+
+var act_1_defeats: int = 0
+var act_2_defeats: int = 0
+var act_3_defeats: int = 0
+var fights_started: int = 0
+var phase_2_reached_this_fight: bool = false
+
+var seen_a1_intro := false
+var seen_a1_first_fight := false
+var seen_a1_first_defeat := false
+var seen_a1_first_upgrade := false
+var seen_a1_phase2 := false
+
+var seen_a2_ceramic_skin := false
+var seen_a2_first_fight := false
+var seen_a2_first_defeat := false
+var seen_a2_first_upgrade := false
+var seen_a2_phase2 := false
+
+var seen_a3_armored := false
+var seen_a3_first_fight := false
+var seen_a3_phase2 := false
 
 var health_tier: int = 0
 var damage_tier: int = 0
@@ -49,6 +73,24 @@ func reset_run() -> void:
 	current_try = 1
 	deaths = 0
 	intro_seen = false
+	act_1_defeats = 0
+	act_2_defeats = 0
+	act_3_defeats = 0
+	fights_started = 0
+	phase_2_reached_this_fight = false
+	seen_a1_intro = false
+	seen_a1_first_fight = false
+	seen_a1_first_defeat = false
+	seen_a1_first_upgrade = false
+	seen_a1_phase2 = false
+	seen_a2_ceramic_skin = false
+	seen_a2_first_fight = false
+	seen_a2_first_defeat = false
+	seen_a2_first_upgrade = false
+	seen_a2_phase2 = false
+	seen_a3_armored = false
+	seen_a3_first_fight = false
+	seen_a3_phase2 = false
 	health_tier = 0
 	damage_tier = 0
 	unlocked_abilities.clear()
@@ -56,6 +98,7 @@ func reset_run() -> void:
 	upgrades_taken = 0
 	kiln_mode = "upgrade"
 	last_story_upgrade = {}
+
 
 
 func get_max_hearts() -> int:
@@ -88,19 +131,20 @@ func apply_to_mayumi(mayumi) -> void:
 	var ability_manager = mayumi.get("ability_manager")
 
 	if ability_manager != null:
-		var ids: Array[String] = []
-
-		for id in BASE_ABILITIES:
-			ids.append(id)
+		var ids: Array[int] = [
+			AbilityIDs.Ability.DASH,
+			AbilityIDs.Ability.ATTACK,
+		]
 
 		for id in unlocked_abilities:
-			ids.append(id)
+			if AbilityManager.ABILITY_STRING_TO_INT.has(id):
+				ids.append(AbilityManager.ABILITY_STRING_TO_INT[id])
 
 		if unlocked_abilities.has("arrow_volley"):
-			ids.append("danmaku_shot")
+			ids.append(AbilityIDs.Ability.DANMAKU)
 
 		if has_story_upgrade("haniwa_wall"):
-			ids.append("haniwa_wall")
+			ids.append(AbilityIDs.Ability.HANIWA_WALL)
 
 		for id in ids:
 			ability_manager.unlock_ability(id)
@@ -117,7 +161,6 @@ func apply_to_mayumi(mayumi) -> void:
 
 	if danmaku != null:
 		danmaku.projectile_damage = roundi(danmaku.projectile_damage * multiplier)
-		danmaku.arrow_volley_unlocked = unlocked_abilities.has("arrow_volley")
 
 	if has_story_upgrade("ceramic_skin") and mayumi.has_method("unlock_ceramic_skin"):
 		mayumi.unlock_ceramic_skin()
@@ -126,12 +169,160 @@ func apply_to_mayumi(mayumi) -> void:
 		mayumi.unlock_haniwa_armor()
 
 
-func get_fight_dialog() -> int:
-	if not intro_seen:
-		intro_seen = true
-		return DialogManager.situations.INTRO
+func get_current_act() -> int:
+	if has_story_upgrade("haniwa_armor") or seen_a3_armored:
+		return Act.ACT_3
+	elif has_story_upgrade("ceramic_skin") or seen_a2_ceramic_skin:
+		return Act.ACT_2
+	return Act.ACT_1
 
-	return DialogManager.situations.SAKITAUNT
+
+func get_fight_dialog() -> int:
+	var act := get_current_act()
+	fights_started += 1
+	phase_2_reached_this_fight = false
+
+	match act:
+		Act.ACT_1:
+			if not seen_a1_intro:
+				seen_a1_intro = true
+				return DialogManager.situations.A1_INTRO
+			elif not seen_a1_first_fight:
+				seen_a1_first_fight = true
+				return DialogManager.situations.A1_A
+			elif fights_started == 2:
+				return DialogManager.situations.A1_D
+			else:
+				return DialogManager.situations.A1_F
+
+		Act.ACT_2:
+			if not seen_a2_first_fight:
+				seen_a2_first_fight = true
+				return DialogManager.situations.A2_B
+			elif act_2_defeats == 1:
+				return DialogManager.situations.A2_E
+			else:
+				return DialogManager.situations.A2_B
+
+		Act.ACT_3:
+			if not seen_a3_first_fight:
+				seen_a3_first_fight = true
+				return DialogManager.situations.A3_B
+			else:
+				return DialogManager.situations.A3_F
+
+	return DialogManager.situations.A1_F
+
+
+func get_phase_2_dialog() -> int:
+	phase_2_reached_this_fight = true
+	var act := get_current_act()
+
+	match act:
+		Act.ACT_1:
+			if not seen_a1_phase2:
+				seen_a1_phase2 = true
+				return DialogManager.situations.A1_H
+		Act.ACT_2:
+			if not seen_a2_phase2:
+				seen_a2_phase2 = true
+				return DialogManager.situations.A2_G
+		Act.ACT_3:
+			if not seen_a3_phase2:
+				seen_a3_phase2 = true
+				return DialogManager.situations.A3_C
+
+	return -1
+
+
+func get_defeat_dialog() -> int:
+	var act := get_current_act()
+
+	match act:
+		Act.ACT_1:
+			act_1_defeats += 1
+			if not seen_a1_first_defeat:
+				seen_a1_first_defeat = true
+				return DialogManager.situations.A1_B
+			else:
+				return DialogManager.situations.A1_G
+
+		Act.ACT_2:
+			act_2_defeats += 1
+			if not seen_a2_first_defeat:
+				seen_a2_first_defeat = true
+				return DialogManager.situations.A2_C
+			else:
+				return DialogManager.situations.A2_F
+
+		Act.ACT_3:
+			act_3_defeats += 1
+			return DialogManager.situations.A3_D
+
+	return DialogManager.situations.A1_G
+
+
+func get_workshop_pre_dialog() -> int:
+	var act := get_current_act()
+
+	match act:
+		Act.ACT_1:
+			if not seen_a1_first_upgrade:
+				seen_a1_first_upgrade = true
+				return DialogManager.situations.A1_C_PRE
+			else:
+				return DialogManager.situations.A1_E_PRE
+
+		Act.ACT_2:
+			if not seen_a2_ceramic_skin:
+				seen_a2_ceramic_skin = true
+				return DialogManager.situations.A2_A
+			elif not seen_a2_first_upgrade:
+				seen_a2_first_upgrade = true
+				return DialogManager.situations.A2_D_PRE
+			else:
+				return DialogManager.situations.A2_H_PRE
+
+		Act.ACT_3:
+			if not seen_a3_armored:
+				seen_a3_armored = true
+				return DialogManager.situations.A3_A
+			else:
+				return DialogManager.situations.A3_E_PRE
+
+	return DialogManager.situations.A1_E_PRE
+
+
+func get_workshop_post_dialog() -> int:
+	var act := get_current_act()
+
+	match act:
+		Act.ACT_1:
+			if seen_a1_first_upgrade and upgrades_taken == 1:
+				return DialogManager.situations.A1_C_POST
+			else:
+				return DialogManager.situations.A1_E_POST
+
+		Act.ACT_2:
+			if seen_a2_first_upgrade and upgrades_taken == (UPGRADES_PER_STORY + 1):
+				return DialogManager.situations.A2_D_POST
+			else:
+				return DialogManager.situations.A2_H_POST
+
+		Act.ACT_3:
+			return DialogManager.situations.A3_E_POST
+
+	return -1
+
+
+func get_ending_dialog() -> int:
+	if upgrades_taken == 0:
+		return DialogManager.situations.ENDING_3
+	elif get_current_act() == Act.ACT_3:
+		return DialogManager.situations.ENDING_2
+	else:
+		return DialogManager.situations.ENDING_1
+
 
 
 func get_upgrade_offer() -> Array[UpgradeStruct]:

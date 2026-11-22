@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="DialogStruct" format=3 uid="uid://20a40ja2bvew"]
+
+[ext_resource type="Script" uid="uid://s4fjncmjbqsw" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
+[ext_resource type="Script" uid="uid://dhec4gun2r35p" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Resource_intro_1"]
+script = ExtResource("2_line")
+text = "Even in the desolate plains of Hell, there is a hell. A place so lawless, so devoid of virtue that the Ministry of Right and Wrong abandons it to fester in its vices. "
+
+[sub_resource type="Resource" id="Resource_i14th"]
+script = ExtResource("2_line")
+text = "The Animal Realm is a concrete jungle that chews up the weak and spits out the baddest, most vile spirits to ever plague the Earth."
+metadata/_custom_type_script = "uid://dhec4gun2r35p"
+
+[sub_resource type="Resource" id="Resource_intro_2"]
+script = ExtResource("2_line")
+text = "Heroes don't end up here. Gods don't cast their blessings here. Hope doesn't take root here. Worse still to be clinging to the thin vestige of humanity in spirit form."
+
+[sub_resource type="Resource" id="Resource_ve553"]
+script = ExtResource("2_line")
+text = "The real animals-wolves and eagles and their like-rule the roost, pecking away at the poor, pathetic human spirits hiding in the Primate Spirit Garden."
+metadata/_custom_type_script = "uid://dhec4gun2r35p"
+
+[sub_resource type="Resource" id="Resource_intro_3"]
+script = ExtResource("2_line")
+text = "A niche of the Animal Realm lacking the towering skyscrapers of the big criminal families, and more importantly lacking their protection."
+
+[sub_resource type="Resource" id="Resource_d3apf"]
+script = ExtResource("2_line")
+text = "A cruel fate that leaves nothing but despair. A sorrowful pit in the bowels of Hell. Why then even bother to stand up, to just be beaten down again?"
+metadata/_custom_type_script = "uid://dhec4gun2r35p"
+
+[sub_resource type="Resource" id="Resource_intro_4"]
+script = ExtResource("2_line")
+text = "Mayumi asked herself that every day, on the same bridge between the garden and the city. Heroes don't end up here. Gods don't cast their blessings here."
+
+[sub_resource type="Resource" id="Resource_338ie"]
+script = ExtResource("2_line")
+text = "And yet…"
+metadata/_custom_type_script = "uid://dhec4gun2r35p"
+
+[resource]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_intro_1"), SubResource("Resource_i14th"), SubResource("Resource_intro_2"), SubResource("Resource_ve553"), SubResource("Resource_intro_3"), SubResource("Resource_d3apf"), SubResource("Resource_intro_4"), SubResource("Resource_338ie")])

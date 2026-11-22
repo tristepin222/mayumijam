@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="DialogStruct" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Resource_line_1"]
+script = ExtResource("2_line")
+character = 1
+text = "Alright lass, fess up. Who's coverin' for you?"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_2"]
+script = ExtResource("2_line")
+character = 0
+text = "I'd sooner leap off this bridge than tell you anything, horse!"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_3"]
+script = ExtResource("2_line")
+character = 1
+text = "Why you little runt! Let my boot help ya with that!"
+slot = 0
+effect = "shake_left"
+
+[sub_resource type="Resource" id="Resource_line_4"]
+script = ExtResource("2_line")
+character = 0
+text = ""
+slot = 5
+effect = "slide_out"
+
+[sub_resource type="Resource" id="Resource_line_5"]
+script = ExtResource("2_line")
+character = 1
+text = "That's what ya deserve! Now tell me…"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_6"]
+script = ExtResource("2_line")
+character = 1
+text = "Ah, darnit!"
+slot = 0
+effect = ""
+
+[resource]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3"), SubResource("Resource_line_4"), SubResource("Resource_line_5"), SubResource("Resource_line_6")])

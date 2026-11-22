@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="DialogStruct" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Resource_v1_line1"]
+script = ExtResource("2_line")
+character = 1
+text = "You a'gin? Ya got more lives than a litta o' stray cats!"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_variant1"]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v1_line1")])
+
+[sub_resource type="Resource" id="Resource_v2_line1"]
+script = ExtResource("2_line")
+character = 1
+text = "How many times do we have to teach you this lesson, little lady?"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_variant2"]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v2_line1")])
+
+[sub_resource type="Resource" id="Resource_v3_line1"]
+script = ExtResource("2_line")
+character = 1
+text = "Yer starting to fray the nerves, runt. Move it!"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_variant3"]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v3_line1")])
+
+[sub_resource type="Resource" id="Resource_v4_line1"]
+script = ExtResource("2_line")
+character = 1
+text = "You're worse than a mule on a Monday."
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_v4_line2"]
+script = ExtResource("2_line")
+character = 1
+text = "Well, if you wanna to make an ass of yourself, go right ahead!"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_variant4"]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v4_line1"), SubResource("Resource_v4_line2")])
+
+[resource]
+script = ExtResource("1_struct")
+variants = Array[ExtResource("1_struct")]([SubResource("Resource_variant1"), SubResource("Resource_variant2"), SubResource("Resource_variant3"), SubResource("Resource_variant4")])
