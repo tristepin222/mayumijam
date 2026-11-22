@@ -190,7 +190,7 @@ func get_fight_dialog() -> int:
 			elif not seen_a1_first_fight:
 				seen_a1_first_fight = true
 				return DialogManager.situations.A1_A
-			elif fights_started == 2:
+			elif fights_started == 3:
 				return DialogManager.situations.A1_D
 			else:
 				return DialogManager.situations.A1_F
@@ -202,7 +202,7 @@ func get_fight_dialog() -> int:
 			elif act_2_defeats == 1:
 				return DialogManager.situations.A2_E
 			else:
-				return DialogManager.situations.A2_B
+				return DialogManager.situations.A1_F  # random banter, avoid replaying opening scene
 
 		Act.ACT_3:
 			if not seen_a3_first_fight:
@@ -317,11 +317,11 @@ func get_workshop_post_dialog() -> int:
 
 func get_ending_dialog() -> int:
 	if upgrades_taken == 0:
-		return DialogManager.situations.ENDING_3
+		return DialogManager.situations.ENDING_1   # Ghost Matriarch (secret - 0 upgrades)
 	elif get_current_act() == Act.ACT_3:
-		return DialogManager.situations.ENDING_2
+		return DialogManager.situations.ENDING_3   # Canon - Haniwa Lance Corporal
 	else:
-		return DialogManager.situations.ENDING_1
+		return DialogManager.situations.ENDING_2   # Remorseful Sentinel (early victory)
 
 
 
