@@ -5,18 +5,63 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
-text = "With Saki Kurokoma humbled and her wolf pack broken, Mayumi stands triumphant beside the Goddess."
+character = 1
+slot = 3
+text = "Well I'll be darned, ya got more than just guts after all, little lass."
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
-text = "Having cast aside the guilt of her past, Mayumi Joutouguu embraces her new purpose as Keiki's foremost general."
+character = 1
+slot = 3
+text = "We will mosey on back to greener pastures. For today."
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
-text = "At the head of an army of impenetrable haniwa, she rides out across the great bridge to take the fight to the Animal Realm...
+character = 0
+slot = 1
+speaker_name_override = ""
+text = "You can come back tomorrow, next week, or in an hour. It matters not."
 
-...Setting the stage for the events of Wily Beast and Weakest Creature."
+[sub_resource type="Resource" id="Resource_line_4"]
+script = ExtResource("2_line")
+character = 0
+slot = 1
+text = "This garden is closed to you."
+
+[sub_resource type="Resource" id="Resource_line_5"]
+script = ExtResource("2_line")
+character = 1
+slot = 3
+text = "We'll see about that..."
+
+[sub_resource type="Resource" id="Resource_line_6"]
+script = ExtResource("2_line")
+character = 3
+slot = 0
+speaker_name_override = ""
+text = "Saki and her gang sure tried again. And again. But one lone warrior tossed them back each time. Word got around. Any who tried to disrupt the Primate Spirit Garden would be soundly defeated by its guardian."
+
+[sub_resource type="Resource" id="Resource_line_7"]
+script = ExtResource("2_line")
+character = 3
+slot = 0
+speaker_name_override = ""
+text = "Something resembling peace took hold within. Separately Keiki launched an offensive of her own, an army of haniwa to fight the oppressors on their own turf."
+
+[sub_resource type="Resource" id="Resource_line_8"]
+script = ExtResource("2_line")
+character = 3
+slot = 0
+speaker_name_override = ""
+text = "But Mayumi remained vigilant at her self-given post. She refused to budge until she felt her own sins atoned. And so she remains to this day..."
+
+[sub_resource type="Resource" id="Resource_line_9"]
+script = ExtResource("2_line")
+character = 3
+slot = 0
+speaker_name_override = ""
+text = "Ending 2: The Remorseful Sentinel"
 
 [resource]
 script = ExtResource("1_struct")
-dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3")])
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3"), SubResource("Resource_line_4"), SubResource("Resource_line_5"), SubResource("Resource_line_6"), SubResource("Resource_line_7"), SubResource("Resource_line_8"), SubResource("Resource_line_9")])

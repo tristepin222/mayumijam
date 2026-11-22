@@ -5,18 +5,63 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
-text = "Mayumi has thrown back the wolves at the gate. With Saki's pack scattered, the immediate threat to the human spirits is quelled."
+character = 1
+slot = 3
+text = "How is-? Why-? This... this ain't happening! Ya... ow... cheated or something!"
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
-text = "She becomes the Sentinel of the Primate Spirit Garden, guarding all those within with quiet resolve."
+character = 0
+slot = 1
+speaker_name_override = ""
+text = "Is this what passes for strength amongst your misbegotten kind?!"
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
-text = "Separately, Keiki launches an offensive into the Animal Realm, but Mayumi remains steadfast at her self-given post until she feels she has truly atoned.
+character = 0
+slot = 1
+text = "To think I could have feared you. Now I can barely pity you."
 
-And so she remains to this day…"
+[sub_resource type="Resource" id="Resource_line_4"]
+script = ExtResource("2_line")
+character = 1
+slot = 3
+text = "No... the Matriarch of the Keiga... isn't done yet... oof..."
+
+[sub_resource type="Resource" id="Resource_line_5"]
+script = ExtResource("2_line")
+character = 0
+slot = 1
+text = "You failed your title. Begone from my sight, cretin! I have work to do."
+
+[sub_resource type="Resource" id="Resource_line_6"]
+script = ExtResource("2_line")
+character = 3
+slot = 0
+speaker_name_override = ""
+text = "Rumors spread faster than a dust storm across a dry plain in the Animal Realm. A whole host of the Keiga, led by the Matriarch herself, thrown aside by a lone human spirit. The chatter rumbled for weeks."
+
+[sub_resource type="Resource" id="Resource_line_7"]
+script = ExtResource("2_line")
+character = 3
+slot = 0
+speaker_name_override = ""
+text = "Mayumi seized upon it, gathering any who would bow to her strength. The lonesome warrior found herself slipping into old habits. Weeding out the weak, crafting plots to crush her foes, casting out a rogue goddess, and refusing to yield an ounce of mercy."
+
+[sub_resource type="Resource" id="Resource_line_8"]
+script = ExtResource("2_line")
+character = 3
+slot = 0
+speaker_name_override = ""
+text = "A lifetime of experience returned to her. Without succumbing to the folly of friends or allies, she forged a new family. One that spread terror and despair; one that fit right in with the Animal Realm."
+
+[sub_resource type="Resource" id="Resource_line_9"]
+script = ExtResource("2_line")
+character = 3
+slot = 0
+speaker_name_override = ""
+text = "Ending 1: The Ghost Matriarch"
 
 [resource]
 script = ExtResource("1_struct")
-dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3")])
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3"), SubResource("Resource_line_4"), SubResource("Resource_line_5"), SubResource("Resource_line_6"), SubResource("Resource_line_7"), SubResource("Resource_line_8"), SubResource("Resource_line_9")])
