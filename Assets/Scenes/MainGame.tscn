@@ -291,6 +291,7 @@ physics_material_override = SubResource("PhysicsMaterial_d3jot")
 shape = SubResource("RectangleShape2D_d3jot")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1736950915]
+visible = false
 texture_filter = 1
 scale = Vector2(20.877419, 1.150468)
 texture = ExtResource("7_mnw02")
@@ -328,6 +329,5 @@ script = ExtResource("26_bosshp")
 boss_stats = NodePath("../Saki/Stats")
 
 [node name="canvas_dialog" parent="." unique_id=1739204626 instance=ExtResource("29_dialog")]
-visible = false
 
 [editable path="FightBackground"]

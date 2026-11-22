@@ -81,6 +81,17 @@ const sprite_size = 1000
 var dim_rect: ColorRect
 var base_textures: Dictionary = {}
 
+var portrait_context: Dictionary = {}
+var cutscene_handler: Callable
+var is_busy := false
+var appeared: Dictionary = {}
+var home_positions: Dictionary = {}
+var hidden_for_cutscene: Array = []
+
+const portrait_slide_time = 0.32
+const large_portrait_scale = 1.45
+const large_portrait_tag = "/p2_"
+
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -133,11 +144,11 @@ func _get_slot_position(slot: DialogLine.Slot, char_id: int, has_saki_present: b
 		DialogLine.Slot.LEFT_MAIN:
 			return Vector2(0.0, view_size.y - height)
 		DialogLine.Slot.LEFT_SUB:
-			return Vector2(height * 0.35, view_size.y - height)
+			return Vector2(height * 0.6, view_size.y - height)
 		DialogLine.Slot.RIGHT_MAIN:
 			return Vector2(view_size.x - height, view_size.y - height)
 		DialogLine.Slot.RIGHT_SUB:
-			return Vector2(view_size.x - height * 1.35, view_size.y - height)
+			return Vector2(view_size.x - height * 1.6, view_size.y - height)
 		DialogLine.Slot.DEFAULT, _:
 			if char_id == character.MAYUMI:
 				return Vector2(0.0, view_size.y - height)
@@ -146,23 +157,38 @@ func _get_slot_position(slot: DialogLine.Slot, char_id: int, has_saki_present: b
 			elif char_id == character.KEIKI:
 				# If Saki is present in the scene, Keiki stands with Mayumi on the left
 				if has_saki_present:
-					return Vector2(height * 0.35, view_size.y - height)
+					return Vector2(height * 0.6, view_size.y - height)
 				else:
 					# Otherwise (workshop with Mayumi), Keiki is on the right
 					return Vector2(view_size.x - height, view_size.y - height)
 			return Vector2(0.0, view_size.y - height)
 
 
-func play_dialog(new_script: int) -> void:
+func play_dialog(new_script: int, context: Dictionary = {}) -> void:
+	_set_context(context)
 	_open_dialog(new_script)
 	if dialog_opened:
 		await dialog_finished
 
 
-func play_dialog_resource(dialog_resource: DialogStruct) -> void:
+func play_dialog_resource(dialog_resource: DialogStruct, context: Dictionary = {}) -> void:
+	_set_context(context)
 	_open_dialog_resource(dialog_resource)
 	if dialog_opened:
 		await dialog_finished
+
+
+func _set_context(context: Dictionary) -> void:
+	portrait_context = context.duplicate()
+
+	if not portrait_context.has("mayumi_form"):
+		var game_manager := get_node_or_null("/root/GameManager")
+		var act := 0
+
+		if game_manager != null and game_manager.has_method("get_current_act"):
+			act = game_manager.get_current_act()
+
+		portrait_context["mayumi_form"] = PortraitLibrary.mayumi_form_for_act(act)
 
 
 func _open_dialog(new_script: int) -> void:
@@ -195,27 +221,38 @@ func _open_dialog_resource(res: DialogStruct) -> void:
 		elif line.character == character.KEIKI:
 			has_keiki = true
 
-	player_sprite.visible = has_mayumi
-	saki_sprite.visible = has_saki
-	keiki_sprite.visible = has_keiki
+	player_sprite.visible = false
+	saki_sprite.visible = false
+	keiki_sprite.visible = false
+	appeared.clear()
+
+	for sprite in sprites:
+		_apply_portrait_size(sprite, false)
+		sprite.remove_meta("base_position")
+		sprite.remove_meta("behind")
 
 	# Position sprites
 	player_sprite.position = _get_slot_position(DialogLine.Slot.LEFT_MAIN, character.MAYUMI, has_saki)
 	saki_sprite.position = _get_slot_position(DialogLine.Slot.RIGHT_MAIN, character.SAKI, has_saki)
 	keiki_sprite.position = _get_slot_position(DialogLine.Slot.DEFAULT, character.KEIKI, has_saki)
 
+	for sprite in sprites:
+		home_positions[sprite] = sprite.position
+
 	# Z-indexing so left sub is behind left main
 	player_sprite.z_index = 3
 	keiki_sprite.z_index = 2 if has_saki else 3
 	saki_sprite.z_index = 3
 
-	_update_dialog(current_dialog_pos)
+	visible = true
 	dialog_opened = true
 	dim_rect.visible = true
 	$sprite_dialog.visible = true
 
 	if dialog_animation.has_animation("DialogOpenAnim"):
 		dialog_animation.play("DialogOpenAnim")
+
+	_update_dialog(current_dialog_pos)
 
 
 func _update_dialog(new_dialog_pos: int) -> void:
@@ -225,7 +262,17 @@ func _update_dialog(new_dialog_pos: int) -> void:
 
 	var line: DialogLine = active_lines[new_dialog_pos]
 	var speaker: int = line.character
-	var has_saki: bool = saki_sprite.visible if saki_sprite != null else false
+	var has_saki: bool = _scene_has(character.SAKI)
+
+	if not line.cutscene_event.is_empty() and cutscene_handler.is_valid():
+		is_busy = true
+		_hide_for_cutscene()
+		await cutscene_handler.call(line.cutscene_event)
+		_show_after_cutscene()
+		is_busy = false
+
+		if not dialog_opened or current_dialog_pos != new_dialog_pos:
+			return
 
 	# Emit line started signal
 	dialog_line_started.emit(line)
@@ -233,6 +280,10 @@ func _update_dialog(new_dialog_pos: int) -> void:
 	# Update modulates based on who is speaking
 	for i in range(sprites.size()):
 		sprites[i].self_modulate = speaking_color if i == speaker else silent_color
+		if i == speaker:
+			sprites[i].z_index = 4
+		else:
+			sprites[i].z_index = 2 if sprites[i].get_meta("behind", false) else 3
 
 	# Determine active sprite
 	var active_sprite: TextureRect = null
@@ -243,12 +294,43 @@ func _update_dialog(new_dialog_pos: int) -> void:
 	elif speaker == character.KEIKI:
 		active_sprite = keiki_sprite
 
+	var entering := false
+
 	# Custom portrait or atlas update
 	if active_sprite != null:
+		var base: Vector2 = active_sprite.get_meta("base_position", home_positions.get(active_sprite, active_sprite.position))
+
+		if line.slot != DialogLine.Slot.DEFAULT and line.slot != DialogLine.Slot.HIDDEN:
+			base = _get_slot_position(line.slot, speaker, has_saki)
+
+		active_sprite.set_meta("base_position", base)
+
+		var on_left := base.x + _base_portrait_size() * 0.5 < get_viewport().get_visible_rect().size.x * 0.5
+		var portrait: Texture2D = null
+
 		if line.custom_portrait != null:
-			active_sprite.texture = line.custom_portrait
-		elif base_textures.has(active_sprite):
+			portrait = line.custom_portrait
+		elif line.slot != DialogLine.Slot.HIDDEN:
+			portrait = PortraitLibrary.get_portrait(speaker, line.emotion, portrait_context, on_left)
+
+		if portrait != null:
+			active_sprite.texture = portrait
+		elif line.slot != DialogLine.Slot.HIDDEN and base_textures.has(active_sprite):
 			active_sprite.texture = base_textures[active_sprite]
+
+		var was_large: bool = active_sprite.get_meta("large", false)
+		var is_large := active_sprite.texture != null and active_sprite.texture.resource_path.contains(large_portrait_tag)
+		_apply_portrait_size(active_sprite, is_large)
+
+		var target := _sized_position(active_sprite, base)
+		home_positions[active_sprite] = target
+
+		if not appeared.has(active_sprite) and line.slot != DialogLine.Slot.HIDDEN:
+			appeared[active_sprite] = true
+			entering = true
+			_slide_in_sprite(active_sprite, target, on_left)
+		elif is_large != was_large:
+			active_sprite.position = target
 
 		var atlas := active_sprite.texture as AtlasTexture
 		if atlas != null and atlas.atlas != null:
@@ -259,12 +341,16 @@ func _update_dialog(new_dialog_pos: int) -> void:
 				atlas.region = Rect2(Vector2.ZERO, sheet_size)
 
 		# Custom slot positioning if specified
-		if line.slot != DialogLine.Slot.DEFAULT:
+		if line.slot != DialogLine.Slot.DEFAULT and not entering:
 			if line.slot == DialogLine.Slot.HIDDEN:
-				active_sprite.visible = false
+				if line.effect.to_lower().strip_edges() != "slide_out":
+					active_sprite.visible = false
 			else:
 				active_sprite.visible = true
-				active_sprite.position = _get_slot_position(line.slot, speaker, has_saki)
+				active_sprite.position = _sized_position(active_sprite, _get_slot_position(line.slot, speaker, has_saki))
+				home_positions[active_sprite] = active_sprite.position
+
+	_show_companion(line, speaker, has_saki)
 
 	# Display text & speaker name
 	var display_name: String = ""
@@ -282,7 +368,10 @@ func _update_dialog(new_dialog_pos: int) -> void:
 		dialog_text.text = "[b][color=%s]%s[/color][/b]\n%s" % [name_color, display_name, line.text]
 
 	# Execute FX
-	_execute_effect(line, active_sprite)
+	if entering:
+		_execute_effect_after_entry(line, active_sprite, new_dialog_pos)
+	else:
+		_execute_effect(line, active_sprite)
 
 	# SFX Audio
 	if line.sfx != null and sfx_player != null:
@@ -315,10 +404,127 @@ func _execute_effect(line: DialogLine, active_sprite: TextureRect) -> void:
 		active_sprite.visible = false
 
 
+func _sprite_for(char_id: int) -> TextureRect:
+	match char_id:
+		character.MAYUMI:
+			return player_sprite
+		character.SAKI:
+			return saki_sprite
+		character.KEIKI:
+			return keiki_sprite
+	return null
+
+
+func _show_companion(line: DialogLine, speaker: int, has_saki: bool) -> void:
+	if line.companion == character.NONE or line.companion == speaker:
+		return
+
+	var sprite := _sprite_for(line.companion)
+
+	if sprite == null:
+		return
+
+	var base: Vector2 = sprite.get_meta("base_position", home_positions.get(sprite, sprite.position))
+
+	if not appeared.has(sprite):
+		base = _get_slot_position(DialogLine.Slot.DEFAULT, line.companion, has_saki)
+
+	sprite.set_meta("base_position", base)
+
+	var on_left := base.x + _base_portrait_size() * 0.5 < get_viewport().get_visible_rect().size.x * 0.5
+	var portrait := PortraitLibrary.get_portrait(line.companion, line.companion_emotion, portrait_context, on_left)
+
+	if portrait != null:
+		sprite.texture = portrait
+
+	_apply_portrait_size(sprite, false)
+
+	var target := _sized_position(sprite, base)
+	home_positions[sprite] = target
+	sprite.self_modulate = speaking_color
+	sprite.set_meta("behind", true)
+	sprite.z_index = 2
+
+	if not appeared.has(sprite):
+		appeared[sprite] = true
+		_slide_in_sprite(sprite, target, on_left)
+
+
+func _base_portrait_size() -> float:
+	return get_viewport().get_visible_rect().size.y * portrait_height_ratio
+
+
+func _apply_portrait_size(sprite: TextureRect, is_large: bool) -> void:
+	var side := _base_portrait_size() * (large_portrait_scale if is_large else 1.0)
+	sprite.size = Vector2(side, side)
+	sprite.set_meta("large", is_large)
+
+
+func _sized_position(sprite: TextureRect, base_position: Vector2) -> Vector2:
+	var base := _base_portrait_size()
+	return base_position + Vector2((base - sprite.size.x) * 0.5, base - sprite.size.y)
+
+
+func _scene_has(char_id: int) -> bool:
+	for line in active_lines:
+		if line.character == char_id:
+			return true
+	return false
+
+
+func _slide_in_sprite(sprite: TextureRect, target: Vector2, from_left: bool) -> void:
+	var view_width := get_viewport().get_visible_rect().size.x
+	sprite.visible = true
+	sprite.position = Vector2(-sprite.size.x if from_left else view_width, target.y)
+	sprite.modulate.a = 0.0
+
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(sprite, "position:x", target.x, portrait_slide_time).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(sprite, "modulate:a", 1.0, portrait_slide_time * 0.6)
+	sprite.set_meta("entry_tween", tween)
+
+
+func _execute_effect_after_entry(line: DialogLine, sprite: TextureRect, line_pos: int) -> void:
+	if line.effect.strip_edges().is_empty():
+		return
+
+	var tween: Tween = sprite.get_meta("entry_tween") if sprite.has_meta("entry_tween") else null
+
+	if tween != null and tween.is_valid() and tween.is_running():
+		await tween.finished
+
+	if dialog_opened and current_dialog_pos == line_pos:
+		_execute_effect(line, sprite)
+
+
+func _hide_for_cutscene() -> void:
+	hidden_for_cutscene.clear()
+
+	for sprite in sprites:
+		if sprite.visible:
+			hidden_for_cutscene.append(sprite)
+			sprite.visible = false
+
+	dim_rect.visible = false
+	$sprite_dialog.visible = false
+
+
+func _show_after_cutscene() -> void:
+	if not dialog_opened:
+		return
+
+	for sprite in hidden_for_cutscene:
+		sprite.visible = true
+
+	hidden_for_cutscene.clear()
+	dim_rect.visible = true
+	$sprite_dialog.visible = true
+
+
 func _shake_sprite(sprite: TextureRect) -> void:
 	if sprite == null or not sprite.visible:
 		return
-	var base_pos := sprite.position
+	var base_pos: Vector2 = home_positions.get(sprite, sprite.position)
 	var tween := create_tween()
 	for i in range(4):
 		var offset := Vector2(randf_range(-14.0, 14.0), randf_range(-6.0, 6.0))
@@ -356,6 +562,7 @@ func _continue_dialog() -> void:
 
 func _close_dialog() -> void:
 	dialog_opened = false
+	appeared.clear()
 
 	if dialog_animation.has_animation("DialogCloseAnim"):
 		dialog_animation.play("DialogCloseAnim")
@@ -382,9 +589,9 @@ func _get_dialog_resource(situation_idx: int) -> DialogStruct:
 
 
 func _input(event: InputEvent) -> void:
-	if not dialog_opened:
+	if not dialog_opened or is_busy:
 		return
 
-	if event.is_action_pressed("update_dialog") or event.is_action_pressed("attack") or event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("update_dialog") or event.is_action_pressed("sword") or event.is_action_pressed("ui_accept"):
 		get_viewport().set_input_as_handled()
 		_continue_dialog()

@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_v1_line1"]
 script = ExtResource("2_line")
+emotion = "surprised"
 character = 1
 text = "You a'gin? Ya got more lives than a litta o' stray cats!"
 slot = 0
@@ -16,6 +17,7 @@ dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v1_line1")])
 
 [sub_resource type="Resource" id="Resource_v2_line1"]
 script = ExtResource("2_line")
+emotion = "annoyed"
 character = 1
 text = "How many times do we have to teach you this lesson, little lady?"
 slot = 0
@@ -27,6 +29,7 @@ dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v2_line1")])
 
 [sub_resource type="Resource" id="Resource_v3_line1"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 1
 text = "Yer starting to fray the nerves, runt. Move it!"
 slot = 0
@@ -38,6 +41,7 @@ dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v3_line1")])
 
 [sub_resource type="Resource" id="Resource_v4_line1"]
 script = ExtResource("2_line")
+emotion = "dismissive"
 character = 1
 text = "You're worse than a mule on a Monday."
 slot = 0
@@ -45,6 +49,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_v4_line2"]
 script = ExtResource("2_line")
+emotion = "laugh"
 character = 1
 text = "Well, if you wanna to make an ass of yourself, go right ahead!"
 slot = 0

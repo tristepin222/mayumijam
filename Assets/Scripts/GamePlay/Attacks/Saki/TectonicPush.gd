@@ -202,7 +202,12 @@ func _perform_pillars(xs: Array[float]) -> void:
 		return
 
 	for pillar in pillars:
-		if is_instance_valid(pillar):
+		if not is_instance_valid(pillar):
+			continue
+
+		if pillar.has_method("retract"):
+			pillar.call("retract")
+		else:
 			pillar.queue_free()
 
 

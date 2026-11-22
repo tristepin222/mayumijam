@@ -14,6 +14,13 @@ class_name DialogLine
 # 2D coordinates on the sprite atlas if using a spritesheet
 @export var portrait_coords: Vector2 = Vector2.ZERO 
 
+# Portrait emotion, e.g. "neutral", "angry", "pained", "p2_furious". The outfit/form is picked from the story state.
+@export var emotion: String = ""
+
+# A second character shown with this line, standing behind the speaker (e.g. Keiki on a "Mayumi and Keiki" line)
+@export var companion: DialogManager.characters = DialogManager.characters.NONE
+@export var companion_emotion: String = ""
+
 
 @export_multiline var text: String = ""
 
@@ -37,4 +44,6 @@ enum Slot {
 @export var music_cue: String = ""
 # Animation to play on AnimationPlayer if any
 @export var animation_name: String = ""
+# In-world cutscene to play before this line, with the dialogue box hidden (e.g. "mayumi_enter", "saki_enter")
+@export var cutscene_event: String = ""
 @export var visible: bool = true

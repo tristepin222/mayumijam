@@ -25,6 +25,12 @@ extends BossAttack
 @export var break_duration: float = 0.35
 @export var break_color: Color = Color(0.55, 0.3, 0.15, 0.7)
 
+@export_group("Rocks")
+@export var rock_spacing: float = 16.0
+@export var rock_height_scale: float = 1.15
+@export var rock_shockwave_time: float = 0.12
+@export_range(0.0, 1.0) var zone_flash_opacity: float = 0.35
+
 @export_group("Telegraph")
 @export var flash_interval: float = 0.1
 @export var flash_count: int = 3
@@ -399,8 +405,20 @@ func _impact_zone(zone_width: float, zone_height: float, zone_duration: float, z
 		Vector2(half.x, half.y),
 		Vector2(-half.x, half.y)
 	])
-	visual.color = zone_color
+	visual.color = Color(zone_color, zone_color.a * zone_flash_opacity)
 	zone.add_child(visual)
+
+	var rocks: Array[RockPillar] = []
+	var rock_count := maxi(int(zone_width / rock_spacing), 1)
+
+	for i in range(rock_count):
+		var x := -half.x + (float(i) + 0.5) * zone_width / float(rock_count)
+		var from_center := absf(x) / maxf(half.x, 1.0)
+		var height := zone_height * rock_height_scale * lerpf(1.0, 0.6, from_center) * randf_range(0.85, 1.1)
+		var rock := RockPillar.create(height, from_center * rock_shockwave_time)
+		rock.position = Vector2(x, half.y + 3.0)
+		zone.add_child(rock)
+		rocks.append(rock)
 
 	get_tree().current_scene.add_child(zone)
 	zone.global_position = Vector2(saki.global_position.x, ground_y - zone_height / 2.0)
@@ -437,7 +455,13 @@ func _impact_zone(zone_width: float, zone_height: float, zone_duration: float, z
 					player_stats.take_damage(impact_damage)
 					print("Saki's dive impact hit Mayumi!")
 
-	zone.queue_free()
+	zone.set_deferred("monitoring", false)
+
+	for rock in rocks:
+		if is_instance_valid(rock):
+			rock.retract()
+
+	get_tree().create_timer(0.25, false).timeout.connect(zone.queue_free)
 
 
 func _remove_landing_warning() -> void:

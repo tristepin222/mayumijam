@@ -14,12 +14,12 @@ AngryCow: Writer
 Tristepin: Programmer
 Gelis: Programmer"""
 @export_multiline var credits_footer: String = """A Touhou Project fan game. Mayumi Joutouguu, Saki Kurokoma and Keiki Haniyasushin
-are characters from Touhou Project © Team Shanghai Alice / ZUN. Made with Godot Engine."""
+are characters from Touhou Project © Team Shanghai Alice / ZUN."""
 
 const CONTROL_ACTIONS = [
 	["Move", ["move_left", "move_right"]],
 	["Jump / Haniwa Leap", ["jump"]],
-	["Attack", ["attack"]],
+	["Attack", ["sword"]],
 	["Dash", ["dash"]],
 	["Danmaku", ["danmaku_shot"]],
 	["Haniwa Wall", ["haniwa_wall"]],
@@ -390,7 +390,7 @@ func _make_button(text: String) -> Button:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not event.is_action_pressed("attack"):
+	if not event.is_action_pressed("sword"):
 		return
 
 	var focused := get_viewport().gui_get_focus_owner() as BaseButton

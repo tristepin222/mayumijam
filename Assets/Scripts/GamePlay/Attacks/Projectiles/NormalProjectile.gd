@@ -13,8 +13,18 @@ var has_hit := false
 var is_reflected := false
 var damage_phase: CharacterStats.DamagePhase = CharacterStats.DamagePhase.PHASE_1
 
+@onready var sprite: Sprite2D = get_node_or_null("Sprite2D")
+
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
+	_face_direction()
+
+
+func _face_direction() -> void:
+	rotation = direction.angle()
+
+	if sprite != null:
+		sprite.flip_v = direction.x < 0.0
 
 
 func setup(
@@ -31,6 +41,9 @@ func setup(
 	damage = projectile_damage
 	lifetime = projectile_lifetime
 	damage_phase = phase
+
+	if is_node_ready():
+		_face_direction()
 
 
 func reflect(saki: Node2D) -> void:
@@ -50,6 +63,7 @@ func reflect(saki: Node2D) -> void:
 
 	# Give the reflected projectile a fresh lifetime.
 	lifetime = 4.0
+	_face_direction()
 
 	print("Normal Danmaku reflected towards Saki!")
 

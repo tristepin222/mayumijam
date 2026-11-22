@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "eager"
 character = 1
 text = "Yer getting more interestin'. Try me again on the morrow!"
 slot = 0

@@ -5,18 +5,21 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "neutral"
 character = 0
 text = "This one, I guess."
 slot = 1
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
+emotion = "happy"
 character = 2
 text = "Excellent! Just give me some feedback on how it works out, would you dearie?"
 slot = 3
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
+emotion = "brooding"
 character = 0
 text = "Yeah, if we ever meet again, whatever."
 slot = 1
@@ -24,12 +27,14 @@ effect = "slide_out"
 
 [sub_resource type="Resource" id="Resource_line_4"]
 script = ExtResource("2_line")
+emotion = "thinking"
 character = 2
 text = "Oh, if she doesn't survive I won't get much feedback huh?"
 slot = 3
 
 [sub_resource type="Resource" id="Resource_line_5"]
 script = ExtResource("2_line")
+emotion = "sweating"
 character = 2
 text = "Well, if nothing else...I guess that would mean it didn't work...?"
 slot = 3

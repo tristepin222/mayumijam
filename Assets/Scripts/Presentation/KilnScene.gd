@@ -11,11 +11,15 @@ signal choice_made(index: int)
 @export var card_color: Color = Color(0.13, 0.05, 0.03, 0.92)
 @export var card_border_color: Color = Color(1.0, 0.72, 0.4, 0.45)
 @export var card_focus_color: Color = Color(1.0, 0.88, 0.55, 1.0)
+@export var shopkeeper_height_ratio: float = 0.82
+@export var shopkeeper_card_shift: float = 260.0
 
 var game_manager
 var ui_layer: CanvasLayer
 var panel: Control
 var background: TextureRect
+var shopkeeper: TextureRect
+var panel_right_margin := 0.0
 
 
 func _ready() -> void:
@@ -43,10 +47,9 @@ func _ready() -> void:
 
 	match game_manager.kiln_mode:
 		"win":
-			var ending_situation: int = game_manager.get_ending_dialog()
-			_run_ending(ending_situation, "Saki has been defeated!")
+			_run_ending(-1, "Saki has been defeated!")
 		"lose":
-			_run_ending(DialogManager.situations.A3_D, "Mayumi has become a full Haniwa.")
+			_run_ending(DialogManager.situations.A3_D, "Mayumi has become a full Haniwa.", {"mayumi_damaged": true, "keiki_outfit": "goddess"})
 		_:
 			_run_upgrade()
 
@@ -80,7 +83,7 @@ func _run_upgrade() -> void:
 	if dialog_player != null and game_manager != null:
 		var pre_dialog: int = game_manager.get_workshop_pre_dialog()
 		if pre_dialog >= 0:
-			await dialog_player.play_dialog(pre_dialog)
+			await dialog_player.play_dialog(pre_dialog, {"mayumi_damaged": true})
 
 	var offer: Array[UpgradeStruct] = game_manager.get_upgrade_offer()
 
@@ -97,15 +100,17 @@ func _run_upgrade() -> void:
 		descriptions.append(game_manager.describe_upgrade(upgrade))
 
 	_set_background(upgrade_texture)
+	_show_shopkeeper()
 
 	var index := await _show_choices("Choose Keiki's gift", titles, descriptions)
 
+	_hide_shopkeeper()
 	game_manager._select_upgrade(offer[index])
 
 	if dialog_player != null and game_manager != null:
 		var post_dialog: int = game_manager.get_workshop_post_dialog()
 		if post_dialog >= 0:
-			await dialog_player.play_dialog(post_dialog)
+			await dialog_player.play_dialog(post_dialog, {})
 
 	var story: Dictionary = game_manager.last_story_upgrade
 
@@ -118,9 +123,9 @@ func _run_upgrade() -> void:
 	game_manager.start_fight()
 
 
-func _run_ending(situation: int, title: String) -> void:
-	if dialog_player != null:
-		await dialog_player.play_dialog(situation)
+func _run_ending(situation: int, title: String, context: Dictionary = {}) -> void:
+	if dialog_player != null and situation >= 0:
+		await dialog_player.play_dialog(situation, context)
 
 	await _show_message(
 		"THE END\n\n%s\nDeaths: %d" % [title, game_manager.deaths],
@@ -228,7 +233,47 @@ func _open_panel() -> void:
 
 	panel = CenterContainer.new()
 	panel.set_anchors_preset(Control.PRESET_FULL_RECT)
+	panel.offset_right = -panel_right_margin
 	ui_layer.add_child(panel)
+
+
+func _show_shopkeeper() -> void:
+	var texture := PortraitLibrary.get_portrait(DialogManager.characters.KEIKI, "shop", {}, false)
+
+	if texture == null:
+		return
+
+	var layer := CanvasLayer.new()
+	layer.layer = 4
+	add_child(layer)
+
+	var view_size := get_viewport().get_visible_rect().size
+	var height := view_size.y * shopkeeper_height_ratio
+
+	shopkeeper = TextureRect.new()
+	shopkeeper.texture = texture
+	shopkeeper.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	shopkeeper.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	shopkeeper.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	shopkeeper.size = Vector2(height, height)
+	shopkeeper.position = Vector2(view_size.x, view_size.y - height)
+	shopkeeper.modulate.a = 0.0
+	layer.add_child(shopkeeper)
+
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(shopkeeper, "position:x", view_size.x - height, 0.35).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(shopkeeper, "modulate:a", 1.0, 0.25)
+
+	panel_right_margin = shopkeeper_card_shift
+
+
+func _hide_shopkeeper() -> void:
+	panel_right_margin = 0.0
+
+	if is_instance_valid(shopkeeper):
+		shopkeeper.get_parent().queue_free()
+
+	shopkeeper = null
 
 
 func _close_panel() -> void:
@@ -239,7 +284,7 @@ func _close_panel() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if panel == null or not event.is_action_pressed("attack"):
+	if panel == null or not event.is_action_pressed("sword"):
 		return
 
 	var focused := get_viewport().gui_get_focus_owner() as Button

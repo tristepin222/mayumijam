@@ -18,6 +18,13 @@ const KEY_FREEZE = KEY_B
 const KEY_PHASE_2 = KEY_N
 const KEY_UNLOCK = KEY_U
 
+const ENDINGS = [
+	[KEY_F2, "Ending 1: The Ghost Matriarch"],
+	[KEY_F3, "Ending 2: The Remorseful Sentinel"],
+	[KEY_F4, "Ending 3: Haniwa Lance Corporal"],
+	[KEY_F5, "Full Haniwa ending"],
+]
+
 var god_mode := false
 var ai_frozen := false
 
@@ -79,6 +86,12 @@ func _build_overlay() -> void:
 	lines.append("B   Freeze Saki's AI")
 	lines.append("N   Skip to phase 2")
 	lines.append("U   Unlock all abilities")
+	lines.append("")
+
+	for entry in ENDINGS:
+		lines.append("%s  %s" % [OS.get_keycode_string(entry[0]), entry[1]])
+
+	lines.append("")
 	lines.append("F1  Hide this list")
 
 	var help_label := _make_label(16)
@@ -128,6 +141,14 @@ func _input(event: InputEvent) -> void:
 			_skip_to_phase_2()
 		KEY_UNLOCK:
 			_unlock_all()
+		KEY_F2:
+			_view_ending(0)
+		KEY_F3:
+			_view_ending(1)
+		KEY_F4:
+			_view_ending(2)
+		KEY_F5:
+			_view_ending(3)
 		_:
 			for entry in SAKI_ATTACKS:
 				if entry[0] == code:
@@ -250,6 +271,52 @@ func _skip_to_phase_2() -> void:
 	stats.health = mini(stats.health, target)
 	stats.health_changed.emit(stats.health, stats.max_health)
 	_toast("Skipped to phase 2")
+
+
+func _view_ending(index: int) -> void:
+	var game_manager := get_node_or_null("/root/GameManager")
+
+	if game_manager == null:
+		return
+
+	if index == 3:
+		game_manager.story_index = game_manager.STORY_UPGRADES.size()
+		game_manager.kiln_mode = "lose"
+		_toast(ENDINGS[index][1])
+		game_manager.show_end_screen()
+		return
+
+	var saki := _get_saki()
+
+	if saki == null or saki.defeated:
+		_toast("Start a fight first")
+		return
+
+	match index:
+		0:
+			game_manager.upgrades_taken = 0
+			game_manager.story_index = 0
+		1:
+			game_manager.upgrades_taken = maxi(game_manager.upgrades_taken, 1)
+			game_manager.story_index = mini(game_manager.story_index, 1)
+			game_manager.seen_a3_armored = false
+			game_manager.seen_a2_ceramic_skin = false
+		2:
+			game_manager.upgrades_taken = maxi(game_manager.upgrades_taken, game_manager.UPGRADES_PER_STORY * game_manager.STORY_UPGRADES.size())
+			game_manager.story_index = game_manager.STORY_UPGRADES.size()
+
+	var dialog := get_tree().current_scene.find_child("canvas_dialog", true, false)
+
+	if dialog != null and dialog.get("dialog_opened"):
+		dialog.call("_close_dialog")
+
+	get_tree().paused = false
+	_toast(ENDINGS[index][1])
+
+	var stats := saki.get_node_or_null("Stats") as CharacterStats
+
+	if stats != null:
+		stats.take_damage(stats.health)
 
 
 func _unlock_all() -> void:

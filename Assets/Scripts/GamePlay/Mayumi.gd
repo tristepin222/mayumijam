@@ -32,6 +32,9 @@ var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
 var is_invincible := false
 
+var cinematic := false
+var cinematic_direction := 0.0
+
 var dash_ability: PlayerAbility
 var sword_ability: PlayerAbility
 var danmaku_ability: PlayerAbility
@@ -78,11 +81,13 @@ func _ready() -> void:
 	for ability_id in ability_manager.unlocked_abilities:
 		apply_upgrade(ability_id)
 
+	sprite.visible = not has_node("Mayumi")
+
+
 func _process(_delta: float) -> void:
-	if stats != null and stats.is_invulnerable:
-		sprite.visible = int(Time.get_ticks_msec() / 80.0) % 2 == 0
-	else:
-		sprite.visible = true
+	var blink_off := stats != null and stats.is_invulnerable and int(Time.get_ticks_msec() / 80.0) % 2 == 1
+	modulate.a = 0.25 if blink_off else 1.0
+	sprite.visible = not has_node("Mayumi")
 
 
 
@@ -106,17 +111,24 @@ func _physics_process(delta: float) -> void:
 	# Horizontal movement.
 	var direction := 0.0
 
-	if Input.is_action_pressed("move_right"):
-		direction += 1.0
+	if cinematic:
+		direction = cinematic_direction
+	else:
+		if Input.is_action_pressed("move_right"):
+			direction += 1.0
 
-	if Input.is_action_pressed("move_left"):
-		direction -= 1.0
+		if Input.is_action_pressed("move_left"):
+			direction -= 1.0
 
 	velocity.x = direction * move_speed
 
 	# Update facing direction.
 	if direction != 0.0:
 		facing_direction = signf(direction)
+
+	if cinematic:
+		move_and_slide()
+		return
 
 	# Jump.
 	if Input.is_action_just_pressed("jump"):
@@ -142,6 +154,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if cinematic:
+		return
 
 	if event.is_action_pressed("sword"):
 		if sword_ability != null:

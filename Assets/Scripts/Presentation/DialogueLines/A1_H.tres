@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 1
 text = "Wh-what? That actually… ya can't make me bleed my own blood!"
 slot = 0
@@ -12,6 +13,7 @@ effect = "shake"
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
+emotion = "annoyed"
 character = 1
 text = "That ain't allowed!"
 slot = 0
@@ -19,6 +21,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
+emotion = "surprised"
 character = 0
 text = "(It's... working? Maybe I can… no, I better just scare her off)"
 slot = 0
@@ -26,6 +29,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_4"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 0
 text = "Yeah! Now you get out of here before I uhh... really give it to you!"
 slot = 0
@@ -33,6 +37,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_5"]
 script = ExtResource("2_line")
+emotion = "p2_fired_up"
 character = 1
 text = "Ahahaha! You are quite mistaken darlin'. This is better than I expected."
 slot = 0
@@ -40,6 +45,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_6"]
 script = ExtResource("2_line")
+emotion = "p2_furious"
 character = 1
 text = "I can finally cut loose!"
 slot = 0
@@ -47,6 +53,7 @@ effect = "shake"
 
 [sub_resource type="Resource" id="Resource_line_7"]
 script = ExtResource("2_line")
+emotion = "surprised"
 character = 0
 text = "Oh. Crap…"
 slot = 0

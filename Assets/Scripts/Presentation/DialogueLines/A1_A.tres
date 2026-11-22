@@ -5,21 +5,26 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "brooding"
+cutscene_event = "mayumi_enter"
 character = 0
 text = "..."
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
+emotion = "brooding"
 character = 0
 text = "Why do I wander out here? Not like I am damned fool enough to venture to the streets."
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
+emotion = "neutral"
 character = 0
 text = "..."
 
 [sub_resource type="Resource" id="Resource_line_4"]
 script = ExtResource("2_line")
+emotion = "brooding"
 character = 0
 text = "… even if that is where all the power and money and freedom are."
 
@@ -30,98 +35,118 @@ effect = "darken"
 
 [sub_resource type="Resource" id="Resource_line_6"]
 script = ExtResource("2_line")
+emotion = "surprised"
 character = 0
 text = "!"
 effect = "shake"
 
 [sub_resource type="Resource" id="Resource_line_7"]
 script = ExtResource("2_line")
+emotion = "cocky"
+cutscene_event = "saki_enter"
 character = 1
 text = "Well ain't ya right then, Kenji."
 
 [sub_resource type="Resource" id="Resource_line_8"]
 script = ExtResource("2_line")
+emotion = "laugh"
 character = 1
 text = "There is a little doggie come out to meet us. Sure makes gettin' there 'ere rodeo going easy-like."
 
 [sub_resource type="Resource" id="Resource_line_9"]
 script = ExtResource("2_line")
+emotion = "dismissive"
 character = 1
 text = "Alright there whosever ya are, just come along quietly an' we won't have to get violent."
 
 [sub_resource type="Resource" id="Resource_line_10"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 0
 text = "What? So you can use me for labor? Another slave to be cast aside when it's spent?"
 
 [sub_resource type="Resource" id="Resource_line_11"]
 script = ExtResource("2_line")
+emotion = "eager"
 character = 1
 text = "Whoa there! Aha! Ain't sounding nice like that. We just gotta rastle up folks who can do the work no good wolf would waste a paw on. So git on and help us start a line for the round up."
 
 [sub_resource type="Resource" id="Resource_line_12"]
 script = ExtResource("2_line")
+emotion = "brooding"
 character = 0
 text = "…"
 
 [sub_resource type="Resource" id="Resource_line_13"]
 script = ExtResource("2_line")
+emotion = "neutral"
 character = 0
 text = "No."
 
 [sub_resource type="Resource" id="Resource_line_14"]
 script = ExtResource("2_line")
+emotion = "surprised"
 character = 1
 text = "What was that?"
 
 [sub_resource type="Resource" id="Resource_line_15"]
 script = ExtResource("2_line")
+emotion = "neutral"
 character = 0
 text = "I said no."
 
 [sub_resource type="Resource" id="Resource_line_16"]
 script = ExtResource("2_line")
+emotion = "annoyed"
 character = 1
 text = "Little lass, I don't think ya know who you're disrespectin'."
 
 [sub_resource type="Resource" id="Resource_line_17"]
 script = ExtResource("2_line")
+emotion = "cocky"
 character = 1
 text = "I am Saki Kurokoma, the damned Matriarch herself of the Keiga family. Ya should be honored just to kiss my boots. So why don't ya try again and-"
 
 [sub_resource type="Resource" id="Resource_line_18"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 0
 text = "No!"
 effect = "shake"
 
 [sub_resource type="Resource" id="Resource_line_19"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 1
 text = "Why ya little… What makes ya think you got any choice in da matter?"
 
 [sub_resource type="Resource" id="Resource_line_20"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 0
 text = "It is too late to care about consequences. If I can raise my sword, I don't have to listen to a word you say."
 
 [sub_resource type="Resource" id="Resource_line_21"]
 script = ExtResource("2_line")
+emotion = "dismissive"
 character = 1
 text = "Hmph, that so?"
 
 [sub_resource type="Resource" id="Resource_line_22"]
 script = ExtResource("2_line")
+emotion = "cocky"
 character = 1
 text = "You think you are gonna take me on with that dull blade 'bout as flimsy as your stance?"
 
 [sub_resource type="Resource" id="Resource_line_23"]
 script = ExtResource("2_line")
+emotion = "laugh"
 character = 1
 text = "Pfft….heheheh...AHAHAHA! Well who am I to say no to a challenge?"
 
 [sub_resource type="Resource" id="Resource_line_24"]
 script = ExtResource("2_line")
+emotion = "eager"
 character = 1
 text = "Alright, little lady. Make this worth my time!"
 

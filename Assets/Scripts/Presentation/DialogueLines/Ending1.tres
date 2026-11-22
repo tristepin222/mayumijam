@@ -5,12 +5,14 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 1
 slot = 3
 text = "How is-? Why-? This... this ain't happening! Ya... ow... cheated or something!"
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 0
 slot = 1
 speaker_name_override = ""
@@ -18,18 +20,21 @@ text = "Is this what passes for strength amongst your misbegotten kind?!"
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
+emotion = "brooding"
 character = 0
 slot = 1
 text = "To think I could have feared you. Now I can barely pity you."
 
 [sub_resource type="Resource" id="Resource_line_4"]
 script = ExtResource("2_line")
+emotion = "annoyed"
 character = 1
 slot = 3
 text = "No... the Matriarch of the Keiga... isn't done yet... oof..."
 
 [sub_resource type="Resource" id="Resource_line_5"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 0
 slot = 1
 text = "You failed your title. Begone from my sight, cretin! I have work to do."

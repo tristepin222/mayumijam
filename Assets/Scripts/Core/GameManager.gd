@@ -5,12 +5,18 @@ signal upgrade_taken(upgrade: UpgradeStruct)
 
 const FIGHT_SCENE := "res://Assets/Scenes/MainGame.tscn"
 const KILN_SCENE := "res://Assets/Scenes/Kiln.tscn"
+const MENU_SCENE := "res://Assets/Scenes/MainMenu.tscn"
 
 const BASE_HEARTS := 1
 const MAX_HEALTH_TIER := 6
 const MAX_DAMAGE_TIER := 6
 const DAMAGE_PER_TIER := 0.2
 const UPGRADES_PER_STORY := 3
+
+const FIGHT_THEME_1_LAST_ATTEMPT := 6
+const FIGHT_THEME_2_LAST_ATTEMPT := 10
+const SHOP_COLD_LAST_DEATH := 6
+const SHOP_MUSIC_START := 20.0
 
 const BASE_ABILITIES := ["dash", "sword_attack"]
 
@@ -66,6 +72,11 @@ var upgrades_taken: int = 0
 
 var kiln_mode: String = "upgrade"
 var last_story_upgrade: Dictionary = {}
+
+
+func _ready() -> void:
+	if OS.is_debug_build():
+		add_child(load("res://Assets/Scripts/Core/DebugCommands.gd").new())
 
 
 func reset_run() -> void:
@@ -167,6 +178,32 @@ func apply_to_mayumi(mayumi) -> void:
 
 	if has_story_upgrade("haniwa_armor") and mayumi.has_method("unlock_haniwa_armor"):
 		mayumi.unlock_haniwa_armor()
+
+
+func get_fight_track() -> String:
+	var attempt := deaths + 1
+
+	if attempt <= FIGHT_THEME_1_LAST_ATTEMPT:
+		return "keiki_theme_1"
+
+	if attempt <= FIGHT_THEME_2_LAST_ATTEMPT:
+		return "keiki_theme_2"
+
+	return "keiki_theme_final"
+
+
+func get_shop_track() -> String:
+	if deaths <= SHOP_COLD_LAST_DEATH:
+		return "shop_cold"
+
+	return "shop_warm"
+
+
+func play_music(track: String, start_at: float = 0.0) -> void:
+	var music := get_node_or_null("/root/MusicManager")
+
+	if music != null:
+		music.play(track, start_at)
 
 
 func get_current_act() -> int:
@@ -400,8 +437,8 @@ func on_boss_defeated() -> void:
 	victory = true
 	kiln_mode = "win"
 
-	await get_tree().create_timer(1.5).timeout
 
+func show_end_screen() -> void:
 	_change_scene(KILN_SCENE)
 
 
@@ -415,10 +452,11 @@ func start_new_run() -> void:
 	_change_scene(FIGHT_SCENE)
 
 
+func go_to_menu() -> void:
+	reset_run()
+	_change_scene(MENU_SCENE)
+
+
 func _change_scene(path: String) -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file(path)
-	
-func _process(_delta: float) -> void:
-	if get_tree().paused:
-		print("GAME IS PAUSED")

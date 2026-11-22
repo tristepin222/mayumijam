@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 1
 text = "What are these little runts doing 'ere? And why are they tearing up my wolves?!"
 slot = 3
@@ -12,6 +13,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
+emotion = "determined"
 character = 2
 text = "My haniwa are performing their function admirably."
 slot = 2
@@ -19,6 +21,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
+emotion = "determined"
 character = 0
 speaker_name_override = "Mayumi Joutouguu"
 text = "Surely you aren't scared to face me alone now, are you Kurokoma?"
@@ -27,6 +30,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_4"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 1
 text = "Never! I'll smash you and every little ball of clay that dares tarnish the Keiga!"
 slot = 3

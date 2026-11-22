@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "cocky"
 character = 1
 text = "The varmint returns. Ain't no way ya keep getting dolled up like that by yourself."
 slot = 0
@@ -12,6 +13,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
+emotion = "determined"
 character = 0
 text = "That is no business of yours, Saki."
 slot = 0
@@ -19,6 +21,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
+emotion = "dismissive"
 character = 1
 text = "With how much ya keep stainin' the bottom of my boot, I reckon it is my business."
 slot = 0
@@ -26,6 +29,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_4"]
 script = ExtResource("2_line")
+emotion = "cocky"
 character = 1
 text = "Whoever it is, I oughta pay'em a visit in kind."
 slot = 0
@@ -33,6 +37,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_5"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 0
 text = "You will do no such thing!"
 slot = 0
@@ -40,6 +45,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_6"]
 script = ExtResource("2_line")
+emotion = "laugh"
 character = 1
 text = "Who is gonna stop me? You? Yer record ain't much ta talk 'bout, princess."
 slot = 0
@@ -47,6 +53,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_7"]
 script = ExtResource("2_line")
+emotion = "eager"
 character = 1
 text = "But I do like to run up the score!"
 slot = 0

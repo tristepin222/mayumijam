@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_v1_line1"]
 script = ExtResource("2_line")
+emotion = "dismissive"
 character = 1
 text = "Patooie!"
 slot = 0
@@ -12,6 +13,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_v1_line2"]
 script = ExtResource("2_line")
+emotion = "pained"
 character = 0
 text = "Eww, that got in my eye."
 slot = 0
@@ -23,6 +25,7 @@ dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v1_line1"), S
 
 [sub_resource type="Resource" id="Resource_v2_line1"]
 script = ExtResource("2_line")
+emotion = "dismissive"
 character = 1
 text = "Get along, pup. I've got bigger fish to fry."
 slot = 0
@@ -34,6 +37,7 @@ dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v2_line1")])
 
 [sub_resource type="Resource" id="Resource_v3_line1"]
 script = ExtResource("2_line")
+emotion = "laugh"
 character = 1
 text = "My morning hooch got more kick than ya!"
 slot = 0
