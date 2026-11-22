@@ -1,4 +1,5 @@
 
+class_name BossAI
 extends Node
 
 signal phase_changed(phase: int)

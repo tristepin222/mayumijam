@@ -1,0 +1,130 @@
+[gd_resource type="Resource" script_class="DialogStruct" format=3 uid="uid://c3a7x6sc5gu3d"]
+
+[ext_resource type="Script" uid="uid://s4fjncmjbqsw" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
+[ext_resource type="Script" uid="uid://dhec4gun2r35p" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Resource_line_1"]
+script = ExtResource("2_line")
+character = 0
+text = "..."
+
+[sub_resource type="Resource" id="Resource_line_2"]
+script = ExtResource("2_line")
+character = 0
+text = "Why do I wander out here? Not like I am damned fool enough to venture to the streets."
+
+[sub_resource type="Resource" id="Resource_line_3"]
+script = ExtResource("2_line")
+character = 0
+text = "..."
+
+[sub_resource type="Resource" id="Resource_line_4"]
+script = ExtResource("2_line")
+character = 0
+text = "… even if that is where all the power and money and freedom are."
+
+[sub_resource type="Resource" id="Resource_line_5"]
+script = ExtResource("2_line")
+text = "AWOOOOOooooo!"
+effect = "darken"
+
+[sub_resource type="Resource" id="Resource_line_6"]
+script = ExtResource("2_line")
+character = 0
+text = "!"
+effect = "shake"
+
+[sub_resource type="Resource" id="Resource_line_7"]
+script = ExtResource("2_line")
+character = 1
+text = "Well ain't ya right then, Kenji."
+
+[sub_resource type="Resource" id="Resource_line_8"]
+script = ExtResource("2_line")
+character = 1
+text = "There is a little doggie come out to meet us. Sure makes gettin' there 'ere rodeo going easy-like."
+
+[sub_resource type="Resource" id="Resource_line_9"]
+script = ExtResource("2_line")
+character = 1
+text = "Alright there whosever ya are, just come along quietly an' we won't have to get violent."
+
+[sub_resource type="Resource" id="Resource_line_10"]
+script = ExtResource("2_line")
+character = 0
+text = "What? So you can use me for labor? Another slave to be cast aside when it's spent?"
+
+[sub_resource type="Resource" id="Resource_line_11"]
+script = ExtResource("2_line")
+character = 1
+text = "Whoa there! Aha! Ain't sounding nice like that. We just gotta rastle up folks who can do the work no good wolf would waste a paw on. So git on and help us start a line for the round up."
+
+[sub_resource type="Resource" id="Resource_line_12"]
+script = ExtResource("2_line")
+character = 0
+text = "…"
+
+[sub_resource type="Resource" id="Resource_line_13"]
+script = ExtResource("2_line")
+character = 0
+text = "No."
+
+[sub_resource type="Resource" id="Resource_line_14"]
+script = ExtResource("2_line")
+character = 1
+text = "What was that?"
+
+[sub_resource type="Resource" id="Resource_line_15"]
+script = ExtResource("2_line")
+character = 0
+text = "I said no."
+
+[sub_resource type="Resource" id="Resource_line_16"]
+script = ExtResource("2_line")
+character = 1
+text = "Little lass, I don't think ya know who you're disrespectin'."
+
+[sub_resource type="Resource" id="Resource_line_17"]
+script = ExtResource("2_line")
+character = 1
+text = "I am Saki Kurokoma, the damned Matriarch herself of the Keiga family. Ya should be honored just to kiss my boots. So why don't ya try again and-"
+
+[sub_resource type="Resource" id="Resource_line_18"]
+script = ExtResource("2_line")
+character = 0
+text = "No!"
+effect = "shake"
+
+[sub_resource type="Resource" id="Resource_line_19"]
+script = ExtResource("2_line")
+character = 1
+text = "Why ya little… What makes ya think you got any choice in da matter?"
+
+[sub_resource type="Resource" id="Resource_line_20"]
+script = ExtResource("2_line")
+character = 0
+text = "It is too late to care about consequences. If I can raise my sword, I don't have to listen to a word you say."
+
+[sub_resource type="Resource" id="Resource_line_21"]
+script = ExtResource("2_line")
+character = 1
+text = "Hmph, that so?"
+
+[sub_resource type="Resource" id="Resource_line_22"]
+script = ExtResource("2_line")
+character = 1
+text = "You think you are gonna take me on with that dull blade 'bout as flimsy as your stance?"
+
+[sub_resource type="Resource" id="Resource_line_23"]
+script = ExtResource("2_line")
+character = 1
+text = "Pfft….heheheh...AHAHAHA! Well who am I to say no to a challenge?"
+
+[sub_resource type="Resource" id="Resource_line_24"]
+script = ExtResource("2_line")
+character = 1
+text = "Alright, little lady. Make this worth my time!"
+
+[resource]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3"), SubResource("Resource_line_4"), SubResource("Resource_line_5"), SubResource("Resource_line_6"), SubResource("Resource_line_7"), SubResource("Resource_line_8"), SubResource("Resource_line_9"), SubResource("Resource_line_10"), SubResource("Resource_line_11"), SubResource("Resource_line_12"), SubResource("Resource_line_13"), SubResource("Resource_line_14"), SubResource("Resource_line_15"), SubResource("Resource_line_16"), SubResource("Resource_line_17"), SubResource("Resource_line_18"), SubResource("Resource_line_19"), SubResource("Resource_line_20"), SubResource("Resource_line_21"), SubResource("Resource_line_22"), SubResource("Resource_line_23"), SubResource("Resource_line_24")])

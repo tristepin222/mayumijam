@@ -1,0 +1,92 @@
+[gd_resource type="Resource" script_class="DialogStruct" load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Resource_line_1"]
+script = ExtResource("2_line")
+character = 0
+text = "Dang… she got me again? Why does..?"
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_2"]
+script = ExtResource("2_line")
+character = 0
+text = "AAH! What-- my skin? My everything?!"
+slot = 1
+effect = "shake"
+
+[sub_resource type="Resource" id="Resource_line_3"]
+script = ExtResource("2_line")
+character = 2
+text = "Oh good morning. Hold still a moment, I still need to adjust some of the joints. Hmm HMM hmm hmm~"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_4"]
+script = ExtResource("2_line")
+character = 0
+text = "No! Get off! What have you done to me?!"
+slot = 1
+effect = "shake"
+
+[sub_resource type="Resource" id="Resource_line_5"]
+script = ExtResource("2_line")
+character = 2
+text = "Well, helping, of course. I mean, you were sort of… leaking?"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_6"]
+script = ExtResource("2_line")
+character = 2
+text = "But don't worry, this ceramic skin will be far more durable than ghost fluff. And thanks to this new molding technique, it won't slow you down at all. In fact, it should-"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_7"]
+script = ExtResource("2_line")
+character = 0
+text = "It shouldn't be on me! In me? I don't even know if I am me!"
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_8"]
+script = ExtResource("2_line")
+character = 2
+text = "Well, you are better. You should give that horse a run for her spurs after this."
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_9"]
+script = ExtResource("2_line")
+character = 0
+text = "That… that isn't for you to decide! Gah! Let me outta here!"
+slot = 1
+effect = "slide_out"
+
+[sub_resource type="Resource" id="Resource_line_10"]
+script = ExtResource("2_line")
+character = 2
+text = "That girl… she doesn't see what potential is near bursting out of her. She could lead this whole revolution herself if she just let me fix…"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_11"]
+script = ExtResource("2_line")
+character = 2
+text = "…"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_12"]
+script = ExtResource("2_line")
+character = 2
+text = "Oh no, what have I done?"
+slot = 3
+effect = ""
+
+[resource]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3"), SubResource("Resource_line_4"), SubResource("Resource_line_5"), SubResource("Resource_line_6"), SubResource("Resource_line_7"), SubResource("Resource_line_8"), SubResource("Resource_line_9"), SubResource("Resource_line_10"), SubResource("Resource_line_11"), SubResource("Resource_line_12")])

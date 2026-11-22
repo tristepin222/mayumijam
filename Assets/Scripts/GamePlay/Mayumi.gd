@@ -43,6 +43,10 @@ func _ready() -> void:
 	# Connect upgrade unlocking to Mayumi.
 	ability_manager.ability_unlocked.connect(_on_ability_unlocked)
 
+	# Apply upgrades that were already unlocked before Mayumi initialized.
+	for ability_id in ability_manager.unlocked_abilities:
+		apply_upgrade(ability_id)
+
 	# Get ability references.
 	dash_ability = $Abilities/Dash as PlayerAbility
 	sword_ability = $Abilities/SwordAttack as PlayerAbility
@@ -67,10 +71,6 @@ func _process(_delta: float) -> void:
 		sprite.visible = int(Time.get_ticks_msec() / 80.0) % 2 == 0
 	else:
 		sprite.visible = true
-
-	# Apply upgrades that were already unlocked before Mayumi initialized.
-	for ability_id in ability_manager.unlocked_abilities:
-		apply_upgrade(ability_id)
 
 
 

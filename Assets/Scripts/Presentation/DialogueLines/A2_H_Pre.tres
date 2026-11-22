@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="DialogStruct" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Resource_line_1"]
+script = ExtResource("2_line")
+character = 2
+text = "Mayumi! Are you alright?"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_2"]
+script = ExtResource("2_line")
+character = 0
+text = "Nothing you can't fix, right?"
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_3"]
+script = ExtResource("2_line")
+character = 2
+text = "I will get you fit as a fiddle right away!"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_4"]
+script = ExtResource("2_line")
+character = 2
+text = "And… uh… if you need anything, I'm here for you. Really."
+slot = 3
+effect = ""
+
+[resource]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3"), SubResource("Resource_line_4")])

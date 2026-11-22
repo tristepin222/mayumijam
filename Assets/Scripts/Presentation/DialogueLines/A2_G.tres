@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="DialogStruct" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Resource_line_1"]
+script = ExtResource("2_line")
+character = 1
+text = "What the-"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_2"]
+script = ExtResource("2_line")
+character = 1
+text = "Jus' git out the darned way! You aren't even on my list, I've got a roundup of less prickly prey!"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_3"]
+script = ExtResource("2_line")
+character = 0
+text = "No, this ends here. You won't lay a finger on Ke-- on the humans of this garden!"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_4"]
+script = ExtResource("2_line")
+character = 1
+text = "I'll break you apart and every little human hidin' behind ya!"
+slot = 0
+effect = "shake"
+
+[sub_resource type="Resource" id="Resource_line_5"]
+script = ExtResource("2_line")
+character = 0
+text = "You shall not pass!"
+slot = 0
+effect = "shake"
+
+[resource]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3"), SubResource("Resource_line_4"), SubResource("Resource_line_5")])

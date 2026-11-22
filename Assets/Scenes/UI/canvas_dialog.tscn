@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cbpovf2gguik6" path="res://Assets/Textures/PlaceHolders/UI/ran_sprite_sheet.png" id="1_vot10"]
 [ext_resource type="Texture2D" uid="uid://bmrcyp6k1mvu7" path="res://Assets/Textures/PlaceHolders/UI/button_square_flat.png" id="2_5ah7x"]
 [ext_resource type="Texture2D" uid="uid://dyvhwfi18pduo" path="res://Assets/Textures/PlaceHolders/UI/Portaits/Mayumi/Mayumi Ghost Neutral.png" id="2_87307"]
-[ext_resource type="Texture2D" path="res://Assets/Textures/PlaceHolders/UI/Portaits/Keiki/Keiki.png" id="6_keiki"]
+[ext_resource type="Texture2D" uid="uid://bhlclw5sxoina" path="res://Assets/Textures/PlaceHolders/UI/Portaits/Keiki/Keiki.png" id="6_keiki"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jan05"]
 atlas = ExtResource("2_87307")

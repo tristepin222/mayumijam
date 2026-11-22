@@ -1,0 +1,120 @@
+[gd_resource type="Resource" script_class="DialogStruct" load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Resource_line_1"]
+script = ExtResource("2_line")
+character = 0
+text = "That last one wasn't enough, Keiki."
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_2"]
+script = ExtResource("2_line")
+character = 0
+text = "But… what are you working on there?"
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_3"]
+script = ExtResource("2_line")
+character = 2
+text = "Something big. The schematics are all complete."
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_4"]
+script = ExtResource("2_line")
+character = 2
+text = "However, I need to be honest with you. I did not come down here just to practice crafting."
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_5"]
+script = ExtResource("2_line")
+character = 2
+text = "Though I do enjoy it so"
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_6"]
+script = ExtResource("2_line")
+character = 2
+text = "The human spirits have called out for aid against all these nasty animal spirits. They need a champion, someone to rally behind."
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_7"]
+script = ExtResource("2_line")
+character = 0
+text = "And that is what you are here for?"
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_8"]
+script = ExtResource("2_line")
+character = 2
+text = "No, I can only provide support and weapons and soldiers. And… I can forge you into that champion, Mayumi."
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_9"]
+script = ExtResource("2_line")
+character = 0
+text = "What? Me? No, you don't understand… you don't know."
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_10"]
+script = ExtResource("2_line")
+character = 0
+text = "If you knew who I was, you'd probably think me worse than the wolves."
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_11"]
+script = ExtResource("2_line")
+character = 2
+text = "I don't care who you were. I can see what you can become. A bulwark of courage, a general of the lost. But only if you are ready. And you trust me."
+slot = 3
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_12"]
+script = ExtResource("2_line")
+character = 0
+text = "(What I can become...?)"
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_13"]
+script = ExtResource("2_line")
+character = 0
+text = "That's… I don't think I can live up to those expectations."
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_14"]
+script = ExtResource("2_line")
+character = 0
+text = "But somehow, I do trust you. More than I trust myself."
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_15"]
+script = ExtResource("2_line")
+character = 0
+text = "So what is this big project?"
+slot = 1
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_16"]
+script = ExtResource("2_line")
+character = 2
+text = "Ohoho, let's get to work, Mayumi!"
+slot = 3
+effect = ""
+
+[resource]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3"), SubResource("Resource_line_4"), SubResource("Resource_line_5"), SubResource("Resource_line_6"), SubResource("Resource_line_7"), SubResource("Resource_line_8"), SubResource("Resource_line_9"), SubResource("Resource_line_10"), SubResource("Resource_line_11"), SubResource("Resource_line_12"), SubResource("Resource_line_13"), SubResource("Resource_line_14"), SubResource("Resource_line_15"), SubResource("Resource_line_16")])
