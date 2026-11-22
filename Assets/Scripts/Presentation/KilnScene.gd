@@ -43,9 +43,10 @@ func _ready() -> void:
 
 	match game_manager.kiln_mode:
 		"win":
-			_run_ending(DialogManager.situations.MAYUMIWIN, "Saki has been defeated!")
+			var ending_situation: int = game_manager.get_ending_dialog()
+			_run_ending(ending_situation, "Saki has been defeated!")
 		"lose":
-			_run_ending(DialogManager.situations.MAYUMILOSE, "Mayumi has become a full Haniwa.")
+			_run_ending(DialogManager.situations.A3_D, "Mayumi has become a full Haniwa.")
 		_:
 			_run_upgrade()
 
@@ -76,8 +77,10 @@ func _set_background(texture: Texture2D) -> void:
 
 
 func _run_upgrade() -> void:
-	if dialog_player != null:
-		await dialog_player.play_dialog(DialogManager.situations.KEIKIUPGRADE)
+	if dialog_player != null and game_manager != null:
+		var pre_dialog: int = game_manager.get_workshop_pre_dialog()
+		if pre_dialog >= 0:
+			await dialog_player.play_dialog(pre_dialog)
 
 	var offer: Array[UpgradeStruct] = game_manager.get_upgrade_offer()
 
@@ -98,6 +101,11 @@ func _run_upgrade() -> void:
 	var index := await _show_choices("Choose Keiki's gift", titles, descriptions)
 
 	game_manager._select_upgrade(offer[index])
+
+	if dialog_player != null and game_manager != null:
+		var post_dialog: int = game_manager.get_workshop_post_dialog()
+		if post_dialog >= 0:
+			await dialog_player.play_dialog(post_dialog)
 
 	var story: Dictionary = game_manager.last_story_upgrade
 

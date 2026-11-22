@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="DialogStruct" format=3 uid="uid://bvva25asl1ovn"]
+
+[ext_resource type="Script" uid="uid://s4fjncmjbqsw" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
+[ext_resource type="Script" uid="uid://dhec4gun2r35p" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Resource_line_1"]
+script = ExtResource("2_line")
+character = 0
+text = "This one, I guess."
+slot = 1
+
+[sub_resource type="Resource" id="Resource_line_2"]
+script = ExtResource("2_line")
+character = 2
+text = "Excellent! Just give me some feedback on how it works out, would you dearie?"
+slot = 3
+
+[sub_resource type="Resource" id="Resource_line_3"]
+script = ExtResource("2_line")
+character = 0
+text = "Yeah, if we ever meet again, whatever."
+slot = 1
+effect = "slide_out"
+
+[sub_resource type="Resource" id="Resource_line_4"]
+script = ExtResource("2_line")
+character = 2
+text = "Oh, if she doesn't survive I won't get much feedback huh?"
+slot = 3
+
+[sub_resource type="Resource" id="Resource_line_5"]
+script = ExtResource("2_line")
+character = 2
+text = "Well, if nothing else...I guess that would mean it didn't work...?"
+slot = 3
+
+[resource]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3"), SubResource("Resource_line_4"), SubResource("Resource_line_5")])

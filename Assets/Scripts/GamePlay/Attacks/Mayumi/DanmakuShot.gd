@@ -13,8 +13,10 @@ extends PlayerAbility
 @export var volley_charge_time: float = 0.4
 
 var can_shoot := true
+var is_shooting := false
 var is_charging := false
 var charge_started_at := 0.0
+var arrow_volley_unlocked: bool = false
 
 const VOLLEY_ANGLES := [-30.0, -15.0, 0.0, 15.0, 30.0]
 
@@ -23,7 +25,11 @@ func _ready() -> void:
 	ability_id = AbilityIDs.Ability.DANMAKU
 
 func has_arrow_volley() -> bool:
-	return ability_manager.has_ability(AbilityIDs.Ability.ARROW_VOLLEY)
+	if arrow_volley_unlocked:
+		return true
+	if ability_manager != null and ability_manager.has_method("has_ability"):
+		return ability_manager.has_ability(AbilityIDs.Ability.ARROW_VOLLEY)
+	return false
 
 # Called when the player presses the Danmaku button.
 func start_charge() -> void:
@@ -82,11 +88,15 @@ func activate() -> void:
 	if projectile_scene == null:
 		push_warning("DanmakuShot: Assign a projectile scene.")
 		return
-
+	
+	is_shooting = true
 	ability_manager.use_ability(ability_id)
 	can_shoot = false
 
 	_spawn_projectile(Vector2(mayumi.facing_direction, 0.0))
+
+	await get_tree().create_timer(0.1).timeout
+	is_shooting = false
 
 	await get_tree().create_timer(cooldown).timeout
 	can_shoot = true

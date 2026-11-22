@@ -1,5 +1,6 @@
 
 extends CharacterBody2D
+class_name Mayumi
 
 signal physical_attack_started
 
@@ -43,12 +44,16 @@ var ceramic_barrage: PlayerAbility
 func _ready() -> void:
 	if stats == null:
 		stats = $Stats
-
+		
 	if ability_manager == null:
 		ability_manager = get_node("../AbilityManager")
 
 	# Connect upgrade unlocking to Mayumi.
 	ability_manager.ability_unlocked.connect(_on_ability_unlocked)
+
+	# Apply upgrades that were already unlocked before Mayumi initialized.
+	for ability_id in ability_manager.unlocked_abilities:
+		apply_upgrade(ability_id)
 
 	# Get ability references.
 	dash_ability = $Abilities/Dash as PlayerAbility
@@ -137,7 +142,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack"):
+
+	if event.is_action_pressed("sword"):
 		if sword_ability != null:
 			sword_ability.activate()
 

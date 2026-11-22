@@ -107,7 +107,7 @@ shader_parameter/sinpowder = 8.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ty0te"]
 shader = ExtResource("6_1kion")
 shader_parameter/amplitude_x = 0.02000000746977001
-shader_parameter/amplitude_y = 6.519770001656155e-09
+shader_parameter/amplitude_y = 6.5197700016561555e-09
 shader_parameter/frequency = 7.5
 shader_parameter/speed = 0.9300002816750004
 shader_parameter/overlay_color = Color(1, 1, 1, 1)
