@@ -13,6 +13,7 @@ extends PlayerAbility
 @export var volley_charge_time: float = 0.4
 
 var can_shoot := true
+var is_shooting := false
 var is_charging := false
 var charge_started_at := 0.0
 var arrow_volley_unlocked: bool = false
@@ -87,11 +88,15 @@ func activate() -> void:
 	if projectile_scene == null:
 		push_warning("DanmakuShot: Assign a projectile scene.")
 		return
-
+	
+	is_shooting = true
 	ability_manager.use_ability(ability_id)
 	can_shoot = false
 
 	_spawn_projectile(Vector2(mayumi.facing_direction, 0.0))
+
+	await get_tree().create_timer(0.1).timeout
+	is_shooting = false
 
 	await get_tree().create_timer(cooldown).timeout
 	can_shoot = true

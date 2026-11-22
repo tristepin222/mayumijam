@@ -50,7 +50,7 @@ func _ready() -> void:
 
 
 func show_screen() -> void:
-	get_tree().paused = true
+	#get_tree().paused = true
 
 	root.modulate.a = 0.0
 	root.show()
@@ -77,3 +77,8 @@ func _on_retry_pressed() -> void:
 		return
 
 	get_tree().reload_current_scene()
+
+
+func _process(_delta: float) -> void:
+	if get_tree().paused:
+		print("GAME IS PAUSED")

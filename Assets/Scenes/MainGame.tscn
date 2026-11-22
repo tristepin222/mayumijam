@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://bcqa6boixdam4" path="res://Assets/Scripts/GamePlay/Managers/CombatManager.gd" id="1_q3ddj"]
 [ext_resource type="Script" uid="uid://cgapvf4tt8yce" path="res://Assets/Scripts/GamePlay/Mayumi.gd" id="2_8nq7t"]
 [ext_resource type="Script" uid="uid://c5hchcuarw4m8" path="res://Assets/Scripts/GamePlay/Managers/AbilityManager.gd" id="2_f7n17"]
-[ext_resource type="Texture2D" uid="uid://nvg24budmhge" path="res://Assets/Textures/PlaceHolders/placeholder2.png" id="3_f7n17"]
 [ext_resource type="Script" uid="uid://oukqsdj46pd0" path="res://Assets/Scripts/GamePlay/CharacterStats.gd" id="4_f7n17"]
 [ext_resource type="Script" uid="uid://btpxd42oxjok2" path="res://Assets/Scripts/GamePlay/Saki.gd" id="5_14mar"]
+[ext_resource type="PackedScene" uid="uid://drinddmha3lwl" path="res://Mayumi/mayumi.tscn" id="5_osno1"]
 [ext_resource type="Script" uid="uid://dmkbxn8yfr6lt" path="res://Assets/Scripts/GamePlay/Attacks/Mayumi/Dash.gd" id="6_hggb1"]
 [ext_resource type="Texture2D" uid="uid://dntnxpgg4exwq" path="res://Assets/Textures/PlaceHolders/placeholder3.png" id="6_huwrf"]
 [ext_resource type="Texture2D" uid="uid://d4mllryd6mt2v" path="res://Assets/Textures/PlaceHolders/placeholder1.png" id="7_mnw02"]
@@ -46,8 +46,8 @@
 [ext_resource type="PackedScene" uid="uid://ctluma4iimvha" path="res://Fight_background/fight_scene.tscn" id="30_fightbg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3jot"]
-radius = 5.0
-height = 20.0
+radius = 3.5
+height = 28.8
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ja1hb"]
 size = Vector2(15.673066, 5.9975977)
@@ -87,17 +87,23 @@ dialog_player = NodePath("../canvas_dialog")
 script = ExtResource("2_f7n17")
 
 [node name="Mayumi" type="CharacterBody2D" parent="." unique_id=389912644 node_paths=PackedStringArray("stats", "ability_manager") groups=["player"]]
+position = Vector2(0, -0.1)
 script = ExtResource("2_8nq7t")
 move_speed = 140.0
 gravity = 1350.0
 stats = NodePath("Stats")
 ability_manager = NodePath("../AbilityManager")
 
-[node name="Sprite2D" type="Sprite2D" parent="Mayumi" unique_id=962282099]
-texture_filter = 1
-texture = ExtResource("3_f7n17")
+[node name="Sprite2D" type="Sprite2D" parent="Mayumi" unique_id=1428444524]
+texture = ExtResource("7_mnw02")
+
+[node name="Mayumi" parent="Mayumi" unique_id=152641368 instance=ExtResource("5_osno1")]
+position = Vector2(0, -9.000001)
+scale = Vector2(0.1, 0.1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mayumi" unique_id=1970582784]
+z_index = 1
+position = Vector2(0, 1.6)
 shape = SubResource("CapsuleShape2D_d3jot")
 
 [node name="SwordHitbox" type="Area2D" parent="Mayumi" unique_id=1582194241]
@@ -272,7 +278,6 @@ physics_material_override = SubResource("PhysicsMaterial_d3jot")
 shape = SubResource("RectangleShape2D_d3jot")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1736950915]
-visible = false
 texture_filter = 1
 scale = Vector2(20.877419, 1.150468)
 texture = ExtResource("7_mnw02")
@@ -310,5 +315,6 @@ script = ExtResource("26_bosshp")
 boss_stats = NodePath("../Saki/Stats")
 
 [node name="canvas_dialog" parent="." unique_id=1739204626 instance=ExtResource("29_dialog")]
+visible = false
 
 [editable path="FightBackground"]

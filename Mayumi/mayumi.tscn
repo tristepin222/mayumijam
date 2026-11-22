@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://drinddmha3lwl"]
 
-[ext_resource type="Script" uid="uid://0km0ry70tm4s" path="res://Mayumi/mayumi.gd" id="1_t3el0"]
 [ext_resource type="Texture2D" uid="uid://cdgakvcxnvk5q" path="res://Mayumi/Clay Mayumi Body parts/Clay_Behind_Hairlocks.png" id="2_t3el0"]
 [ext_resource type="Texture2D" uid="uid://cridicgwf76y4" path="res://Mayumi/Ghost Mayumi bodyparts/Ghost_Behind_Hairlocks.png" id="3_17ur0"]
 [ext_resource type="Texture2D" uid="uid://d1o5p4n185tux" path="res://Mayumi/Clay Mayumi Body parts/Clay_LeftBicep.png" id="4_ts2k1"]
@@ -38,19 +37,20 @@
 [ext_resource type="Texture2D" uid="uid://jp5jd767efim" path="res://Mayumi/Clay Mayumi Body parts/Clay_Sword (same sword as ghost).png" id="36_rfdo7"]
 [ext_resource type="Shader" uid="uid://dqq032yhc7ejd" path="res://Fire_shader.gdshader" id="37_ic7wm"]
 [ext_resource type="Texture2D" uid="uid://cmqino5vljr6v" path="res://Mayumi/Ghost Mayumi bodyparts/Ghost_Sword.png" id="38_3rs3m"]
+[ext_resource type="Script" uid="uid://be7nfatrmq1vy" path="res://Mayumi/mayumi_animation_tree.gd" id="39_t3el0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ty0te"]
 shader = ExtResource("26_x4fub")
-shader_parameter/amplitude_x = 0.035000008182270004
-shader_parameter/amplitude_y = -0.029999994905230004
+shader_parameter/amplitude_x = 0.03500000818227
+shader_parameter/amplitude_y = -0.02999999490523
 shader_parameter/frequency = 20.0
 shader_parameter/speed = 5.0
 shader_parameter/overlay_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w4mfu"]
 shader = ExtResource("26_x4fub")
-shader_parameter/amplitude_x = 0.035000008182270004
-shader_parameter/amplitude_y = -0.029999994905230004
+shader_parameter/amplitude_x = 0.03500000818227
+shader_parameter/amplitude_y = -0.02999999490523
 shader_parameter/frequency = 20.0
 shader_parameter/speed = 4.490000450775
 shader_parameter/overlay_color = Color(1, 1, 1, 1)
@@ -81,7 +81,7 @@ shader_parameter/intensityFactor = 1.970000093575
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3ahog"]
 shader = ExtResource("26_x4fub")
-shader_parameter/amplitude_x = 0.010000006994770022
+shader_parameter/amplitude_x = 0.01000000699477002
 shader_parameter/amplitude_y = 0.01700000732727
 shader_parameter/frequency = -20.0
 shader_parameter/speed = 2.0
@@ -147,7 +147,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.049999997, 0.15, 0.22),
 "transitions": PackedFloat32Array(1, 1, 0.6155723, 1),
 "update": 0,
-"values": [-2.1554816, -2.1554816, -1.727876, -1.5882496193148399]
+"values": [-2.1554816, -2.1554816, -1.727876, -1.58824961931484]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -1483,7 +1483,7 @@ tracks/47/keys = {
 
 [sub_resource type="Animation" id="Animation_86xov"]
 resource_name = "Jump"
-length = 0.19999999999999998
+length = 0.2
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -2352,7 +2352,7 @@ tracks/71/keys = {
 
 [sub_resource type="Animation" id="Animation_pbfni"]
 resource_name = "Jump_Atack"
-length = 0.19999999999999998
+length = 0.2
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -4754,7 +4754,7 @@ tracks/26/keys = {
 
 [sub_resource type="Animation" id="Animation_e2eie"]
 resource_name = "Sword Atack"
-length = 0.19999999999999998
+length = 0.2
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -5297,8 +5297,105 @@ _data = {
 &"Sword Atack": SubResource("Animation_e2eie")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t3el0"]
+animation = &"Danmaku"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_86xov"]
+animation = &"Dash"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e2eie"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pq7nm"]
+animation = &"Jump_Atack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pbfni"]
+animation = &"Sword Atack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_17ur0"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ts2k1"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bd4m7"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_6irl6"]
+blend_mode = 1
+blend_point_0/node = SubResource("AnimationNodeAnimation_17ur0")
+blend_point_0/pos = 0.0
+blend_point_0/name = &"Idle"
+blend_point_1/node = SubResource("AnimationNodeAnimation_ts2k1")
+blend_point_1/pos = 1.0
+blend_point_1/name = &"Run"
+blend_point_2/node = SubResource("AnimationNodeAnimation_bd4m7")
+blend_point_2/pos = -1.0
+blend_point_2/name = &"Run 2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yc6fh"]
+advance_mode = 2
+advance_condition = &"attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1wl8t"]
+reset = false
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t3el0"]
+advance_mode = 2
+advance_condition = &"dash"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_17ur0"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ts2k1"]
+advance_mode = 2
+advance_condition = &"jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_86xov"]
+advance_mode = 2
+advance_condition = &"grounded"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e2eie"]
+advance_mode = 2
+advance_condition = &"attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pq7nm"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pbfni"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bd4m7"]
+advance_mode = 2
+advance_condition = &"danmaku"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6irl6"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tamiu"]
+states/Danmaku/node = SubResource("AnimationNodeAnimation_t3el0")
+states/Danmaku/position = Vector2(58.77774, 86.5679)
+states/Dash/node = SubResource("AnimationNodeAnimation_86xov")
+states/Dash/position = Vector2(145.8532, -23.155922)
+states/End/position = Vector2(872.6667, 122.96297)
+states/Jump/node = SubResource("AnimationNodeAnimation_e2eie")
+states/Jump/position = Vector2(466.53906, -11.125375)
+states/Jump_Atack/node = SubResource("AnimationNodeAnimation_pq7nm")
+states/Jump_Atack/position = Vector2(677.6667, -11.898297)
+states/Start/position = Vector2(282.06766, 199.80246)
+"states/Sword Atack/node" = SubResource("AnimationNodeAnimation_pbfni")
+"states/Sword Atack/position" = Vector2(574, 86.42798)
+states/idle-run/node = SubResource("AnimationNodeBlendSpace1D_6irl6")
+states/idle-run/position = Vector2(282.66666, 87.58848)
+transitions = ["Jump", "Jump_Atack", SubResource("AnimationNodeStateMachineTransition_yc6fh"), "Jump_Atack", "Jump", SubResource("AnimationNodeStateMachineTransition_1wl8t"), "idle-run", "Dash", SubResource("AnimationNodeStateMachineTransition_t3el0"), "Dash", "idle-run", SubResource("AnimationNodeStateMachineTransition_17ur0"), "idle-run", "Jump", SubResource("AnimationNodeStateMachineTransition_ts2k1"), "Jump", "idle-run", SubResource("AnimationNodeStateMachineTransition_86xov"), "idle-run", "Sword Atack", SubResource("AnimationNodeStateMachineTransition_e2eie"), "Sword Atack", "idle-run", SubResource("AnimationNodeStateMachineTransition_pq7nm"), "Danmaku", "idle-run", SubResource("AnimationNodeStateMachineTransition_pbfni"), "idle-run", "Danmaku", SubResource("AnimationNodeStateMachineTransition_bd4m7"), "Start", "idle-run", SubResource("AnimationNodeStateMachineTransition_6irl6")]
+graph_offset = Vector2(-61.924103, -94)
+
 [node name="Mayumi" type="Node2D" unique_id=152641368]
-script = ExtResource("1_t3el0")
 
 [node name="Sprites" type="Node2D" parent="." unique_id=1678846814]
 position = Vector2(0, 246)
@@ -5601,7 +5698,7 @@ scale = Vector2(0.9999999, 0.9999999)
 rest = Transform2D(-0.85264, -0.5224986, 0.5224986, -0.85264, 18.989998, 5.285816)
 auto_calculate_length_and_angle = false
 length = 23.917318
-bone_angle = 104.59999
+bone_angle = 104.59996
 
 [node name="Bone2D_2" type="Bone2D" parent="Sprites/Jiggle_HairSystem/Main_hair/Bone2D_0/Bone2D_1" unique_id=1585765945]
 position = Vector2(-17.861868, 15.905715)
@@ -5631,7 +5728,7 @@ rest = Transform2D(0.5591924, 0.82903683, -0.82903683, 0.5591924, 23, -263)
 
 [node name="GhostBone2D_1" type="Bone2D" parent="Sprites/Jiggle_HairSystem/Main_hair/GhostBone2D_0" unique_id=619265652]
 position = Vector2(20.514624, 1.7750986)
-rotation = -0.20943949
+rotation = -0.20943955
 scale = Vector2(0.9999987, 0.9999987)
 rest = Transform2D(0.9781463, -0.20791139, 0.20791139, 0.9781463, 20.514624, 1.7750986)
 metadata/_local_pose_override_enabled_ = true
@@ -5648,3 +5745,15 @@ metadata/_local_pose_override_enabled_ = true
 [node name="Mayumi_AnimPlayer" type="AnimationPlayer" parent="." unique_id=1254237817]
 libraries/ = SubResource("AnimationLibrary_t3el0")
 autoplay = &"Idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1835199696 node_paths=PackedStringArray("root")]
+tree_root = SubResource("AnimationNodeStateMachine_tamiu")
+anim_player = NodePath("../Mayumi_AnimPlayer")
+parameters/conditions/attack = false
+parameters/conditions/danmaku = false
+parameters/conditions/dash = false
+parameters/conditions/grounded = false
+parameters/conditions/jump = false
+parameters/idle-run/blend_position = 0.0
+script = ExtResource("39_t3el0")
+root = NodePath("..")

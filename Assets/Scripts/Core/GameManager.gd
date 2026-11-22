@@ -418,3 +418,7 @@ func start_new_run() -> void:
 func _change_scene(path: String) -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file(path)
+	
+func _process(_delta: float) -> void:
+	if get_tree().paused:
+		print("GAME IS PAUSED")
