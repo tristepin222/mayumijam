@@ -36,7 +36,7 @@ var ceramic_barrage: PlayerAbility
 func _ready() -> void:
 	if stats == null:
 		stats = $Stats
-
+		
 	if ability_manager == null:
 		ability_manager = get_node("../AbilityManager")
 
@@ -108,7 +108,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack"):
+
+	if event.is_action_pressed("sword"):
 		if sword_ability != null:
 			sword_ability.activate()
 
