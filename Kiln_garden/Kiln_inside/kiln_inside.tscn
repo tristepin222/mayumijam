@@ -14,14 +14,14 @@
 offsets = PackedFloat32Array(0, 0.13271604, 0.40432099, 0.712963, 1)
 colors = PackedColorArray(1, 0.5, 0, 0, 1, 0.5, 0, 0.5058824, 1, 0.8668333, 0.53, 0.49411765, 1, 0.5, 0, 0.4745098, 1, 0.5, 0, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_k1dmh"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_58woq"]
 gradient = SubResource("Gradient_xmtws")
 
 [sub_resource type="Curve" id="Curve_gc4ix"]
 _data = [Vector2(0, 0.9732144), 0.0, 0.0, 0, 0, Vector2(1, 0.4642858), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_0gvya"]
+[sub_resource type="CurveTexture" id="CurveTexture_dh3hf"]
 curve = SubResource("Curve_gc4ix")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g2gtr"]
@@ -41,21 +41,21 @@ linear_accel_min = 79.99999
 linear_accel_max = 104.99999
 scale_min = 0.0
 scale_max = 1.1
-scale_curve = SubResource("CurveTexture_0gvya")
-color_ramp = SubResource("GradientTexture1D_k1dmh")
+scale_curve = SubResource("CurveTexture_dh3hf")
+color_ramp = SubResource("GradientTexture1D_58woq")
 turbulence_enabled = true
 turbulence_noise_strength = 13.9
 turbulence_influence_min = 0.022000002
 turbulence_influence_max = 0.022000002
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_3ahog"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tnaxi"]
 gradient = SubResource("Gradient_xmtws")
 
 [sub_resource type="Curve" id="Curve_66t5e"]
 _data = [Vector2(0, 0), 0.0, 4.933037, 0, 0, Vector2(0.52307695, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_w4mfu"]
+[sub_resource type="CurveTexture" id="CurveTexture_il3g7"]
 curve = SubResource("Curve_66t5e")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hjkpb"]
@@ -75,10 +75,10 @@ linear_accel_min = 79.99999
 linear_accel_max = 104.99999
 scale_min = 0.0
 scale_max = 0.29999998
-scale_curve = SubResource("CurveTexture_w4mfu")
-color_ramp = SubResource("GradientTexture1D_3ahog")
+scale_curve = SubResource("CurveTexture_il3g7")
+color_ramp = SubResource("GradientTexture1D_tnaxi")
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_lwmd5"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xmtws"]
 gradient = SubResource("Gradient_xmtws")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ty0te"]
@@ -98,8 +98,8 @@ linear_accel_min = 79.99999
 linear_accel_max = 104.99999
 scale_min = 0.0
 scale_max = 0.39999998
-scale_curve = SubResource("CurveTexture_w4mfu")
-color_ramp = SubResource("GradientTexture1D_lwmd5")
+scale_curve = SubResource("CurveTexture_il3g7")
+color_ramp = SubResource("GradientTexture1D_xmtws")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e6b7a"]
 particle_flag_disable_z = true
@@ -118,19 +118,19 @@ linear_accel_min = 79.99999
 linear_accel_max = 104.99999
 scale_min = 0.049999997
 scale_max = 0.25
-scale_curve = SubResource("CurveTexture_0gvya")
-color_ramp = SubResource("GradientTexture1D_3ahog")
+scale_curve = SubResource("CurveTexture_dh3hf")
+color_ramp = SubResource("GradientTexture1D_tnaxi")
 turbulence_enabled = true
 turbulence_noise_strength = 13.9
 turbulence_influence_min = 0.022000002
 turbulence_influence_max = 0.022000002
 
-[sub_resource type="Gradient" id="Gradient_avib8"]
+[sub_resource type="Gradient" id="Gradient_k1dmh"]
 offsets = PackedFloat32Array(0, 0.6935484)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ty0te"]
-gradient = SubResource("Gradient_avib8")
+gradient = SubResource("Gradient_k1dmh")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
