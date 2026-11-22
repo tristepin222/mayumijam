@@ -1,4 +1,4 @@
-
+class_name AttackManager
 extends Node
 
 signal attack_started(attack_id: String)
