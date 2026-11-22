@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bf3jjftrvqs3j"]
+
+[ext_resource type="Script" uid="uid://boep48puulmsw" path="res://Assets/Scripts/GamePlay/Attacks/Projectiles/CombackProjectile.gd" id="1_05xen"]
+[ext_resource type="Texture2D" uid="uid://d4mllryd6mt2v" path="res://Assets/Textures/PlaceHolders/placeholder1.png" id="2_exqn1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_df3sn"]
+radius = 7.0
+
+[node name="ComebackProjectile" type="Area2D" unique_id=1521074544]
+script = ExtResource("1_05xen")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=847189432]
+texture = ExtResource("2_exqn1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=817938606]
+shape = SubResource("CircleShape2D_df3sn")

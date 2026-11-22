@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b35nelmg8kau4"]
+
+[ext_resource type="Script" uid="uid://cx1ivnihcv1w2" path="res://Assets/Scripts/GamePlay/Attacks/Projectiles/NormalProjectile.gd" id="1_vyd2n"]
+[ext_resource type="Texture2D" uid="uid://d4mllryd6mt2v" path="res://Assets/Textures/PlaceHolders/placeholder1.png" id="2_fan37"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_df3sn"]
+radius = 4.0
+
+[node name="NormalProjectile" type="Area2D" unique_id=1521074544]
+script = ExtResource("1_vyd2n")
+damage = 15
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=847189432]
+scale = Vector2(0.625, 0.625)
+texture = ExtResource("2_fan37")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=817938606]
+shape = SubResource("CircleShape2D_df3sn")
