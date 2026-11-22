@@ -25,6 +25,7 @@ func setup(
 	speed = projectile_speed
 	damage = projectile_damage
 	lifetime = projectile_lifetime
+	rotation = direction.angle()
 
 
 func _physics_process(delta: float) -> void:

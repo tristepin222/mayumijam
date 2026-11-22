@@ -61,7 +61,13 @@ func execute() -> void:
 
 	if not saki.defeated:
 		print("Saki is recovering!")
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(recovery_time).timeout
+
+		if not is_inside_tree():
+			return
 
 	_finish_attack()
 
@@ -72,7 +78,13 @@ func _force_land() -> bool:
 			return false
 
 		saki.velocity.y = 600.0
+		if not is_inside_tree():
+			return false
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return false
 
 	return true
 
@@ -98,7 +110,13 @@ func _perform_repeated_push() -> void:
 			return
 
 		if i < repeated_kicks - 1:
+			if not is_inside_tree():
+				return
+
 			await get_tree().create_timer(kick_interval).timeout
+
+			if not is_inside_tree():
+				return
 
 
 func _get_target_x() -> float:
@@ -144,7 +162,13 @@ func _perform_pillars(xs: Array[float]) -> void:
 		warnings.append(warning)
 
 	# Give Mayumi time to react.
+	if not is_inside_tree():
+		return
+
 	await get_tree().create_timer(preparation_time).timeout
+
+	if not is_inside_tree():
+		return
 
 	for warning in warnings:
 		if is_instance_valid(warning):
@@ -169,10 +193,21 @@ func _perform_pillars(xs: Array[float]) -> void:
 
 		pillars.append(pillar)
 
+	if not is_inside_tree():
+		return
+
 	await get_tree().create_timer(0.65).timeout
 
+	if not is_inside_tree():
+		return
+
 	for pillar in pillars:
-		if is_instance_valid(pillar):
+		if not is_instance_valid(pillar):
+			continue
+
+		if pillar.has_method("retract"):
+			pillar.call("retract")
+		else:
 			pillar.queue_free()
 
 

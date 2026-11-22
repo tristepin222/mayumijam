@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "sweating"
 character = 2
 text = "You're back! In… mostly one piece."
 slot = 3
@@ -12,6 +13,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
+emotion = "apologetic"
 character = 2
 text = "It didn't go so well huh?"
 slot = 3
@@ -19,6 +21,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
+emotion = "brooding"
 character = 0
 text = "Well what does it look like?"
 slot = 1
@@ -26,6 +29,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_4"]
 script = ExtResource("2_line")
+emotion = "excited"
 character = 2
 text = "Not worry, not to worry! I have plenty more ideas! Why don't you just take them all?"
 slot = 3
@@ -33,6 +37,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_5"]
 script = ExtResource("2_line")
+emotion = "neutral"
 character = 0
 text = "I don't need to be in debt to anyone. But, maybe this one…?"
 slot = 1

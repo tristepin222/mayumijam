@@ -44,6 +44,7 @@
 [ext_resource type="PackedScene" path="res://Assets/Scenes/Attacks/FallingProjectile.tscn" id="28_fallproj"]
 [ext_resource type="PackedScene" uid="uid://b63itlfh4h81t" path="res://Assets/Scenes/UI/canvas_dialog.tscn" id="29_dialog"]
 [ext_resource type="PackedScene" uid="uid://ctluma4iimvha" path="res://Fight_background/fight_scene.tscn" id="30_fightbg"]
+[ext_resource type="Script" uid="uid://bse58tsw6n77" path="res://Assets/Scripts/GamePlay/ContactDamage.gd" id="31_contact"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3jot"]
 radius = 3.5
@@ -56,6 +57,10 @@ size = Vector2(15.673066, 5.9975977)
 height = 40.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e3m3f"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_contact"]
+radius = 7.0
+height = 34.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_huwrf"]
 radius = 32.0
@@ -261,6 +266,14 @@ script = ExtResource("27_rain")
 projectile_scene = ExtResource("28_fallproj")
 warning_scene = ExtResource("12_44cpq")
 
+[node name="ContactHitbox" type="Area2D" parent="Saki" unique_id=1739204628]
+collision_layer = 0
+monitorable = false
+script = ExtResource("31_contact")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Saki/ContactHitbox" unique_id=1739204629]
+shape = SubResource("CapsuleShape2D_contact")
+
 [node name="DiveHitbox" type="Area2D" parent="Saki" unique_id=889897549]
 monitoring = false
 
@@ -279,6 +292,7 @@ physics_material_override = SubResource("PhysicsMaterial_d3jot")
 shape = SubResource("RectangleShape2D_d3jot")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1736950915]
+visible = false
 texture_filter = 1
 scale = Vector2(20.877419, 1.150468)
 texture = ExtResource("7_mnw02")
@@ -316,6 +330,5 @@ script = ExtResource("26_bosshp")
 boss_stats = NodePath("../Saki/Stats")
 
 [node name="canvas_dialog" parent="." unique_id=1739204626 instance=ExtResource("29_dialog")]
-visible = false
 
 [editable path="FightBackground"]

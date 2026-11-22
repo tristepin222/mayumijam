@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 1
 text = "What in tarnation? You lily-livered spirits got no way of getting' so tough!"
 slot = 0
@@ -12,6 +13,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
+emotion = "annoyed"
 character = 1
 text = "Who's you hidin' back there? I needta smash that coward! Ya can't hide her forever!"
 slot = 0
@@ -19,6 +21,7 @@ effect = "shake"
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
+emotion = "determined"
 character = 2
 text = "That is well enough. I am done hiding."
 slot = 2
@@ -26,6 +29,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_4"]
 script = ExtResource("2_line")
+emotion = "surprised"
 character = 0
 text = "Lady Keiki!"
 slot = 1
@@ -33,6 +37,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_5"]
 script = ExtResource("2_line")
+emotion = "eager"
 character = 1
 text = "About damn time! Now I crush ya personally!"
 slot = 3
@@ -40,6 +45,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_6"]
 script = ExtResource("2_line")
+emotion = "determined"
 character = 2
 text = "But you have already been fighting me."
 slot = 2
@@ -47,6 +53,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_7"]
 script = ExtResource("2_line")
+emotion = "annoyed"
 character = 1
 text = "What are you yapping about?"
 slot = 3
@@ -54,6 +61,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_8"]
 script = ExtResource("2_line")
+emotion = "determined"
 character = 2
 text = "She is my right hand. My will forged to clay. To face her is to stand against me."
 slot = 2
@@ -62,6 +70,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_9"]
 script = ExtResource("2_line")
+emotion = "blushing"
 character = 0
 text = "Keiki! That's… a bit much…"
 slot = 1
@@ -69,6 +78,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_10"]
 script = ExtResource("2_line")
+emotion = "excited"
 character = 2
 text = "You stand against Mayumi Joutouguu, made family by more than mere flesh and blood!"
 slot = 2
@@ -76,6 +86,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_11"]
 script = ExtResource("2_line")
+emotion = "surprised"
 character = 0
 speaker_name_override = "Mayumi Joutouguu"
 text = "And a family name… no wait, how did the dialogue box change already?!"
@@ -84,6 +95,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_12"]
 script = ExtResource("2_line")
+emotion = "determined"
 character = 0
 speaker_name_override = "Mayumi Joutouguu"
 text = "No, nevermind. I have seen Lady Keiki's vision. The change that will sweep over the Animal Realm!"
@@ -92,6 +104,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_13"]
 script = ExtResource("2_line")
+emotion = "determined"
 character = 2
 text = "The humans will know peace…"
 slot = 2
@@ -99,6 +112,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_14"]
 script = ExtResource("2_line")
+emotion = "determined"
 character = 0
 speaker_name_override = "Mayumi Joutouguu"
 text = "… by my sword!"
@@ -107,6 +121,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_15"]
 script = ExtResource("2_line")
+emotion = "excited"
 character = 2
 speaker_name_override = "Keiki and Mayumi"
 text = "Your tyranny is over, Saki Kurokoma!"
@@ -115,6 +130,7 @@ effect = "shake"
 
 [sub_resource type="Resource" id="Resource_line_16"]
 script = ExtResource("2_line")
+emotion = "p2_fired_up"
 character = 1
 text = "Then show me you can back up them fancy words."
 slot = 3
@@ -122,6 +138,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_17"]
 script = ExtResource("2_line")
+emotion = "p2_furious"
 character = 1
 text = "I ain't holding back anymore! Finally, a real fight!"
 slot = 3

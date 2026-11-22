@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "neutral"
 character = 0
 text = "This should help. And… be careful, Keiki."
 slot = 1
@@ -12,6 +13,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
+emotion = "confused"
 character = 2
 text = "Hm?"
 slot = 3
@@ -19,6 +21,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
+emotion = "thinking"
 character = 0
 text = "(Need to get back out there. Saki might find this place if I don't stop her.)"
 slot = 1

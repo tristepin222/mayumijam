@@ -28,7 +28,9 @@ const PHASE_1_ATTACKS = [
 const PHASE_2_ATTACKS = [
 	"charge",
 	"unleash",
-	"danmaku_rain"
+	"danmaku_rain",
+	"tectonic_push",
+	"counter"
 ]
 
 const FAR_ATTACKS = [

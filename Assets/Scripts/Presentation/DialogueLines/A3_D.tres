@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_v1_line1"]
 script = ExtResource("2_line")
+emotion = "eager"
 character = 1
 text = "Come on! I've still got enough fire for the both of ya!"
 slot = 0
@@ -16,6 +17,7 @@ dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v1_line1")])
 
 [sub_resource type="Resource" id="Resource_v2_line1"]
 script = ExtResource("2_line")
+emotion = "cocky"
 character = 1
 text = "You're gonna need more than some flimsy armor to stop my boot!"
 slot = 0
@@ -27,6 +29,7 @@ dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v2_line1")])
 
 [sub_resource type="Resource" id="Resource_v3_line1"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 1
 text = "This ain't no land of goddesses or peace or weakness! Might makes right!"
 slot = 0
@@ -38,6 +41,7 @@ dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v3_line1")])
 
 [sub_resource type="Resource" id="Resource_v4_line1"]
 script = ExtResource("2_line")
+emotion = "dismissive"
 character = 1
 text = "The Animal Realm won't change for humans or gods or nothin'!"
 slot = 0

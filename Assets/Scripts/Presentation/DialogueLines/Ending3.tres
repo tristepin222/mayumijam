@@ -2,21 +2,26 @@
 
 [ext_resource type="Script" uid="uid://s4fjncmjbqsw" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
 [ext_resource type="Script" uid="uid://dhec4gun2r35p" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/Portraits/Duo/mayumi_keiki.png" id="3_duo"]
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 1
 slot = 3
 text = "Gah! How- I wasn't holdin' back..."
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
+emotion = "annoyed"
 character = 1
 slot = 3
 text = "D-damnit! This ain't over!"
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
+custom_portrait = ExtResource("3_duo")
+emotion = "determined"
 character = 0
 slot = 1
 speaker_name_override = "Mayumi and Keiki"
@@ -24,12 +29,15 @@ text = "No, it is just beginning!"
 
 [sub_resource type="Resource" id="Resource_line_4"]
 script = ExtResource("2_line")
+emotion = "annoyed"
 character = 1
 slot = 3
 text = "An' stop talking together like that! It's creepy."
 
 [sub_resource type="Resource" id="Resource_line_5"]
 script = ExtResource("2_line")
+custom_portrait = ExtResource("3_duo")
+emotion = "determined"
 character = 0
 slot = 1
 speaker_name_override = "Mayumi and Keiki"
@@ -37,6 +45,7 @@ text = "Your time is past! Make way for the future of the Animal Realm!"
 
 [sub_resource type="Resource" id="Resource_line_6"]
 script = ExtResource("2_line")
+emotion = "annoyed"
 character = 1
 slot = 3
 text = "Ugh, f-forget it. Come on gals, let's skedaddle before the choir starts singin'."

@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "happy"
 character = 2
 text = "Good luck!"
 slot = 3
@@ -12,6 +13,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
+emotion = "brooding"
 character = 0
 text = "If I was lucky, I wouldn't be here."
 slot = 1
@@ -19,6 +21,7 @@ effect = "slide_out"
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
+emotion = "unsure"
 character = 2
 text = "I hope that girl comes back…"
 slot = 3

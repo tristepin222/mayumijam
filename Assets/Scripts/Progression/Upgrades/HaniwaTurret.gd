@@ -22,6 +22,14 @@ func _ready() -> void:
 	$Timer.start()
 
 	active = true
+
+	var sprite := get_node_or_null("Sprite2D") as Node2D
+
+	if sprite != null:
+		var full_scale := sprite.scale
+		sprite.scale = Vector2(full_scale.x * 1.3, 0.0)
+		create_tween().tween_property(sprite, "scale", full_scale, 0.15).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
 	_run_lifetime()
 
 

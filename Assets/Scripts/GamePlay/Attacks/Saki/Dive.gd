@@ -25,6 +25,12 @@ extends BossAttack
 @export var break_duration: float = 0.35
 @export var break_color: Color = Color(0.55, 0.3, 0.15, 0.7)
 
+@export_group("Rocks")
+@export var rock_spacing: float = 16.0
+@export var rock_height_scale: float = 1.15
+@export var rock_shockwave_time: float = 0.12
+@export_range(0.0, 1.0) var zone_flash_opacity: float = 0.35
+
 @export_group("Telegraph")
 @export var flash_interval: float = 0.1
 @export var flash_count: int = 3
@@ -122,14 +128,26 @@ func execute() -> void:
 		_finish_attack()
 		return
 
+	if not is_inside_tree():
+		return
+
 	await get_tree().physics_frame
+
+	if not is_inside_tree():
+		return
 	_check_hit()
 
 	if dive_completed:
 		await _impact_zone(impact_width, impact_height, impact_duration, impact_color)
 
 		if not saki.defeated and break_width > 0.0:
+			if not is_inside_tree():
+				return
+
 			await get_tree().create_timer(break_delay, false).timeout
+
+			if not is_inside_tree():
+				return
 			await _impact_zone(break_width, break_height, break_duration, break_color)
 
 	hitbox.set_deferred("monitoring", false)
@@ -143,7 +161,13 @@ func execute() -> void:
 	# Recovery.
 	print("Saki is recovering!")
 
+	if not is_inside_tree():
+		return
+
 	await get_tree().create_timer(recovery_time).timeout
+
+	if not is_inside_tree():
+		return
 
 	_finish_attack()
 
@@ -159,7 +183,13 @@ func _force_land() -> bool:
 		saki.velocity.y = 600.0
 
 		# Let Saki's normal physics update her position.
+		if not is_inside_tree():
+			return false
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return false
 
 	return true
 
@@ -183,7 +213,13 @@ func _get_adjusted_target() -> Vector2:
 
 func _telegraph() -> void:
 	if sprite == null or flash_count <= 0:
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(preparation_time).timeout
+
+		if not is_inside_tree():
+			return
 		return
 
 	var interval := preparation_time / float(flash_count * 2)
@@ -193,13 +229,25 @@ func _telegraph() -> void:
 			return
 
 		sprite.modulate = flash_color
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(interval).timeout
+
+		if not is_inside_tree():
+			return
 
 		if saki.defeated:
 			return
 
 		sprite.modulate = original_modulate
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(interval).timeout
+
+		if not is_inside_tree():
+			return
 
 	sprite.modulate = original_modulate
 
@@ -212,7 +260,13 @@ func _move_to_position(destination: Vector2, duration: float) -> bool:
 		return true
 
 	while elapsed < duration:
+		if not is_inside_tree():
+			return false
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return false
 
 		if saki.defeated:
 			return false
@@ -248,7 +302,13 @@ func _perform_dive() -> bool:
 	var elapsed := 0.0
 
 	while elapsed < duration:
+		if not is_inside_tree():
+			return false
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return false
 
 		if saki.defeated:
 			return false
@@ -345,8 +405,20 @@ func _impact_zone(zone_width: float, zone_height: float, zone_duration: float, z
 		Vector2(half.x, half.y),
 		Vector2(-half.x, half.y)
 	])
-	visual.color = zone_color
+	visual.color = Color(zone_color, zone_color.a * zone_flash_opacity)
 	zone.add_child(visual)
+
+	var rocks: Array[RockPillar] = []
+	var rock_count := maxi(int(zone_width / rock_spacing), 1)
+
+	for i in range(rock_count):
+		var x := -half.x + (float(i) + 0.5) * zone_width / float(rock_count)
+		var from_center := absf(x) / maxf(half.x, 1.0)
+		var height := zone_height * rock_height_scale * lerpf(1.0, 0.6, from_center) * randf_range(0.85, 1.1)
+		var rock := RockPillar.create(height, from_center * rock_shockwave_time)
+		rock.position = Vector2(x, half.y + 3.0)
+		zone.add_child(rock)
+		rocks.append(rock)
 
 	get_tree().current_scene.add_child(zone)
 	zone.global_position = Vector2(saki.global_position.x, ground_y - zone_height / 2.0)
@@ -358,7 +430,13 @@ func _impact_zone(zone_width: float, zone_height: float, zone_duration: float, z
 	var elapsed := 0.0
 
 	while elapsed < zone_duration:
+		if not is_inside_tree():
+			return
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return
 		elapsed += 1.0 / float(Engine.physics_ticks_per_second)
 
 		if saki.defeated:
@@ -377,7 +455,13 @@ func _impact_zone(zone_width: float, zone_height: float, zone_duration: float, z
 					player_stats.take_damage(impact_damage)
 					print("Saki's dive impact hit Mayumi!")
 
-	zone.queue_free()
+	zone.set_deferred("monitoring", false)
+
+	for rock in rocks:
+		if is_instance_valid(rock):
+			rock.retract()
+
+	get_tree().create_timer(0.25, false).timeout.connect(zone.queue_free)
 
 
 func _remove_landing_warning() -> void:

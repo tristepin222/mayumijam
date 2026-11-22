@@ -59,7 +59,13 @@ func execute() -> void:
 
 	_toss()
 
+	if not is_inside_tree():
+		return
+
 	await get_tree().create_timer(toss_time + drop_delay, false).timeout
+
+	if not is_inside_tree():
+		return
 
 	if saki.defeated:
 		_finish_attack()
@@ -79,10 +85,22 @@ func execute() -> void:
 		await _lunge()
 
 		if i < lunge_count - 1:
+			if not is_inside_tree():
+				return
+
 			await get_tree().create_timer(between_lunges, false).timeout
 
+			if not is_inside_tree():
+				return
+
 	if not saki.defeated:
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(recovery_time, false).timeout
+
+		if not is_inside_tree():
+			return
 
 	_finish_attack()
 
@@ -93,7 +111,13 @@ func _force_land() -> bool:
 			return false
 
 		saki.velocity.y = 600.0
+		if not is_inside_tree():
+			return false
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return false
 
 	return true
 
@@ -146,7 +170,13 @@ func _start_rain(ground_y: float) -> void:
 
 func _drop_one(x: float, delay: float, ground_y: float) -> void:
 	if delay > 0.0:
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(delay, false).timeout
+
+		if not is_inside_tree():
+			return
 
 	if not is_inside_tree():
 		return
@@ -186,7 +216,13 @@ func _flash(duration: float) -> void:
 	var sprite := saki.get_node_or_null("Sprite2D") as CanvasItem
 
 	if sprite == null or duration <= 0.0:
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(maxf(duration, 0.0), false).timeout
+
+		if not is_inside_tree():
+			return
 		return
 
 	var base_color := sprite.modulate
@@ -209,7 +245,13 @@ func _lunge() -> void:
 	var travelled := 0.0
 
 	while travelled < lunge_distance:
+		if not is_inside_tree():
+			return
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return
 
 		if saki.defeated:
 			return

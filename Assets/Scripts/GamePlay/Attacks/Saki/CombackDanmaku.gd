@@ -48,7 +48,13 @@ func execute() -> void:
 	is_casting = true
 	print("Saki prepares Comeback Danmaku!")
 
+	if not is_inside_tree():
+		return
+
 	await get_tree().create_timer(preparation_time).timeout
+
+	if not is_inside_tree():
+		return
 
 	if saki.defeated:
 		_finish_attack()
@@ -62,10 +68,22 @@ func execute() -> void:
 			_cleanup_projectiles()
 			break
 
+		if not is_inside_tree():
+			return
+
 		await get_tree().physics_frame
 
+		if not is_inside_tree():
+			return
+
 	if is_inside_tree() and not saki.defeated:
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(recovery_time).timeout
+
+		if not is_inside_tree():
+			return
 
 	if is_inside_tree():
 		_finish_attack()
@@ -77,7 +95,13 @@ func _force_land() -> bool:
 			return false
 
 		saki.velocity.y = 600.0
+		if not is_inside_tree():
+			return false
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return false
 
 	return true
 
@@ -127,7 +151,13 @@ func _throw_projectiles() -> void:
 		print("Saki throws a comeback horseshoe! (", i + 1, "/", throw_count, ")")
 
 		if i < throw_count - 1:
+			if not is_inside_tree():
+				return
+
 			await get_tree().create_timer(throw_interval, false).timeout
+
+			if not is_inside_tree():
+				return
 
 
 func _on_projectile_removed() -> void:

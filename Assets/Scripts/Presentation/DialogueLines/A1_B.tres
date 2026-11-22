@@ -5,28 +5,33 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "dismissive"
 character = 1
 text = "Was that it? Pathetic."
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
+emotion = "pained"
 character = 0
 text = "No… I can still…"
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
+emotion = "annoyed"
 character = 1
 text = "Pfft. Not even worth sending such a weakling to the mines. Outta the way!"
 effect = "shake_left"
 
 [sub_resource type="Resource" id="Resource_line_4"]
 script = ExtResource("2_line")
+emotion = "pained"
 character = 0
 slot = 5
 effect = "slide_out"
 
 [sub_resource type="Resource" id="Resource_line_5"]
 script = ExtResource("2_line")
+emotion = "neutral"
 character = 1
 text = "Whelp, that's done. Come on y'all, we gotta make up for that wasted time!"
 

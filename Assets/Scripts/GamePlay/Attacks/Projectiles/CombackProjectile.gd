@@ -12,6 +12,11 @@ signal returned_to_owner
 @export_group("Combat")
 @export var damage: int = 15
 
+@export_group("Visual")
+@export var spin_speed: float = 14.0
+
+@onready var sprite: Node2D = get_node_or_null("Sprite2D")
+
 var owner_saki: Node2D
 var target_player: CharacterBody2D
 
@@ -62,6 +67,9 @@ func reflect(saki: Node2D) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if sprite != null:
+		sprite.rotation += spin_speed * delta
+
 	if is_reflected:
 		_move_reflected(delta)
 		return

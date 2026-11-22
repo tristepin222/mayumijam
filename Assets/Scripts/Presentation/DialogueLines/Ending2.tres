@@ -5,18 +5,21 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "eager"
 character = 1
 slot = 3
 text = "Well I'll be darned, ya got more than just guts after all, little lass."
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
+emotion = "annoyed"
 character = 1
 slot = 3
 text = "We will mosey on back to greener pastures. For today."
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
+emotion = "determined"
 character = 0
 slot = 1
 speaker_name_override = ""
@@ -24,12 +27,14 @@ text = "You can come back tomorrow, next week, or in an hour. It matters not."
 
 [sub_resource type="Resource" id="Resource_line_4"]
 script = ExtResource("2_line")
+emotion = "determined"
 character = 0
 slot = 1
 text = "This garden is closed to you."
 
 [sub_resource type="Resource" id="Resource_line_5"]
 script = ExtResource("2_line")
+emotion = "annoyed"
 character = 1
 slot = 3
 text = "We'll see about that..."

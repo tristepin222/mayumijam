@@ -89,11 +89,23 @@ func execute() -> void:
 		_fire_wave(wave)
 
 		if wave < wave_count - 1:
+			if not is_inside_tree():
+				return
+
 			await get_tree().create_timer(wave_interval).timeout
+
+			if not is_inside_tree():
+				return
 
 	if not saki.defeated:
 		print("Saki is recovering!")
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(recovery_time).timeout
+
+		if not is_inside_tree():
+			return
 
 	_finish_attack()
 
@@ -104,7 +116,13 @@ func _force_land() -> bool:
 			return false
 
 		saki.velocity.y = 600.0
+		if not is_inside_tree():
+			return false
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return false
 
 	return true
 
@@ -122,7 +140,13 @@ func _move_to_center() -> bool:
 	var elapsed := 0.0
 
 	while elapsed < duration:
+		if not is_inside_tree():
+			return false
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return false
 
 		if saki.defeated:
 			return false
@@ -158,7 +182,13 @@ func _pulse(duration: float) -> void:
 	var sprite := saki.get_node_or_null("Sprite2D") as CanvasItem
 
 	if sprite == null or pulse_count <= 0:
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(duration).timeout
+
+		if not is_inside_tree():
+			return
 		return
 
 	var base_color := sprite.modulate

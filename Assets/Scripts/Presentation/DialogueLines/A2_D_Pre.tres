@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_line_1"]
 script = ExtResource("2_line")
+emotion = "surprised"
 character = 2
 text = "You came back?"
 slot = 3
@@ -12,6 +13,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_2"]
 script = ExtResource("2_line")
+emotion = "brooding"
 character = 0
 text = "Of course… it still wasn't enough."
 slot = 1
@@ -19,6 +21,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_3"]
 script = ExtResource("2_line")
+emotion = "apologetic"
 character = 2
 text = "I am so sorry. It wasn't right of me. I can… I will change you back."
 slot = 3
@@ -26,6 +29,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_4"]
 script = ExtResource("2_line")
+emotion = "angry"
 character = 0
 text = "NO!"
 slot = 1
@@ -33,6 +37,7 @@ effect = "shake"
 
 [sub_resource type="Resource" id="Resource_line_5"]
 script = ExtResource("2_line")
+emotion = "surprised"
 character = 2
 text = "!"
 slot = 3
@@ -40,6 +45,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_6"]
 script = ExtResource("2_line")
+emotion = "confused"
 character = 0
 text = "(Why did I…?)"
 slot = 1
@@ -47,6 +53,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_7"]
 script = ExtResource("2_line")
+emotion = "neutral"
 character = 0
 text = "Actually… can you change me more? I mean, it is still not enough to beat the Matriarch."
 slot = 1
@@ -54,6 +61,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_8"]
 script = ExtResource("2_line")
+emotion = "surprised"
 character = 2
 text = "Oh!"
 slot = 3
@@ -61,6 +69,7 @@ effect = ""
 
 [sub_resource type="Resource" id="Resource_line_9"]
 script = ExtResource("2_line")
+emotion = "happy"
 character = 2
 text = "You want more? I would be happy to. But you should decide what is best for you, this time."
 slot = 3
