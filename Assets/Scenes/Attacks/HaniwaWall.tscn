@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://c6r3b73keeg3w"]
+
+[ext_resource type="Script" uid="uid://brxp5vxbcd6vf" path="res://Assets/Scripts/Progression/Upgrades/HaniwaWall.gd" id="1_0nmh5"]
+[ext_resource type="Texture2D" uid="uid://d4mllryd6mt2v" path="res://Assets/Textures/PlaceHolders/placeholder1.png" id="2_41425"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d3jot"]
+size = Vector2(8, 26)
+
+[node name="HaniwaWall" type="Area2D" unique_id=316381949]
+script = ExtResource("1_0nmh5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1114498262]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_d3jot")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1222444904]
+self_modulate = Color(0.8212696, 0.48518974, 3.85046e-07, 1)
+position = Vector2(0, -6)
+scale = Vector2(0.375, 1.5625)
+texture = ExtResource("2_41425")

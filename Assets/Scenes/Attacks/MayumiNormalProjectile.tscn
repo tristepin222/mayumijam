@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dk6m4dg2jfusv"]
+
+[ext_resource type="Script" uid="uid://dndgo8av6fuy6" path="res://Assets/Scripts/GamePlay/Attacks/Projectiles/MayumiDanmakuProjectile.gd" id="1_iequj"]
+[ext_resource type="Texture2D" uid="uid://d4mllryd6mt2v" path="res://Assets/Textures/PlaceHolders/placeholder1.png" id="2_4cxo2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_df3sn"]
+
+[node name="NormalProjectile" type="Area2D" unique_id=1521074544]
+script = ExtResource("1_iequj")
+damage = 15
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=847189432]
+texture = ExtResource("2_4cxo2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=817938606]
+shape = SubResource("CircleShape2D_df3sn")
