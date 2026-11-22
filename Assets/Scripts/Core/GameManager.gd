@@ -426,7 +426,7 @@ func on_player_died() -> void:
 
 
 func continue_after_death() -> void:
-	kiln_mode = "lose" if is_full_haniwa() else "upgrade"
+	kiln_mode = "upgrade"
 	_change_scene(KILN_SCENE)
 
 

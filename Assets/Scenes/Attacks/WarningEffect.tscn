@@ -1,12 +1,54 @@
 [gd_scene format=3 uid="uid://bhkc28oiv6nvl"]
 
-[ext_resource type="Texture2D" uid="uid://d4mllryd6mt2v" path="res://Assets/Textures/PlaceHolders/placeholder1.png" id="1_fvj1l"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/UI/ground_warning.png" id="1_fvj1l"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_glow"]
+blend_mode = 1
+
+[sub_resource type="Animation" id="Animation_pulse"]
+resource_name = "pulse"
+length = 0.36
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.18),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.45)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.18),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.95, 0.95), Vector2(0.9, 0.78)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pulse"]
+_data = {
+&"pulse": SubResource("Animation_pulse")
+}
 
 [node name="WarningEffect" type="Node2D" unique_id=674464604]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1542959324]
-self_modulate = Color(1, 0, 0, 1)
-show_behind_parent = true
-position = Vector2(0, -2.9802322e-08)
-scale = Vector2(1, 0.25)
+material = SubResource("CanvasItemMaterial_glow")
+scale = Vector2(0.95, 0.95)
 texture = ExtResource("1_fvj1l")
+offset = Vector2(0, -22)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1542959325]
+libraries = {
+&"": SubResource("AnimationLibrary_pulse")
+}
+autoplay = &"pulse"

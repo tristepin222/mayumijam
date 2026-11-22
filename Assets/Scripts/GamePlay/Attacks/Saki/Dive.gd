@@ -59,7 +59,7 @@ func execute() -> void:
 		return
 
 	hitbox = saki.get_node_or_null("DiveHitbox") as Area2D
-	sprite = saki.get_node_or_null("Sprite2D") as CanvasItem
+	sprite = saki.get_node_or_null("Saki") as CanvasItem
 
 	if hitbox == null:
 		push_error("Dive: Could not find DiveHitBox under Saki!")
@@ -420,7 +420,7 @@ func _impact_zone(zone_width: float, zone_height: float, zone_duration: float, z
 		var from_center := absf(x) / maxf(half.x, 1.0)
 		var height := zone_height * rock_height_scale * lerpf(1.0, 0.6, from_center) * randf_range(0.85, 1.1)
 		var rock := RockPillar.create(height, from_center * rock_shockwave_time)
-		rock.position = Vector2(x, half.y + 3.0)
+		rock.position = Vector2(x, half.y + 5.5)
 		zone.add_child(rock)
 		rocks.append(rock)
 

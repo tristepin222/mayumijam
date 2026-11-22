@@ -214,7 +214,7 @@ func _drop_one(x: float, delay: float, ground_y: float) -> void:
 
 
 func _flash(duration: float) -> void:
-	var sprite := saki.get_node_or_null("Sprite2D") as CanvasItem
+	var sprite := saki.get_node_or_null("Saki") as CanvasItem
 
 	if sprite == null or duration <= 0.0:
 		if not is_inside_tree():

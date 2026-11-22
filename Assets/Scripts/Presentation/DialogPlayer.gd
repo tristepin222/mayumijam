@@ -120,6 +120,12 @@ func _ready() -> void:
 	add_child(dim_rect)
 	move_child(dim_rect, 0)
 
+	visible = false
+	$sprite_dialog.visible = false
+
+	for sprite in sprites:
+		sprite.visible = false
+
 	_layout_portraits()
 	get_viewport().size_changed.connect(_layout_portraits)
 

@@ -48,8 +48,6 @@ func _ready() -> void:
 	match game_manager.kiln_mode:
 		"win":
 			_run_ending(-1, "Saki has been defeated!")
-		"lose":
-			_run_ending(DialogManager.situations.A3_D, "Mayumi has become a full Haniwa.", {"mayumi_damaged": true, "keiki_outfit": "goddess"})
 		_:
 			_run_upgrade()
 

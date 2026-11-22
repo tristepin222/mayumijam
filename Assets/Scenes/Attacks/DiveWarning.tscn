@@ -1,0 +1,42 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://Assets/Textures/UI/ground_warning_wide.png" id="1_tex"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_glow"]
+blend_mode = 1
+
+[sub_resource type="Animation" id="Animation_pulse"]
+resource_name = "pulse"
+length = 0.36
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.18),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.45)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pulse"]
+_data = {
+&"pulse": SubResource("Animation_pulse")
+}
+
+[node name="DiveWarning" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_glow")
+scale = Vector2(1, 0.95)
+texture = ExtResource("1_tex")
+offset = Vector2(0, -22)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_pulse")
+}
+autoplay = &"pulse"

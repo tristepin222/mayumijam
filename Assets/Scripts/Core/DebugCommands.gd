@@ -22,7 +22,6 @@ const ENDINGS = [
 	[KEY_F2, "Ending 1: The Ghost Matriarch"],
 	[KEY_F3, "Ending 2: The Remorseful Sentinel"],
 	[KEY_F4, "Ending 3: Haniwa Lance Corporal"],
-	[KEY_F5, "Full Haniwa ending"],
 ]
 
 var god_mode := false
@@ -147,8 +146,6 @@ func _input(event: InputEvent) -> void:
 			_view_ending(1)
 		KEY_F4:
 			_view_ending(2)
-		KEY_F5:
-			_view_ending(3)
 		_:
 			for entry in SAKI_ATTACKS:
 				if entry[0] == code:
@@ -279,13 +276,6 @@ func _view_ending(index: int) -> void:
 	if game_manager == null:
 		return
 
-	if index == 3:
-		game_manager.story_index = game_manager.STORY_UPGRADES.size()
-		game_manager.kiln_mode = "lose"
-		_toast(ENDINGS[index][1])
-		game_manager.show_end_screen()
-		return
-
 	var saki := _get_saki()
 
 	if saki == null or saki.defeated:
@@ -360,7 +350,7 @@ func _get_boss_ai() -> Node:
 	return saki.get_node_or_null("BossAi")
 
 
-func _is_alive(node: Node) -> bool:
+func _is_alive(node) -> bool:
 	return is_instance_valid(node) and node.is_inside_tree()
 
 

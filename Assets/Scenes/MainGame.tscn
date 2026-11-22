@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://1lsi8mcqqhmg" path="res://Assets/Scripts/GamePlay/Attacks/Saki/TectonicPush.gd" id="11_7y1lw"]
 [ext_resource type="Script" uid="uid://bvnhhd7mrobb0" path="res://Assets/Scripts/Progression/Upgrades/HaniwaLeap.gd" id="11_ms20m"]
 [ext_resource type="PackedScene" uid="uid://bhkc28oiv6nvl" path="res://Assets/Scenes/Attacks/WarningEffect.tscn" id="12_44cpq"]
+[ext_resource type="PackedScene" path="res://Assets/Scenes/Attacks/DiveWarning.tscn" id="31_divewarn"]
 [ext_resource type="Script" uid="uid://4r8f3sdwx7po" path="res://Assets/Scripts/Progression/Upgrades/ShatteringBlow.gd" id="12_n6qn5"]
 [ext_resource type="PackedScene" uid="uid://cawyalovdridw" path="res://Assets/Scenes/Attacks/FirePillar.tscn" id="13_o45r6"]
 [ext_resource type="Script" uid="uid://pqxyq8ae2o56" path="res://Assets/Scripts/Progression/Upgrades/HaniwaWallAbility.gd" id="13_vvat7"]
@@ -31,14 +32,12 @@
 [ext_resource type="Script" uid="uid://cxnkk1xf6v1a1" path="res://Assets/Scripts/Progression/Upgrades/CeramicBarrage.gd" id="17_rdmei"]
 [ext_resource type="Script" uid="uid://ciwof5cmfulil" path="res://Assets/Scripts/GamePlay/Attacks/Saki/Charge.gd" id="18_48i8a"]
 [ext_resource type="PackedScene" uid="uid://bb4af0qfo0wqe" path="res://Assets/Scenes/Attacks/HaniwaTurret.tscn" id="18_qlpbw"]
-[ext_resource type="PackedScene" uid="uid://cs0dqrspfru0a" path="res://Assets/Scenes/Attacks/Charge.tscn" id="19_m63yu"]
 [ext_resource type="Script" uid="uid://do1fayi52pml5" path="res://Assets/Scripts/GamePlay/Attacks/Saki/Unleash.gd" id="20_m63yu"]
 [ext_resource type="Script" uid="uid://4xlki2qfida7" path="res://Assets/Scripts/Presentation/HeartHUD.gd" id="21_hrthud"]
 [ext_resource type="Texture2D" uid="uid://c0nje54dlsf08" path="res://Assets/Textures/UI/heart_full.png" id="22_hrtful"]
 [ext_resource type="Texture2D" uid="uid://b42pa7o0v5q1j" path="res://Assets/Textures/UI/heart_empty.png" id="23_hrtemp"]
 [ext_resource type="PackedScene" uid="uid://cfjrjkgm38lqi" path="res://Saki_Animations/Saki_animation.tscn" id="23_osno1"]
 [ext_resource type="Script" uid="uid://dwdoaibo5tvhw" path="res://Assets/Scripts/Presentation/DeathScreen.gd" id="24_dthscr"]
-[ext_resource type="Script" uid="uid://biat3fv0h4nke" path="res://Assets/Scripts/Presentation/HitboxIndicator.gd" id="25_hbind"]
 [ext_resource type="Script" uid="uid://vujtnx8eybhj" path="res://Assets/Scripts/Presentation/BossHealthBar.gd" id="26_bosshp"]
 [ext_resource type="Script" uid="uid://jrtfbpuabm8c" path="res://Assets/Scripts/GamePlay/Attacks/Saki/DanmakuRain.gd" id="27_rain"]
 [ext_resource type="PackedScene" path="res://Assets/Scenes/Attacks/FallingProjectile.tscn" id="28_fallproj"]
@@ -122,10 +121,6 @@ monitoring = false
 position = Vector2(-3.509614, 0)
 shape = SubResource("RectangleShape2D_ja1hb")
 
-[node name="HitboxIndicator" type="Node2D" parent="Mayumi/SwordHitbox" unique_id=1739204621]
-script = ExtResource("25_hbind")
-color = Color(1, 1, 0.6, 0.45)
-
 [node name="Stats" type="Node" parent="Mayumi" unique_id=1277085282]
 script = ExtResource("4_f7n17")
 max_health = 3
@@ -138,14 +133,12 @@ script = ExtResource("6_hggb1")
 dash_speed = 400.0
 dash_duration = 0.18
 dash_cooldown = 0.6
-dash_effect_scene = ExtResource("19_m63yu")
 
 [node name="SwordAttack" type="Node" parent="Mayumi/Abilities" unique_id=987298510 node_paths=PackedStringArray("sword_hitbox")]
 script = ExtResource("8_ja1hb")
 damage = 5
 cooldown = 0.2
 sword_hitbox = NodePath("../../SwordHitbox")
-slash_effect_scene = ExtResource("19_m63yu")
 
 [node name="DanmakuShot" type="Node" parent="Mayumi/Abilities" unique_id=1871456898]
 script = ExtResource("9_de2dd")
@@ -213,7 +206,7 @@ player = NodePath("../../Mayumi")
 script = ExtResource("10_huwrf")
 recovery_time = 0.9
 dive_damage = 1
-warning_scene = ExtResource("12_44cpq")
+warning_scene = ExtResource("31_divewarn")
 warning_ground_offset = 20.0
 
 [node name="TectonicPush" type="Node" parent="Saki/AttackManager" unique_id=619154468]
@@ -236,8 +229,8 @@ script = ExtResource("16_je2ki")
 projectile_scene = ExtResource("17_6rn6g")
 projectile_speed = 260.0
 projectile_damage = 1
-projectile_count = 4
-spread_angle = 36.0
+projectile_count = 2
+spread_angle = 20.0
 volley_count = 4
 volley_interval = 0.4
 
@@ -245,7 +238,6 @@ volley_interval = 0.4
 script = ExtResource("18_48i8a")
 damage = 1
 charge_speed = 550.0
-charge_effect_scene = ExtResource("19_m63yu")
 
 [node name="Unleash" type="Node" parent="Saki/AttackManager" unique_id=1862931222 node_paths=PackedStringArray("arena_center")]
 script = ExtResource("20_m63yu")
@@ -265,6 +257,8 @@ counter_damage = 1
 script = ExtResource("27_rain")
 projectile_scene = ExtResource("28_fallproj")
 warning_scene = ExtResource("12_44cpq")
+lunge_count = 0
+recovery_time = 4.5
 
 [node name="ContactHitbox" type="Area2D" parent="Saki" unique_id=1739204628]
 collision_layer = 0
@@ -279,10 +273,6 @@ monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Saki/DiveHitbox" unique_id=1481482734]
 shape = SubResource("CircleShape2D_huwrf")
-
-[node name="HitboxIndicator" type="Node2D" parent="Saki/DiveHitbox" unique_id=1739204622]
-script = ExtResource("25_hbind")
-color = Color(1, 0.2, 0.2, 0.35)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1198380904]
 position = Vector2(24, 26)

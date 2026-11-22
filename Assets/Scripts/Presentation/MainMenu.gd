@@ -18,6 +18,7 @@ diegobnready: Artist
 Oyster: Artist
 Joel: Artist
 AngryCow: Writer
+Stoelman: Composer
 Tristepin: Programmer
 Gelis: Programmer"""
 @export_multiline var credits_footer: String = """A Touhou Project fan game. Mayumi Joutouguu, Saki Kurokoma and Keiki Haniyasushin

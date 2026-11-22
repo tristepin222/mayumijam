@@ -179,7 +179,7 @@ func _spawn_burst_effect() -> void:
 
 
 func _pulse(duration: float) -> void:
-	var sprite := saki.get_node_or_null("Sprite2D") as CanvasItem
+	var sprite := saki.get_node_or_null("Saki") as CanvasItem
 
 	if sprite == null or pulse_count <= 0:
 		if not is_inside_tree():

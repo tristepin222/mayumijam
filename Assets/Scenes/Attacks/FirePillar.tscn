@@ -7,6 +7,7 @@ size = Vector2(14, 49)
 
 [node name="FirePillar" type="Area2D" unique_id=755405770]
 script = ExtResource("1_c6p25")
+ground_sink = 5.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=966873636]
 position = Vector2(0, -16.5)

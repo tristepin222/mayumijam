@@ -129,7 +129,3 @@ func _spawn_slash_effect() -> void:
 
 	# Mirror the slash using the same logic as Dash.
 	slash_effect.scale.x = absf(slash_effect.scale.x) * direction
-	
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo:
-		print("UNHANDLED KEY: ", event.as_text())
