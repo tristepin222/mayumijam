@@ -5698,7 +5698,7 @@ scale = Vector2(0.9999999, 0.9999999)
 rest = Transform2D(-0.85264, -0.5224986, 0.5224986, -0.85264, 18.989998, 5.285816)
 auto_calculate_length_and_angle = false
 length = 23.917318
-bone_angle = 104.59996
+bone_angle = 104.59995
 
 [node name="Bone2D_2" type="Bone2D" parent="Sprites/Jiggle_HairSystem/Main_hair/Bone2D_0/Bone2D_1" unique_id=1585765945]
 position = Vector2(-17.861868, 15.905715)
@@ -5728,8 +5728,8 @@ rest = Transform2D(0.5591924, 0.82903683, -0.82903683, 0.5591924, 23, -263)
 
 [node name="GhostBone2D_1" type="Bone2D" parent="Sprites/Jiggle_HairSystem/Main_hair/GhostBone2D_0" unique_id=619265652]
 position = Vector2(20.514624, 1.7750986)
-rotation = -0.20943955
-scale = Vector2(0.9999987, 0.9999987)
+rotation = -0.20943956
+scale = Vector2(0.9999986, 0.9999986)
 rest = Transform2D(0.9781463, -0.20791139, 0.20791139, 0.9781463, 20.514624, 1.7750986)
 metadata/_local_pose_override_enabled_ = true
 

@@ -9670,7 +9670,7 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bcxhu"]
 advance_mode = 2
-advance_condition = &"dan comeback"
+advance_condition = &"dan_comeback"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1i7un"]
 xfade_time = 0.2
@@ -9679,7 +9679,7 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n8eql"]
 advance_mode = 2
-advance_condition = &"Tec Punch"
+advance_condition = &"Tec_Punch"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0mn0r"]
 xfade_time = 0.3
@@ -9719,7 +9719,7 @@ states/Saki_Unleash/node = SubResource("AnimationNodeAnimation_mf1r4")
 states/Saki_Unleash/position = Vector2(64, 173)
 states/Start/position = Vector2(157.11111, -125.96159)
 transitions = ["Saki_Dive_Start_and_Jump", "Saki_Dive_Landing", SubResource("AnimationNodeStateMachineTransition_8aime"), "Start", "Idle-run", SubResource("AnimationNodeStateMachineTransition_087yt"), "Idle-run", "Saki_NormalDanmaku", SubResource("AnimationNodeStateMachineTransition_o8ok5"), "Saki_NormalDanmaku", "Idle-run", SubResource("AnimationNodeStateMachineTransition_uhohf"), "Idle-run", "Saki_Dive_Start_and_Jump", SubResource("AnimationNodeStateMachineTransition_2jc6i"), "Saki_Dive_Landing", "Idle-run", SubResource("AnimationNodeStateMachineTransition_6315e"), "Idle-run", "Saki_Charging", SubResource("AnimationNodeStateMachineTransition_4oowj"), "Saki_Charging", "Idle-run", SubResource("AnimationNodeStateMachineTransition_3fgjh"), "Idle-run", "Saki_Damnaku_Rain", SubResource("AnimationNodeStateMachineTransition_u3p4u"), "Saki_Damnaku_Rain", "Idle-run", SubResource("AnimationNodeStateMachineTransition_gxyf7"), "Idle-run", "Saki_TauntCounter_Start", SubResource("AnimationNodeStateMachineTransition_4yqne"), "Saki_TauntCounter_Start", "Idle-run", SubResource("AnimationNodeStateMachineTransition_u6l0k"), "Saki_TauntCounter_Start", "Saki_TauntCounter_Succeed", SubResource("AnimationNodeStateMachineTransition_ap1py"), "Saki_TauntCounter_Succeed", "Idle-run", SubResource("AnimationNodeStateMachineTransition_g8o7j"), "Idle-run", "Saki_Comeback_Danmaku", SubResource("AnimationNodeStateMachineTransition_bcxhu"), "Saki_Comeback_Danmaku", "Idle-run", SubResource("AnimationNodeStateMachineTransition_1i7un"), "Idle-run", "Saki_Tectonic Push", SubResource("AnimationNodeStateMachineTransition_n8eql"), "Saki_Tectonic Push", "Idle-run", SubResource("AnimationNodeStateMachineTransition_0mn0r"), "Idle-run", "Saki_Unleash", SubResource("AnimationNodeStateMachineTransition_mftrf"), "Saki_Unleash", "Idle-run", SubResource("AnimationNodeStateMachineTransition_6mds6")]
-graph_offset = Vector2(-11, -122)
+graph_offset = Vector2(-246, -82)
 
 [node name="Saki" type="Node2D" unique_id=598206410]
 script = ExtResource("1_h61df")
@@ -9884,8 +9884,8 @@ parameters/conditions/Charge = false
 parameters/conditions/Countered = false
 parameters/conditions/Dive = false
 parameters/conditions/Taunt = false
-"parameters/conditions/Tec Punch" = false
-"parameters/conditions/dan comeback" = false
+parameters/conditions/Tec_Punch = false
+parameters/conditions/dan_comeback = false
 parameters/conditions/dan_rain = false
 parameters/conditions/danmaku = false
 parameters/conditions/unleash = false
