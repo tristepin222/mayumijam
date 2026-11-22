@@ -122,14 +122,26 @@ func execute() -> void:
 		_finish_attack()
 		return
 
+	if not is_inside_tree():
+		return
+
 	await get_tree().physics_frame
+
+	if not is_inside_tree():
+		return
 	_check_hit()
 
 	if dive_completed:
 		await _impact_zone(impact_width, impact_height, impact_duration, impact_color)
 
 		if not saki.defeated and break_width > 0.0:
+			if not is_inside_tree():
+				return
+
 			await get_tree().create_timer(break_delay, false).timeout
+
+			if not is_inside_tree():
+				return
 			await _impact_zone(break_width, break_height, break_duration, break_color)
 
 	hitbox.set_deferred("monitoring", false)
@@ -143,7 +155,13 @@ func execute() -> void:
 	# Recovery.
 	print("Saki is recovering!")
 
+	if not is_inside_tree():
+		return
+
 	await get_tree().create_timer(recovery_time).timeout
+
+	if not is_inside_tree():
+		return
 
 	_finish_attack()
 
@@ -159,7 +177,13 @@ func _force_land() -> bool:
 		saki.velocity.y = 600.0
 
 		# Let Saki's normal physics update her position.
+		if not is_inside_tree():
+			return false
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return false
 
 	return true
 
@@ -183,7 +207,13 @@ func _get_adjusted_target() -> Vector2:
 
 func _telegraph() -> void:
 	if sprite == null or flash_count <= 0:
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(preparation_time).timeout
+
+		if not is_inside_tree():
+			return
 		return
 
 	var interval := preparation_time / float(flash_count * 2)
@@ -193,13 +223,25 @@ func _telegraph() -> void:
 			return
 
 		sprite.modulate = flash_color
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(interval).timeout
+
+		if not is_inside_tree():
+			return
 
 		if saki.defeated:
 			return
 
 		sprite.modulate = original_modulate
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(interval).timeout
+
+		if not is_inside_tree():
+			return
 
 	sprite.modulate = original_modulate
 
@@ -212,7 +254,13 @@ func _move_to_position(destination: Vector2, duration: float) -> bool:
 		return true
 
 	while elapsed < duration:
+		if not is_inside_tree():
+			return false
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return false
 
 		if saki.defeated:
 			return false
@@ -248,7 +296,13 @@ func _perform_dive() -> bool:
 	var elapsed := 0.0
 
 	while elapsed < duration:
+		if not is_inside_tree():
+			return false
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return false
 
 		if saki.defeated:
 			return false
@@ -358,7 +412,13 @@ func _impact_zone(zone_width: float, zone_height: float, zone_duration: float, z
 	var elapsed := 0.0
 
 	while elapsed < zone_duration:
+		if not is_inside_tree():
+			return
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return
 		elapsed += 1.0 / float(Engine.physics_ticks_per_second)
 
 		if saki.defeated:

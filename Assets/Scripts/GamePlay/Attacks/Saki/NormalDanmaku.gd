@@ -34,7 +34,13 @@ func execute() -> void:
 
 	print("Saki prepares Normal Danmaku!")
 
+	if not is_inside_tree():
+		return
+
 	await get_tree().create_timer(preparation_time).timeout
+
+	if not is_inside_tree():
+		return
 
 	if saki.defeated:
 		return
@@ -46,11 +52,23 @@ func execute() -> void:
 		_fire_volley(volley)
 
 		if volley < volley_count - 1:
+			if not is_inside_tree():
+				return
+
 			await get_tree().create_timer(volley_interval).timeout
+
+			if not is_inside_tree():
+				return
 
 	if not saki.defeated:
 		print("Saki is recovering!")
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(recovery_time).timeout
+
+		if not is_inside_tree():
+			return
 
 	print("Normal Danmaku finished!")
 

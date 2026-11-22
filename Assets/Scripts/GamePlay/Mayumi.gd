@@ -7,6 +7,11 @@ signal physical_attack_started
 @export var move_speed: float = 250.0
 @export var jump_velocity: float = -400.0
 @export var gravity: float = 980.0
+@export var fall_gravity_multiplier: float = 1.7
+@export var jump_cut_multiplier: float = 0.45
+@export var max_fall_speed: float = 420.0
+@export var coyote_time: float = 0.1
+@export var jump_buffer_time: float = 0.12
 
 @export_group("References")
 @export var stats: CharacterStats
@@ -22,6 +27,8 @@ var ceramic_skin_unlocked := false
 var facing_direction: float = 1.0
 
 var is_grazing_projectiles: bool = false
+var coyote_timer := 0.0
+var jump_buffer_timer := 0.0
 var is_invincible := false
 
 var dash_ability: PlayerAbility
@@ -62,15 +69,15 @@ func _ready() -> void:
 	if game_manager != null:
 		game_manager.apply_to_mayumi(self)
 
+	# Apply upgrades that were already unlocked before Mayumi initialized.
+	for ability_id in ability_manager.unlocked_abilities:
+		apply_upgrade(ability_id)
+
 func _process(_delta: float) -> void:
 	if stats != null and stats.is_invulnerable:
 		sprite.visible = int(Time.get_ticks_msec() / 80.0) % 2 == 0
 	else:
 		sprite.visible = true
-
-	# Apply upgrades that were already unlocked before Mayumi initialized.
-	for ability_id in ability_manager.unlocked_abilities:
-		apply_upgrade(ability_id)
 
 
 
@@ -79,8 +86,17 @@ func _physics_process(delta: float) -> void:
 	if dash_ability != null and dash_ability.is_dashing:
 		return
 
-	if not is_on_floor():
-		velocity.y += gravity * delta
+	if is_on_floor():
+		coyote_timer = coyote_time
+	else:
+		coyote_timer -= delta
+
+		var current_gravity := gravity
+
+		if velocity.y > 0.0:
+			current_gravity *= fall_gravity_multiplier
+
+		velocity.y = minf(velocity.y + current_gravity * delta, max_fall_speed)
 
 	# Horizontal movement.
 	var direction := 0.0
@@ -99,10 +115,23 @@ func _physics_process(delta: float) -> void:
 
 	# Jump.
 	if Input.is_action_just_pressed("jump"):
-		if is_on_floor():
-			velocity.y = jump_velocity
-		elif haniwa_leap != null:
-			haniwa_leap.activate()
+		jump_buffer_timer = jump_buffer_time
+	else:
+		jump_buffer_timer -= delta
+
+	if jump_buffer_timer > 0.0 and coyote_timer > 0.0:
+		velocity.y = jump_velocity
+		jump_buffer_timer = 0.0
+		coyote_timer = 0.0
+	elif Input.is_action_just_pressed("jump") and haniwa_leap != null:
+		var leap_was_used: bool = haniwa_leap.get("air_jump_used")
+		haniwa_leap.activate()
+
+		if haniwa_leap.get("air_jump_used") and not leap_was_used:
+			jump_buffer_timer = 0.0
+
+	if Input.is_action_just_released("jump") and velocity.y < 0.0:
+		velocity.y *= jump_cut_multiplier
 
 	move_and_slide()
 

@@ -13,6 +13,9 @@ var equipped_abilities: Array[int] = []
 
 # Temporary testing
 func _ready() -> void:
+	if get_node_or_null("/root/GameManager") != null:
+		return
+
 	# Basic actions
 	for ability_id in [
 		AbilityIDs.Ability.DASH,

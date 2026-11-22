@@ -36,6 +36,11 @@ func _ready() -> void:
 	if dialog_player != null and dialog_player.dim_rect != null:
 		dialog_player.dim_rect.color.a = dialog_dim_alpha
 
+	if game_manager.kiln_mode == "win":
+		game_manager.play_music("final_cutscene")
+	else:
+		game_manager.play_music(game_manager.get_shop_track(), game_manager.SHOP_MUSIC_START)
+
 	match game_manager.kiln_mode:
 		"win":
 			_run_ending(DialogManager.situations.MAYUMIWIN, "Saki has been defeated!")
@@ -111,10 +116,10 @@ func _run_ending(situation: int, title: String) -> void:
 
 	await _show_message(
 		"THE END\n\n%s\nDeaths: %d" % [title, game_manager.deaths],
-		"Play Again"
+		"Main Menu"
 	)
 
-	game_manager.start_new_run()
+	game_manager.go_to_menu()
 
 
 func _show_choices(title: String, titles: Array[String], descriptions: Array[String]) -> int:

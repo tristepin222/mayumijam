@@ -4,11 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://cbpovf2gguik6" path="res://Assets/Textures/PlaceHolders/UI/ran_sprite_sheet.png" id="1_vot10"]
 [ext_resource type="Texture2D" uid="uid://bmrcyp6k1mvu7" path="res://Assets/Textures/PlaceHolders/UI/button_square_flat.png" id="2_5ah7x"]
 [ext_resource type="Texture2D" uid="uid://dyvhwfi18pduo" path="res://Assets/Textures/PlaceHolders/UI/Portaits/Mayumi/Mayumi Ghost Neutral.png" id="2_87307"]
-[ext_resource type="Texture2D" path="res://Assets/Textures/PlaceHolders/UI/Portaits/Keiki/Keiki.png" id="6_keiki"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/PlaceHolders/UI/Portaits/Keiki/Keiki_sheet.png" id="6_keiki"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/PlaceHolders/UI/Portaits/Saki/Saki.png" id="7_saki"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jan05"]
 atlas = ExtResource("2_87307")
 filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_keiki"]
+atlas = ExtResource("6_keiki")
+region = Rect2(0, 0, 1000, 1000)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tamiu"]
 atlas = ExtResource("1_vot10")
@@ -219,12 +224,12 @@ grow_vertical = 0
 scale = Vector2(0.5, 0.5)
 offset_transform_enabled = true
 offset_transform_position_ratio = Vector2(1, 0)
-texture = SubResource("AtlasTexture_tamiu")
+texture = ExtResource("7_saki")
 
 [node name="keiki_sprite" type="TextureRect" parent="." unique_id=1491801104]
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("6_keiki")
+texture = SubResource("AtlasTexture_keiki")
 
 [node name="sprite_dialog" type="NinePatchRect" parent="." unique_id=307464437]
 z_index = 10

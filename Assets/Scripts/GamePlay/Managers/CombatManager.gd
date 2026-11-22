@@ -15,6 +15,14 @@ func _ready() -> void:
 
 	game_manager = get_node_or_null("/root/GameManager")
 
+	if game_manager != null:
+		game_manager.play_music(game_manager.get_fight_track())
+
+		var boss_ai := get_node_or_null("../Saki/BossAi")
+
+		if boss_ai != null and boss_ai.has_signal("phase_changed"):
+			boss_ai.connect("phase_changed", _on_boss_phase_changed)
+
 	if game_manager != null and dialog_player != null:
 		get_tree().paused = true
 		_play_fight_dialog.call_deferred()
@@ -23,6 +31,11 @@ func _ready() -> void:
 func _play_fight_dialog() -> void:
 	await dialog_player.play_dialog(game_manager.get_fight_dialog())
 	get_tree().paused = false
+
+
+func _on_boss_phase_changed(phase: int) -> void:
+	if game_manager != null and phase > 0:
+		game_manager.play_music("final_phase")
 
 
 func _on_player_died() -> void:

@@ -5,6 +5,7 @@ signal upgrade_taken(upgrade: UpgradeStruct)
 
 const FIGHT_SCENE := "res://Assets/Scenes/MainGame.tscn"
 const KILN_SCENE := "res://Assets/Scenes/Kiln.tscn"
+const MENU_SCENE := "res://Assets/Scenes/MainMenu.tscn"
 
 const BASE_HEARTS := 1
 const MAX_HEALTH_TIER := 6
@@ -12,21 +13,26 @@ const MAX_DAMAGE_TIER := 6
 const DAMAGE_PER_TIER := 0.2
 const UPGRADES_PER_STORY := 3
 
-const BASE_ABILITIES := ["dash", "sword_attack"]
+const FIGHT_THEME_1_LAST_ATTEMPT := 6
+const FIGHT_THEME_2_LAST_ATTEMPT := 10
+const SHOP_COLD_LAST_DEATH := 6
+const SHOP_MUSIC_START := 20.0
+
+const BASE_ABILITIES := [AbilityIDs.Ability.DASH, AbilityIDs.Ability.ATTACK]
 
 const ABILITY_POOL := [
-	{"id": "clay_graze", "name": "Clay Graze", "description": "Your dash passes through Saki's danmaku."},
-	{"id": "haniwa_leap", "name": "Haniwa Leap", "description": "Press X in the air to double jump."},
-	{"id": "arrow_volley", "name": "Arrow Volley", "description": "Unlocks danmaku (A). Tap for one arrow, hold to charge a spread of 5."},
-	{"id": "shattering_blow", "name": "Shattering Blow", "description": "Every 5th sword hit cracks Saki. Your next hit deals bonus damage and staggers her."},
-	{"id": "haniwa_charge", "name": "Haniwa Charge", "description": "Press D to charge forward, invincible, with your weapon."},
-	{"id": "ceramic_barrage", "name": "Ceramic Barrage", "description": "Press F to summon a Haniwa that shoots danmaku at Saki."},
+	{"id": AbilityIDs.Ability.CLAY_GRAZE, "name": "Clay Graze", "description": "Your dash passes through Saki's danmaku."},
+	{"id": AbilityIDs.Ability.HANIWA_LEAP, "name": "Haniwa Leap", "description": "Press X in the air to double jump."},
+	{"id": AbilityIDs.Ability.ARROW_VOLLEY, "name": "Arrow Volley", "description": "Unlocks danmaku (A). Tap for one arrow, hold to charge a spread of 5."},
+	{"id": AbilityIDs.Ability.SHATTERING_BLOW, "name": "Shattering Blow", "description": "Every 5th sword hit cracks Saki. Your next hit deals bonus damage and staggers her."},
+	{"id": AbilityIDs.Ability.HANIWA_CHARGE, "name": "Haniwa Charge", "description": "Press D to charge forward, invincible, with your weapon."},
+	{"id": AbilityIDs.Ability.CERAMIC_BARRAGE, "name": "Ceramic Barrage", "description": "Press F to summon a Haniwa that shoots danmaku at Saki."},
 ]
 
 const STORY_UPGRADES := [
-	{"id": "haniwa_wall", "name": "Haniwa Wall", "description": "Press S to raise a wall that damages Saki and reflects her danmaku."},
-	{"id": "ceramic_skin", "name": "Ceramic Skin", "description": "Your body hardens into clay."},
-	{"id": "haniwa_armor", "name": "Haniwa Armor", "description": "Saki's phase 1 attacks can no longer hurt you."},
+	{"id": AbilityIDs.Ability.HANIWA_WALL, "name": "Haniwa Wall", "description": "Press S to raise a wall that damages Saki and reflects her danmaku."},
+	{"id": AbilityIDs.Ability.CERAMIC_SKIN, "name": "Ceramic Skin", "description": "Your body hardens into clay."},
+	{"id": AbilityIDs.Ability.HANIWA_ARMOR, "name": "Haniwa Armor", "description": "Saki's phase 1 attacks can no longer hurt you."},
 ]
 
 var victory := false
@@ -36,12 +42,17 @@ var intro_seen := false
 
 var health_tier: int = 0
 var damage_tier: int = 0
-var unlocked_abilities: Array[String] = []
+var unlocked_abilities: Array[int] = []
 var story_index: int = 0
 var upgrades_taken: int = 0
 
 var kiln_mode: String = "upgrade"
 var last_story_upgrade: Dictionary = {}
+
+
+func _ready() -> void:
+	if OS.is_debug_build():
+		add_child(load("res://Assets/Scripts/Core/DebugCommands.gd").new())
 
 
 func reset_run() -> void:
@@ -70,7 +81,7 @@ func is_full_haniwa() -> bool:
 	return story_index >= STORY_UPGRADES.size()
 
 
-func has_story_upgrade(id: String) -> bool:
+func has_story_upgrade(id: int) -> bool:
 	for i in range(story_index):
 		if STORY_UPGRADES[i]["id"] == id:
 			return true
@@ -88,7 +99,7 @@ func apply_to_mayumi(mayumi) -> void:
 	var ability_manager = mayumi.get("ability_manager")
 
 	if ability_manager != null:
-		var ids: Array[String] = []
+		var ids: Array[int] = []
 
 		for id in BASE_ABILITIES:
 			ids.append(id)
@@ -96,11 +107,11 @@ func apply_to_mayumi(mayumi) -> void:
 		for id in unlocked_abilities:
 			ids.append(id)
 
-		if unlocked_abilities.has("arrow_volley"):
-			ids.append("danmaku_shot")
+		if unlocked_abilities.has(AbilityIDs.Ability.ARROW_VOLLEY):
+			ids.append(AbilityIDs.Ability.DANMAKU)
 
-		if has_story_upgrade("haniwa_wall"):
-			ids.append("haniwa_wall")
+		for i in range(story_index):
+			ids.append(STORY_UPGRADES[i]["id"])
 
 		for id in ids:
 			ability_manager.unlock_ability(id)
@@ -117,13 +128,32 @@ func apply_to_mayumi(mayumi) -> void:
 
 	if danmaku != null:
 		danmaku.projectile_damage = roundi(danmaku.projectile_damage * multiplier)
-		danmaku.arrow_volley_unlocked = unlocked_abilities.has("arrow_volley")
 
-	if has_story_upgrade("ceramic_skin") and mayumi.has_method("unlock_ceramic_skin"):
-		mayumi.unlock_ceramic_skin()
 
-	if has_story_upgrade("haniwa_armor") and mayumi.has_method("unlock_haniwa_armor"):
-		mayumi.unlock_haniwa_armor()
+func get_fight_track() -> String:
+	var attempt := deaths + 1
+
+	if attempt <= FIGHT_THEME_1_LAST_ATTEMPT:
+		return "keiki_theme_1"
+
+	if attempt <= FIGHT_THEME_2_LAST_ATTEMPT:
+		return "keiki_theme_2"
+
+	return "keiki_theme_final"
+
+
+func get_shop_track() -> String:
+	if deaths <= SHOP_COLD_LAST_DEATH:
+		return "shop_cold"
+
+	return "shop_warm"
+
+
+func play_music(track: String, start_at: float = 0.0) -> void:
+	var music := get_node_or_null("/root/MusicManager")
+
+	if music != null:
+		music.play(track, start_at)
 
 
 func get_fight_dialog() -> int:
@@ -222,6 +252,11 @@ func start_fight() -> void:
 func start_new_run() -> void:
 	reset_run()
 	_change_scene(FIGHT_SCENE)
+
+
+func go_to_menu() -> void:
+	reset_run()
+	_change_scene(MENU_SCENE)
 
 
 func _change_scene(path: String) -> void:

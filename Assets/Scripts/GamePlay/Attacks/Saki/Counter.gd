@@ -9,6 +9,8 @@ signal counter_performed
 @export var strike_delay: float = 0.12
 @export var recovery_time: float = 0.6
 @export var counter_damage: int = 20
+@export var counter_reach: float = 55.0
+@export var counter_reach_height: float = 45.0
 
 @export_group("Arena Limits")
 @export var arena_left_x: float = -130.0
@@ -51,7 +53,13 @@ func execute() -> void:
 		if saki.defeated:
 			break
 
+		if not is_inside_tree():
+			return
+
 		await get_tree().physics_frame
+
+		if not is_inside_tree():
+			return
 		elapsed += get_physics_process_delta_time()
 
 	is_posing = false
@@ -66,15 +74,44 @@ func execute() -> void:
 		print("Saki drops her stance.")
 
 	if not saki.defeated:
+		if not is_inside_tree():
+			return
+
 		await get_tree().create_timer(recovery_time, false).timeout
+
+		if not is_inside_tree():
+			return
 
 
 func _on_physical_attack_started() -> void:
-	if is_posing:
-		triggered = true
+	if not is_posing or triggered:
+		return
+
+	if not _is_in_sword_reach():
+		return
+
+	triggered = true
+	_teleport_behind_player()
 
 
-func _perform_counter() -> void:
+func _is_in_sword_reach() -> bool:
+	if saki == null or player == null:
+		return false
+
+	var offset := saki.global_position - player.global_position
+
+	if absf(offset.y) > counter_reach_height:
+		return false
+
+	if absf(offset.x) <= 10.0:
+		return true
+
+	var facing_direction: float = float(player.get("facing_direction"))
+
+	return signf(offset.x) == signf(facing_direction) and absf(offset.x) <= counter_reach
+
+
+func _teleport_behind_player() -> void:
 	print("Saki countered Mayumi!")
 
 	var facing_direction: float = float(player.get("facing_direction"))
@@ -88,7 +125,15 @@ func _perform_counter() -> void:
 	saki.global_position = Vector2(teleport_x, saki.global_position.y)
 	saki.velocity = Vector2.ZERO
 
+
+func _perform_counter() -> void:
+	if not is_inside_tree():
+		return
+
 	await get_tree().create_timer(strike_delay, false).timeout
+
+	if not is_inside_tree():
+		return
 
 	if saki.defeated:
 		return
