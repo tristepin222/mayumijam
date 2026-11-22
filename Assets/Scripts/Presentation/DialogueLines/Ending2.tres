@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="DialogStruct" format=3 uid="uid://bvcsjnyttyklo"]
+
+[ext_resource type="Script" uid="uid://s4fjncmjbqsw" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
+[ext_resource type="Script" uid="uid://dhec4gun2r35p" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Resource_line_1"]
+script = ExtResource("2_line")
+text = "With Saki Kurokoma humbled and her wolf pack broken, Mayumi stands triumphant beside the Goddess."
+
+[sub_resource type="Resource" id="Resource_line_2"]
+script = ExtResource("2_line")
+text = "Having cast aside the guilt of her past, Mayumi Joutouguu embraces her new purpose as Keiki's foremost general."
+
+[sub_resource type="Resource" id="Resource_line_3"]
+script = ExtResource("2_line")
+text = "At the head of an army of impenetrable haniwa, she rides out across the great bridge to take the fight to the Animal Realm...
+
+...Setting the stage for the events of Wily Beast and Weakest Creature."
+
+[resource]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3")])

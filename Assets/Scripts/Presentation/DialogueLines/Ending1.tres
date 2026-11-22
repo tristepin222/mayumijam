@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="DialogStruct" format=3 uid="uid://b02g6y5jyskwh"]
+
+[ext_resource type="Script" uid="uid://s4fjncmjbqsw" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
+[ext_resource type="Script" uid="uid://dhec4gun2r35p" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Resource_line_1"]
+script = ExtResource("2_line")
+text = "Mayumi has thrown back the wolves at the gate. With Saki's pack scattered, the immediate threat to the human spirits is quelled."
+
+[sub_resource type="Resource" id="Resource_line_2"]
+script = ExtResource("2_line")
+text = "She becomes the Sentinel of the Primate Spirit Garden, guarding all those within with quiet resolve."
+
+[sub_resource type="Resource" id="Resource_line_3"]
+script = ExtResource("2_line")
+text = "Separately, Keiki launches an offensive into the Animal Realm, but Mayumi remains steadfast at her self-given post until she feels she has truly atoned.
+
+And so she remains to this day…"
+
+[resource]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3")])

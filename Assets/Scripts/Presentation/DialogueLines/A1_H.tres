@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="DialogStruct" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Resource_line_1"]
+script = ExtResource("2_line")
+character = 1
+text = "Wh-what? That actually… ya can't make me bleed my own blood!"
+slot = 0
+effect = "shake"
+
+[sub_resource type="Resource" id="Resource_line_2"]
+script = ExtResource("2_line")
+character = 1
+text = "That ain't allowed!"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_3"]
+script = ExtResource("2_line")
+character = 0
+text = "(It's... working? Maybe I can… no, I better just scare her off)"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_4"]
+script = ExtResource("2_line")
+character = 0
+text = "Yeah! Now you get out of here before I uhh... really give it to you!"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_5"]
+script = ExtResource("2_line")
+character = 1
+text = "Ahahaha! You are quite mistaken darlin'. This is better than I expected."
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_line_6"]
+script = ExtResource("2_line")
+character = 1
+text = "I can finally cut loose!"
+slot = 0
+effect = "shake"
+
+[sub_resource type="Resource" id="Resource_line_7"]
+script = ExtResource("2_line")
+character = 0
+text = "Oh. Crap…"
+slot = 0
+effect = ""
+
+[resource]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_line_1"), SubResource("Resource_line_2"), SubResource("Resource_line_3"), SubResource("Resource_line_4"), SubResource("Resource_line_5"), SubResource("Resource_line_6"), SubResource("Resource_line_7")])

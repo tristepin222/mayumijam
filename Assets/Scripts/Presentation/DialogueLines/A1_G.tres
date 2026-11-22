@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="DialogStruct" load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogStruct.gd" id="1_struct"]
+[ext_resource type="Script" path="res://Assets/Scripts/Progression/Structs/DialogLine.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Resource_v1_line1"]
+script = ExtResource("2_line")
+character = 1
+text = "Patooie!"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_v1_line2"]
+script = ExtResource("2_line")
+character = 0
+text = "Eww, that got in my eye."
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_variant1"]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v1_line1"), SubResource("Resource_v1_line2")])
+
+[sub_resource type="Resource" id="Resource_v2_line1"]
+script = ExtResource("2_line")
+character = 1
+text = "Get along, pup. I've got bigger fish to fry."
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_variant2"]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v2_line1")])
+
+[sub_resource type="Resource" id="Resource_v3_line1"]
+script = ExtResource("2_line")
+character = 1
+text = "My morning hooch got more kick than ya!"
+slot = 0
+effect = ""
+
+[sub_resource type="Resource" id="Resource_variant3"]
+script = ExtResource("1_struct")
+dialog_lines = Array[ExtResource("2_line")]([SubResource("Resource_v3_line1")])
+
+[resource]
+script = ExtResource("1_struct")
+variants = Array[ExtResource("1_struct")]([SubResource("Resource_variant1"), SubResource("Resource_variant2"), SubResource("Resource_variant3")])

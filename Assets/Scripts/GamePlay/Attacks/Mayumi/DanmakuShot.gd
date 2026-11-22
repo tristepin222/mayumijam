@@ -15,6 +15,7 @@ extends PlayerAbility
 var can_shoot := true
 var is_charging := false
 var charge_started_at := 0.0
+var arrow_volley_unlocked: bool = false
 
 const VOLLEY_ANGLES := [-30.0, -15.0, 0.0, 15.0, 30.0]
 
@@ -23,7 +24,11 @@ func _ready() -> void:
 	ability_id = AbilityIDs.Ability.DANMAKU
 
 func has_arrow_volley() -> bool:
-	return ability_manager.has_ability(AbilityIDs.Ability.ARROW_VOLLEY)
+	if arrow_volley_unlocked:
+		return true
+	if ability_manager != null and ability_manager.has_method("has_ability"):
+		return ability_manager.has_ability(AbilityIDs.Ability.ARROW_VOLLEY)
+	return false
 
 # Called when the player presses the Danmaku button.
 func start_charge() -> void:
