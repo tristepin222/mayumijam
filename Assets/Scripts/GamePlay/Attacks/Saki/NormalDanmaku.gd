@@ -20,6 +20,7 @@ extends BossAttack
 @export var volley_interval: float = 0.35
 @export var launch_offset: float = 35.0
 
+var is_casting: bool
 
 func execute() -> void:
 	if saki == null or player == null:
@@ -31,7 +32,7 @@ func execute() -> void:
 		return
 
 	saki.set_move_direction(0.0)
-
+	is_casting = true
 	print("Saki prepares Normal Danmaku!")
 
 	await get_tree().create_timer(preparation_time).timeout
@@ -95,5 +96,5 @@ func _fire_volley(volley_index: int = 0) -> void:
 		world.add_child(projectile)
 
 		projectile.global_position = saki.global_position + direction * launch_offset
-
+	is_casting = false
 	print("Saki fired a volley of ", projectile_count, " projectiles!")

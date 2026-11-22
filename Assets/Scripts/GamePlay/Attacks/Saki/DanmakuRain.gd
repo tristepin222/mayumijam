@@ -32,6 +32,7 @@ extends BossAttack
 @export_group("Recovery")
 @export var recovery_time: float = 0.7
 
+var is_casting: bool
 
 func execute() -> void:
 	if saki == null or player == null:
@@ -51,7 +52,7 @@ func execute() -> void:
 
 	saki.velocity = Vector2.ZERO
 	saki.set_physics_process(false)
-
+	is_casting = true
 	print("Saki tosses danmaku into the air!")
 
 	var ground_y := saki.global_position.y + ground_offset
@@ -234,5 +235,5 @@ func _finish_attack() -> void:
 	if not saki.defeated:
 		saki.velocity = Vector2.ZERO
 		saki.set_physics_process(true)
-
+	is_casting = false
 	print("Danmaku Rain finished!")

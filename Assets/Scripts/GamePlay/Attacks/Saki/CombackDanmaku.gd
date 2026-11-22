@@ -25,7 +25,7 @@ extends BossAttack
 @export var throw_height_offset: float = 10.0
 
 var active_projectiles: int = 0
-
+var is_casting: bool
 
 func execute() -> void:
 	if saki == null or player == null:
@@ -45,7 +45,7 @@ func execute() -> void:
 
 	saki.velocity = Vector2.ZERO
 	saki.set_physics_process(false)
-
+	is_casting = true
 	print("Saki prepares Comeback Danmaku!")
 
 	await get_tree().create_timer(preparation_time).timeout
@@ -145,5 +145,5 @@ func _finish_attack() -> void:
 	if not saki.defeated:
 		saki.velocity = Vector2.ZERO
 		saki.set_physics_process(true)
-
+		is_casting = false
 	print("Comeback Danmaku finished!")

@@ -32,7 +32,7 @@ extends BossAttack
 @export var pulse_color: Color = Color(2.0, 1.4, 1.4)
 
 var burst_effect: Node2D
-
+var is_unleashing: bool
 
 func execute() -> void:
 	if saki == null or player == null:
@@ -49,7 +49,7 @@ func execute() -> void:
 
 	# Stop Saki's normal movement.
 	saki.set_move_direction(0.0)
-
+	is_unleashing = true;
 	print("Saki prepares Unleash!")
 
 	# Make sure Saki is on the ground.
@@ -217,7 +217,7 @@ func _finish_attack() -> void:
 		burst_effect.queue_free()
 
 	burst_effect = null
-
+	is_unleashing = false
 	if not saki.defeated:
 		saki.velocity = Vector2.ZERO
 		saki.set_physics_process(true)

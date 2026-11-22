@@ -19,7 +19,7 @@ extends BossAttack
 @export var charge_effect_scene: PackedScene
 
 var charge_effect: Node2D
-
+var is_charging: bool
 
 func execute() -> void:
 	if saki == null or player == null:
@@ -27,7 +27,7 @@ func execute() -> void:
 		return
 
 	saki.set_move_direction(0.0)
-
+	is_charging = true
 	print("Saki is preparing to charge!")
 
 	var landed: bool = await _force_land()
@@ -165,7 +165,7 @@ func _finish_attack() -> void:
 		charge_effect.queue_free()
 
 	charge_effect = null
-
+	is_charging = false
 	if not saki.defeated:
 		saki.velocity = Vector2.ZERO
 		saki.set_physics_process(true)
