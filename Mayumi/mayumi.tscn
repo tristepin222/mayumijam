@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://drinddmha3lwl"]
 
-[ext_resource type="Script" uid="uid://0km0ry70tm4s" path="res://Mayumi/mayumi.gd" id="1_t3el0"]
 [ext_resource type="Texture2D" uid="uid://cdgakvcxnvk5q" path="res://Mayumi/Clay Mayumi Body parts/Clay_Behind_Hairlocks.png" id="2_t3el0"]
 [ext_resource type="Texture2D" uid="uid://cridicgwf76y4" path="res://Mayumi/Ghost Mayumi bodyparts/Ghost_Behind_Hairlocks.png" id="3_17ur0"]
 [ext_resource type="Texture2D" uid="uid://d1o5p4n185tux" path="res://Mayumi/Clay Mayumi Body parts/Clay_LeftBicep.png" id="4_ts2k1"]
@@ -5397,7 +5396,6 @@ transitions = ["Jump", "Jump_Atack", SubResource("AnimationNodeStateMachineTrans
 graph_offset = Vector2(-61.924103, -94)
 
 [node name="Mayumi" type="Node2D" unique_id=152641368]
-script = ExtResource("1_t3el0")
 
 [node name="Sprites" type="Node2D" parent="." unique_id=1678846814]
 position = Vector2(0, 246)
@@ -5700,7 +5698,7 @@ scale = Vector2(0.9999999, 0.9999999)
 rest = Transform2D(-0.85264, -0.5224986, 0.5224986, -0.85264, 18.989998, 5.285816)
 auto_calculate_length_and_angle = false
 length = 23.917318
-bone_angle = 104.59997
+bone_angle = 104.59996
 
 [node name="Bone2D_2" type="Bone2D" parent="Sprites/Jiggle_HairSystem/Main_hair/Bone2D_0/Bone2D_1" unique_id=1585765945]
 position = Vector2(-17.861868, 15.905715)
@@ -5730,7 +5728,7 @@ rest = Transform2D(0.5591924, 0.82903683, -0.82903683, 0.5591924, 23, -263)
 
 [node name="GhostBone2D_1" type="Bone2D" parent="Sprites/Jiggle_HairSystem/Main_hair/GhostBone2D_0" unique_id=619265652]
 position = Vector2(20.514624, 1.7750986)
-rotation = -0.20943953
+rotation = -0.20943955
 scale = Vector2(0.9999987, 0.9999987)
 rest = Transform2D(0.9781463, -0.20791139, 0.20791139, 0.9781463, 20.514624, 1.7750986)
 metadata/_local_pose_override_enabled_ = true
@@ -5748,7 +5746,7 @@ metadata/_local_pose_override_enabled_ = true
 libraries/ = SubResource("AnimationLibrary_t3el0")
 autoplay = &"Idle"
 
-[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1835199696]
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1835199696 node_paths=PackedStringArray("root")]
 tree_root = SubResource("AnimationNodeStateMachine_tamiu")
 anim_player = NodePath("../Mayumi_AnimPlayer")
 parameters/conditions/attack = false
@@ -5758,3 +5756,4 @@ parameters/conditions/grounded = false
 parameters/conditions/jump = false
 parameters/idle-run/blend_position = 0.0
 script = ExtResource("39_t3el0")
+root = NodePath("..")
