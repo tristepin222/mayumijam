@@ -19,6 +19,7 @@ enum DamagePhase {
 var health: int
 var is_invulnerable := false
 var immune_to_phase_one := false
+var damage_interceptor: Callable
 
 
 func _ready() -> void:
@@ -36,6 +37,9 @@ func take_damage(
 		return
 
 	if immune_to_phase_one and phase == DamagePhase.PHASE_1:
+		return
+
+	if damage_interceptor.is_valid() and damage_interceptor.call(amount):
 		return
 
 	var owner_node := get_parent()

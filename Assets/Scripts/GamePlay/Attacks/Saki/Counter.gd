@@ -11,6 +11,7 @@ signal counter_performed
 @export var counter_damage: int = 20
 @export var counter_reach: float = 55.0
 @export var counter_reach_height: float = 45.0
+@export var phase_2_counters_any_hit: bool = true
 
 @export_group("Arena Limits")
 @export var arena_left_x: float = -130.0
@@ -45,6 +46,11 @@ func execute() -> void:
 	triggered = false
 	counter_ready_changed.emit(true)
 
+	var saki_stats := saki.get_node_or_null("Stats") as CharacterStats
+
+	if saki_stats != null and phase_2_counters_any_hit and _is_phase_2():
+		saki_stats.damage_interceptor = _intercept_hit
+
 	print("Saki takes a counter stance!")
 
 	var elapsed := 0.0
@@ -64,6 +70,9 @@ func execute() -> void:
 
 	is_posing = false
 	counter_ready_changed.emit(false)
+
+	if saki_stats != null:
+		saki_stats.damage_interceptor = Callable()
 
 	if saki.defeated:
 		return
@@ -92,6 +101,24 @@ func _on_physical_attack_started() -> void:
 
 	triggered = true
 	_teleport_behind_player()
+
+
+func _intercept_hit(_amount: int) -> bool:
+	if not is_posing or triggered:
+		return false
+
+	triggered = true
+	_teleport_behind_player()
+	return true
+
+
+func _is_phase_2() -> bool:
+	var boss_ai := saki.get_node_or_null("BossAi")
+
+	if boss_ai == null:
+		return false
+
+	return int(boss_ai.get("current_phase")) == BossAI.BossPhase.PHASE_2
 
 
 func _is_in_sword_reach() -> bool:

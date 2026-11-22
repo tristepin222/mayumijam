@@ -90,7 +90,7 @@ var hidden_for_cutscene: Array = []
 
 const portrait_slide_time = 0.32
 const large_portrait_scale = 1.45
-const large_portrait_tag = "/p2_"
+const large_portrait_tags = ["/p2_", "/Duo/"]
 
 
 func _ready() -> void:
@@ -319,7 +319,7 @@ func _update_dialog(new_dialog_pos: int) -> void:
 			active_sprite.texture = base_textures[active_sprite]
 
 		var was_large: bool = active_sprite.get_meta("large", false)
-		var is_large := active_sprite.texture != null and active_sprite.texture.resource_path.contains(large_portrait_tag)
+		var is_large := _is_large_portrait(active_sprite.texture)
 		_apply_portrait_size(active_sprite, is_large)
 
 		var target := _sized_position(active_sprite, base)
@@ -402,6 +402,17 @@ func _execute_effect(line: DialogLine, active_sprite: TextureRect) -> void:
 		active_sprite.self_modulate = Color(0.25, 0.25, 0.25, 1.0)
 	elif effect == "hide" and active_sprite != null:
 		active_sprite.visible = false
+
+
+func _is_large_portrait(texture: Texture2D) -> bool:
+	if texture == null:
+		return false
+
+	for tag in large_portrait_tags:
+		if texture.resource_path.contains(tag):
+			return true
+
+	return false
 
 
 func _sprite_for(char_id: int) -> TextureRect:
